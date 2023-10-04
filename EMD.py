@@ -21,9 +21,19 @@ def get_envelopes(signal, interp_method="cubic"):
     return upper_envelope, lower_envelope
 
 
-def EMD(input_signal, sd_threshold=2, max_imfs=10, max_iterations = 10, zero_padding_elements = 0):
+def EMD(input_signal, sd_threshold=.1, max_imfs=10, max_iterations = 10, mirror_padding_fraction = .5):
     imf_list = []
     sifted_signal = np.copy(input_signal) #r0 = y. Updated every time an IMF is subtracted from it
+    original_length = len(input_signal)
+
+    #Mirror padding, to handle boundary effects
+    if mirror_padding_fraction > 0:
+        num_samples_to_mirror = int(original_length*mirror_padding_fraction)
+
+        mirrored_fraction = sifted_signal[:num_samples_to_mirror][::-1]
+        sifted_signal = np.concatenate((mirrored_fraction, sifted_signal, mirrored_fraction))
+
+
     for n in range(max_imfs):
         res = np.copy(sifted_signal) #h_k-1 = r_n-1
         for k in range(max_iterations):
@@ -32,25 +42,9 @@ def EMD(input_signal, sd_threshold=2, max_imfs=10, max_iterations = 10, zero_pad
             if upper_envelope is None or lower_envelope is None:
                 break
 
-            if zero_padding_elements > 0: #To mitigate edge effects. Skips if zero or negative.
-                upper_envelope[0:zero_padding_elements] = 0
-                upper_envelope[-zero_padding_elements:] = 0
-                lower_envelope[0:zero_padding_elements] = 0
-                lower_envelope[-zero_padding_elements:] = 0
-
             avg_envelope = (upper_envelope + lower_envelope) / 2
             res_old = np.copy(res)
-            res = res - avg_envelope #h_k = h_k-1 - m_k-1
-
-
-            #plt.figure(figsize=(10, 8))
-            #plt.plot(xAxis, res_old, label='signal')
-            #plt.plot(xAxis, upper_envelope, label='upper envelope')
-            #plt.plot(xAxis, lower_envelope, label='lower envelope')
-            #plt.plot(xAxis, avg_envelope, label='average envelope')
-            #plt.title('Visualizing envelopes iteration ' + str(len(imf_list)))
-            #plt.xlim(0, 100)
-            #plt.legend(loc='lower right')
+            res -= avg_envelope #h_k = h_k-1 - m_k-1
 
             print(np.std(res-res_old))
 
@@ -60,6 +54,13 @@ def EMD(input_signal, sd_threshold=2, max_imfs=10, max_iterations = 10, zero_pad
         imf_list.append(res)
         sifted_signal -= res
         print("--------")
+
+
+    #Remove the extensions added for padding
+    if mirror_padding_fraction > 0:
+        ext_len = int(original_length*mirror_padding_fraction)
+        imf_list = [imf[ext_len:-ext_len] for imf in imf_list]
+        sifted_signal = sifted_signal[ext_len:-ext_len]
 
     return sifted_signal, imf_list
 
@@ -71,26 +72,25 @@ def plot_emd_results(input_signal, imf_list, residual):
     fig, axes = plt.subplots(num_imfs + 2, 1, figsize=(8, 2 * (num_imfs + 1)))
 
     # Plot the input signal
-    axes[0].plot(input_signal, label='Input Signal', color='blue')
+    axes[0].plot(input_signal, color='blue', linewidth = .7)
     axes[0].set_title('Input Signal')
 
     # Plot each IMF
     for i, imf in enumerate(imf_list):
-        axes[i + 1].plot(imf, label=f'IMF {i + 1}', color='green')
+        axes[i + 1].plot(imf, color='green', linewidth = .7)
         axes[i + 1].set_title(f'IMF {i + 1}')
 
     # Plot the residual
-    axes[num_imfs+1].plot(residual, label='Residual', color='red')
+    axes[num_imfs+1].plot(residual, color='red', linewidth = .7)
     axes[num_imfs+1].set_title('Residual')
 
     # Set labels and legend for all subplots
     for ax in axes:
         ax.set_xlabel('Time')
         ax.set_ylabel('Amplitude')
-        ax.legend()
 
     plt.tight_layout()
-    plt.show()
+    #plt.show()
 
 #input_signal = np.random.randn(500)
 
@@ -103,51 +103,22 @@ end = 10
 fs = 100
 
 
-input_signal = f(np.arange(start, end, 1/fs))
+#input_signal = f(np.arange(start, end, 1/fs))
 
 np.random.seed(0)
-#input_signal = np.random.randn(500)
+input_signal = np.random.randn(500)
+
+#f = open("array_print.txt", "w+")
+#f.write("[")
+#for element in input_signal:
+#    f.write(str(element) + " ")
+#f.write("]")
+#f.close()
 
 
-res, imf_list = EMD(input_signal, max_imfs=3, zero_padding_elements=0)
-
-
+res, imf_list = EMD(input_signal, max_imfs=3)
 plot_emd_results(input_signal, imf_list, res)
 
 
-
-#res, imf_list = EMD(input_signal, 40000000, max_iterations=2, max_imfs=2, zero_padding=True)
-
-
-
-
-plt.figure()
-for i in range(len(imf_list)):
-    plt.subplot((len(imf_list)+1)//2 + 1, 2, i+1)
-    plt.plot(xAxis, imf_list[i])
-    plt.title("imf"+str(i+1))
-
-
-plt.subplot((len(imf_list)+1)//2 + 1, 2, len(imf_list)+1)
-plt.plot(xAxis, res)
-plt.title("res")
-
-
-plt.figure()
-plt.plot(xAxis, input_signal)
-plt.title("Original signal")
-
-#plt.plot(xAxis, imf_list[0])
-
-#plt.plot(xAxis, res, label="res")
-#plt.plot(xAxis, sig)
-#plt.plot(upper_peaks, sig[upper_peaks], "o")
-#plt.plot(lower_peaks, sig[lower_peaks], "o")
-#plt.plot(xAxis, upper_envelope)
-#plt.plot(xAxis, lower_envelope)
-#plt.plot(xAxis, res, label = "res")
-#plt.plot(xAxis, imf, label = "imf")
-#plt.xlabel("Sample")
-#plt.legend()
 
 plt.show()
