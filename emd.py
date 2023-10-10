@@ -21,48 +21,52 @@ def get_envelopes(signal, interp_method="cubic"):
     return upper_envelope, lower_envelope
 
 
-def EMD(input_signal, sd_threshold=.1, max_imfs=10, max_iterations = 10, mirror_padding_fraction = .5):
+def emd(input_signal, sd_tolerance=.2, max_imfs=10, max_sifting_iterations = 30, mirror_padding_fraction = .5):
     imf_list = []
-    sifted_signal = np.copy(input_signal) #r0 = y. Updated every time an IMF is subtracted from it
+    r = np.copy(input_signal) # Updated every time an IMF is subtracted from it
     original_length = len(input_signal)
 
-    #Mirror padding, to handle boundary effects
-    if mirror_padding_fraction > 0:
+    # Mirror padding, to handle boundary effects
+    if mirror_padding_fraction > 0: # Skip if zero or negative
         num_samples_to_mirror = int(original_length*mirror_padding_fraction)
 
-        mirrored_fraction = sifted_signal[:num_samples_to_mirror][::-1]
-        sifted_signal = np.concatenate((mirrored_fraction, sifted_signal, mirrored_fraction))
+        mirrored_fraction = r[:num_samples_to_mirror][::-1]
+        r = np.concatenate((mirrored_fraction, r, mirrored_fraction))
 
-
+    emd_done = False # If no more IMFs can be extracted, i.e. if residual has less than 4 upper and lower peaks. Breaks out of both loops if True.
     for n in range(max_imfs):
-        res = np.copy(sifted_signal) #h_k-1 = r_n-1
-        for k in range(max_iterations):
-            upper_envelope, lower_envelope = get_envelopes(res)
+        h = np.copy(r) # First iteration: Applied to original signal. Otherwise: Previous IMF subtracted from signal.
+        print("----------------\nIMF iteration:", n+1)
+        for k in range(max_sifting_iterations):
+            upper_envelope, lower_envelope = get_envelopes(h)
 
-            if upper_envelope is None or lower_envelope is None:
+            if upper_envelope is None or lower_envelope is None: # h has less than 4 upper and lower peaks
+                emd_done = True # Breaks out of both loops
                 break
 
             avg_envelope = (upper_envelope + lower_envelope) / 2
-            res_old = np.copy(res)
-            res -= avg_envelope #h_k = h_k-1 - m_k-1
+            h_old = np.copy(h)
+            h -= avg_envelope
 
-            print(np.std(res-res_old))
+            print("Sifting iteration:", k+1, "\nSD:", np.std(h-h_old))
 
-            if np.std(res-res_old) < sd_threshold:
+            if np.std(h-h_old) < sd_tolerance:
                 break
 
-        imf_list.append(res)
-        sifted_signal -= res
-        print("--------")
+        if emd_done:
+            break
+
+        imf_list.append(h)
+        r -= h
 
 
     #Remove the extensions added for padding
     if mirror_padding_fraction > 0:
         ext_len = int(original_length*mirror_padding_fraction)
-        imf_list = [imf[ext_len:-ext_len] for imf in imf_list]
-        sifted_signal = sifted_signal[ext_len:-ext_len]
+        #imf_list = [imf[ext_len:-ext_len] for imf in imf_list]
+        #r = r[ext_len:-ext_len]
 
-    return sifted_signal, imf_list
+    return r, imf_list
 
 
 def plot_emd_results(input_signal, imf_list, residual):
@@ -91,34 +95,3 @@ def plot_emd_results(input_signal, imf_list, residual):
 
     plt.tight_layout()
     #plt.show()
-
-#input_signal = np.random.randn(500)
-
-def f(t):
-    return 10*np.exp(.2*t)*np.cos(2.4*np.pi*t) + 8*np.exp(-.1*t)*np.cos(np.pi*t)
-
-
-start = -5
-end = 10
-fs = 100
-
-
-#input_signal = f(np.arange(start, end, 1/fs))
-
-np.random.seed(0)
-input_signal = np.random.randn(500)
-
-#f = open("array_print.txt", "w+")
-#f.write("[")
-#for element in input_signal:
-#    f.write(str(element) + " ")
-#f.write("]")
-#f.close()
-
-
-res, imf_list = EMD(input_signal, max_imfs=3)
-plot_emd_results(input_signal, imf_list, res)
-
-
-
-plt.show()
