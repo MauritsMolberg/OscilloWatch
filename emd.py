@@ -63,8 +63,8 @@ def emd(input_signal, sd_tolerance=.2, max_imfs=10, max_sifting_iterations = 30,
     #Remove the extensions added for padding
     if mirror_padding_fraction > 0:
         ext_len = int(original_length*mirror_padding_fraction)
-        #imf_list = [imf[ext_len:-ext_len] for imf in imf_list]
-        #r = r[ext_len:-ext_len]
+        imf_list = [imf[ext_len:-ext_len] for imf in imf_list]
+        r = r[ext_len:-ext_len]
 
     return r, imf_list
 

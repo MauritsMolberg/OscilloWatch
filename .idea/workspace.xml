@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Mirror padding for handling edge effects implemented">
-      <change afterPath="$PROJECT_DIR$/hht.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="HHT started">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EMD.py" beforeDir="false" afterPath="$PROJECT_DIR$/emd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emd.py" beforeDir="false" afterPath="$PROJECT_DIR$/emd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hht.py" beforeDir="false" afterPath="$PROJECT_DIR$/hht.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,7 +205,13 @@
       <option name="presentableId" value="LOCAL−00005" />
       <updated>1696422847122</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL−00006" summary="HHT started">
+      <created>1696957502873</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1696957502873</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,7 +229,8 @@
     <MESSAGE value="1" />
     <MESSAGE value="EMD working, but needs edge effect handling" />
     <MESSAGE value="Mirror padding for handling edge effects implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mirror padding for handling edge effects implemented" />
+    <MESSAGE value="HHT started" />
+    <option name="LAST_COMMIT_MESSAGE" value="HHT started" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
