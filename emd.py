@@ -21,7 +21,7 @@ def get_envelopes(signal, interp_method="cubic"):
     return upper_envelope, lower_envelope
 
 
-def emd(input_signal, sd_tolerance=.2, max_imfs=10, max_sifting_iterations = 30, mirror_padding_fraction = .5):
+def emd(input_signal, sd_tolerance=.2, max_imfs=10, max_sifting_iterations = 30, mirror_padding_fraction = .5, print_sifting_details = False):
     imf_list = []
     r = np.copy(input_signal) # Updated every time an IMF is subtracted from it
     original_length = len(input_signal)
@@ -36,7 +36,10 @@ def emd(input_signal, sd_tolerance=.2, max_imfs=10, max_sifting_iterations = 30,
     emd_done = False # If no more IMFs can be extracted, i.e. if residual has less than 4 upper and lower peaks. Breaks out of both loops if True.
     for n in range(max_imfs):
         h = np.copy(r) # First iteration: Applied to original signal. Otherwise: Previous IMF subtracted from signal.
-        print("----------------\nIMF iteration:", n+1)
+
+        if print_sifting_details:
+            print("----------------\nIMF iteration:", n+1)
+
         for k in range(max_sifting_iterations):
             upper_envelope, lower_envelope = get_envelopes(h)
 
@@ -48,7 +51,8 @@ def emd(input_signal, sd_tolerance=.2, max_imfs=10, max_sifting_iterations = 30,
             h_old = np.copy(h)
             h -= avg_envelope
 
-            print("Sifting iteration:", k+1, "\nSD:", np.std(h-h_old))
+            if print_sifting_details:
+                print("Sifting iteration:", k+1, "\nSD:", np.std(h-h_old))
 
             if np.std(h-h_old) < sd_tolerance:
                 break
@@ -69,7 +73,7 @@ def emd(input_signal, sd_tolerance=.2, max_imfs=10, max_sifting_iterations = 30,
     return r, imf_list
 
 
-def plot_emd_results(input_signal, imf_list, residual):
+def plot_emd_results(input_signal, imf_list, residual, show = True):
     num_imfs = len(imf_list)
 
     # Create a grid of subplots for IMFs and residual
@@ -94,4 +98,6 @@ def plot_emd_results(input_signal, imf_list, residual):
         ax.set_ylabel('Amplitude')
 
     plt.tight_layout()
-    #plt.show()
+    if show:
+        plt.show()
+

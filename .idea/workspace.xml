@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="HHT started">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="HHT for single signal working, HHT on multiple IMFs needs fixing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/emd.py" beforeDir="false" afterPath="$PROJECT_DIR$/emd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hht.py" beforeDir="false" afterPath="$PROJECT_DIR$/hht.py" afterDir="false" />
@@ -42,7 +42,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/mauri/OneDrive - NTNU/NTNU/Semester 1 (H19)/ITGK&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -159,8 +159,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.hht" />
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.emd" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.HilbertTransform" />
         <item itemvalue="Python.EMD_CGPT" />
       </list>
@@ -211,7 +211,13 @@
       <option name="presentableId" value="LOCAL−00006" />
       <updated>1696957502873</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL−00007" summary="HHT for single signal working, HHT on multiple IMFs needs fixing">
+      <created>1697037888261</created>
+      <option name="number" value="LOCAL−00007" />
+      <option name="presentableId" value="LOCAL−00007" />
+      <updated>1697037888261</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -230,7 +236,8 @@
     <MESSAGE value="EMD working, but needs edge effect handling" />
     <MESSAGE value="Mirror padding for handling edge effects implemented" />
     <MESSAGE value="HHT started" />
-    <option name="LAST_COMMIT_MESSAGE" value="HHT started" />
+    <MESSAGE value="HHT for single signal working, HHT on multiple IMFs needs fixing" />
+    <option name="LAST_COMMIT_MESSAGE" value="HHT for single signal working, HHT on multiple IMFs needs fixing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
