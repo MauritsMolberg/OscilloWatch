@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from emd import emd
+from emd import *
 from scipy.signal import hilbert
 from time import time
 
@@ -43,7 +43,8 @@ def calc_hilbert_spectrum(signal_list, freq_resolution = 1e-4, freq_tol = "res")
     if freq_tol == "2res":
         freq_tol = 2*freq_resolution
 
-    if not isinstance(signal_list[0], np.ndarray):
+    # Handling the case of signal_list being only one signal (puts it in a list)
+    if not isinstance(signal_list[0], np.ndarray) and not isinstance(signal_list[0], list):
         signal_list = [signal_list]
 
     for signal in signal_list:
@@ -54,7 +55,9 @@ def calc_hilbert_spectrum(signal_list, freq_resolution = 1e-4, freq_tol = "res")
 
     max_omega = np.amax(omega_signal_list)
 
-    a = max_omega/freq_resolution
+    plt.figure()
+    plt.plot(omega_signal_list[0])
+
     xAxis = np.arange(0, len(signal_list[0]), 1)
     omegaAxis = np.linspace(0, max_omega, int(max_omega/freq_resolution))
 
@@ -77,7 +80,7 @@ def hht(signal,
         max_sifting_iterations = 30,
         mirror_padding_fraction = .5,
         print_sifting_details = False):
-    res, imf_list = emd(signal, sd_tolerance, max_imfs, max_sifting_iterations, mirror_padding_fraction, print_sifting_details)
+    imf_list, res = emd(signal, sd_tolerance, max_imfs, max_sifting_iterations, mirror_padding_fraction, print_sifting_details)
     return calc_hilbert_spectrum(imf_list, freq_resolution, freq_tol)
 
 
@@ -90,28 +93,31 @@ def plot_hilbert_spectrum(hilbert_spectrum, omegaAxis, show = True):
     if show:
         plt.show()
 
+if __name__ == "__main__":
+    def f(t):
+        #return 10*np.exp(.2*t)*np.cos(2.4*np.pi*t) + 8*np.exp(-.1*t)*np.cos(np.pi*t)
+        return 3*np.sin(5*np.pi*t)
 
-def f(t):
-    return 10*np.exp(.2*t)*np.cos(2.4*np.pi*t) + 8*np.exp(-.1*t)*np.cos(np.pi*t)
+    start = 0
+    end = 5
+    fs = 100
+    input_signal1 = f(np.arange(start, end, 1/fs))
 
-start = 0
-end = 5
-fs = 100
-input_signal1 = f(np.arange(start, end, 1/fs))
-
-#Random (reproducable) signal
-np.random.seed(0)
-input_signal2 = np.random.randn(500)
+    #Random (reproducable) signal
+    np.random.seed(0)
+    input_signal2 = np.random.randn(500)
 
 
-res1, imf_list1 = emd(input_signal1, mirror_padding_fraction=.5)
-#res2, imf_list2 = emd(input_signal2)
+    imf_list, res = emd(input_signal1)
+    #imf_list, res = emd(input_signal2)
 
-start_time = time()
-hilbert_spectrum, omegaAxis = hht(input_signal2, freq_resolution=1e-5, freq_tol=.05)
-print(time()-start_time)
-#hilbert_spectrum, omegaAxis = calc_hilbert_spectrum(input_signal1)
-plot_hilbert_spectrum(hilbert_spectrum, omegaAxis)
+    #plot_emd_results(input_signal1, imf_list, res)
+
+    start_time = time()
+    hilbert_spectrum, omegaAxis = hht(input_signal1, freq_resolution=1e-4, freq_tol="2res")
+    print("HHT time:", time()-start_time)
+    #hilbert_spectrum, omegaAxis = calc_hilbert_spectrum(input_signal1)
+    plot_hilbert_spectrum(hilbert_spectrum, omegaAxis)
 
 #Implement "signal extension" for IMFs
 

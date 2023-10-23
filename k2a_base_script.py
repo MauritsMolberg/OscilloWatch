@@ -7,13 +7,15 @@ import sys
 import dynpssimpy.dynamic as dps
 import dynpssimpy.solvers as dps_sol
 import importlib
+from emd import emd, plot_emd_results
+from hht import calc_hilbert_spectrum, hht, plot_hilbert_spectrum
 importlib.reload(dps)
 
 
 if __name__ == '__main__':
 
     # Load model
-    import dynpssimpy.ps_models.k2a as model_data
+    import dynpssimpy.ps_models.k2a_no_controls as model_data
     model = model_data.load()
 
     # Power system model
@@ -27,7 +29,7 @@ if __name__ == '__main__':
     np.max(ps.ode_fun(0.0, ps.x0))
     # Specify simulation time
     #
-    t_end = 100
+    t_end = 10
     x0 = ps.x0.copy()
     # Add small perturbation to initial angle of first generator
     # x0[ps.gen_mdls['GEN'].state_idx['angle'][0]] += 1
@@ -81,7 +83,7 @@ if __name__ == '__main__':
         # print(t)
         #v_bus_full = ps.red_to_full.dot(ps.v_red)
         # Simulate short circuit
-        if 1 < t < 1.1:
+        if 5 < t < 5.1:
             ps.y_bus_red_mod[7, 7] = 10000
         else:
             ps.y_bus_red_mod[7, 7] = 0
@@ -157,5 +159,14 @@ if __name__ == '__main__':
     #plt.plot(result[('Global', 't')], np.array(E_f_stored))
     #plt.xlabel('time (s)')
     #plt.ylabel('E_q (p.u.)')
+
+
+    imf_list, res = emd(V1_stored, max_imfs=4)
+    plot_emd_results(V1_stored, imf_list, res, show=False)
+
+    hilbert_spec, omegaAxis = hht(V1_stored, freq_resolution=1e-4, max_imfs=4, freq_tol="2res")
+    plot_hilbert_spectrum(hilbert_spec, omegaAxis, show=False)
+
+
 
     plt.show()

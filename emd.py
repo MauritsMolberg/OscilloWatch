@@ -70,7 +70,7 @@ def emd(input_signal, sd_tolerance=.2, max_imfs=10, max_sifting_iterations = 30,
         imf_list = [imf[ext_len:-ext_len] for imf in imf_list]
         r = r[ext_len:-ext_len]
 
-    return r, imf_list
+    return imf_list, r
 
 
 def plot_emd_results(input_signal, imf_list, residual, show = True):
