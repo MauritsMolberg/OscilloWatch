@@ -27,7 +27,7 @@ if __name__ == '__main__':
     np.max(ps.ode_fun(0.0, ps.x0))
     # Specify simulation time
     #
-    t_end = 100
+    t_end = 50
     x0 = ps.x0.copy()
     # Add small perturbation to initial angle of first generator
     # x0[ps.gen_mdls['GEN'].state_idx['angle'][0]] += 1

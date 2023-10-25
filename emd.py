@@ -2,6 +2,7 @@ from scipy.signal import find_peaks
 from scipy.interpolate import interp1d
 import matplotlib.pyplot as plt
 import numpy as np
+from time import time
 
 
 def get_envelopes(signal, interp_method="cubic"):
@@ -21,7 +22,17 @@ def get_envelopes(signal, interp_method="cubic"):
     return upper_envelope, lower_envelope
 
 
-def emd(input_signal, sd_tolerance=.2, max_imfs=10, max_sifting_iterations = 30, mirror_padding_fraction = .5, print_sifting_details = False):
+def emd(input_signal,
+        sd_tolerance=.2,
+        max_imfs=10,
+        max_sifting_iterations = 30,
+        mirror_padding_fraction = .5,
+        remove_padding = False,
+        print_sifting_details = False,
+        print_time = False):
+
+    start_time = time()
+
     imf_list = []
     r = np.copy(input_signal) # Updated every time an IMF is subtracted from it
     original_length = len(input_signal)
@@ -30,8 +41,10 @@ def emd(input_signal, sd_tolerance=.2, max_imfs=10, max_sifting_iterations = 30,
     if mirror_padding_fraction > 0: # Skip if zero or negative
         num_samples_to_mirror = int(original_length*mirror_padding_fraction)
 
-        mirrored_fraction = r[:num_samples_to_mirror][::-1]
-        r = np.concatenate((mirrored_fraction, r, mirrored_fraction))
+        mirrored_fraction_start = r[:num_samples_to_mirror][::-1]
+        mirrored_fraction_end = r[-num_samples_to_mirror:][::-1]
+        r = np.concatenate((mirrored_fraction_start, r, mirrored_fraction_end))
+
 
     emd_done = False # If no more IMFs can be extracted, i.e. if residual has less than 4 upper and lower peaks. Breaks out of both loops if True.
     for n in range(max_imfs):
@@ -64,11 +77,14 @@ def emd(input_signal, sd_tolerance=.2, max_imfs=10, max_sifting_iterations = 30,
         r -= h
 
 
-    #Remove the extensions added for padding
-    if mirror_padding_fraction > 0:
+    # Removing the extensions added for padding if desired
+    if remove_padding:
         ext_len = int(original_length*mirror_padding_fraction)
         imf_list = [imf[ext_len:-ext_len] for imf in imf_list]
         r = r[ext_len:-ext_len]
+
+    if print_time:
+        print("EMD completed in", round(time()-start_time, 3), "seconds.")
 
     return imf_list, r
 

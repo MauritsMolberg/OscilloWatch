@@ -9,7 +9,9 @@ import dynpssimpy.solvers as dps_sol
 import importlib
 from emd import emd, plot_emd_results
 from hht import calc_hilbert_spectrum, hht, plot_hilbert_spectrum
+from hilbert_spectrum_stft import hilbert_spectrum_stft
 importlib.reload(dps)
+
 
 
 if __name__ == '__main__':
@@ -29,7 +31,7 @@ if __name__ == '__main__':
     np.max(ps.ode_fun(0.0, ps.x0))
     # Specify simulation time
     #
-    t_end = 10
+    t_end = 20
     x0 = ps.x0.copy()
     # Add small perturbation to initial angle of first generator
     # x0[ps.gen_mdls['GEN'].state_idx['angle'][0]] += 1
@@ -161,12 +163,11 @@ if __name__ == '__main__':
     #plt.ylabel('E_q (p.u.)')
 
 
-    imf_list, res = emd(V1_stored, max_imfs=4)
+
+    imf_list, res = emd(V1_stored, max_imfs=4, remove_padding=True)
     plot_emd_results(V1_stored, imf_list, res, show=False)
 
-    hilbert_spec, omegaAxis = hht(V1_stored, freq_resolution=1e-4, max_imfs=4, freq_tol="2res")
+    hilbert_spec, omegaAxis = hht(V1_stored, freq_resolution=1e-4, print_emd_time=True, print_hht_time=True, freq_tol="2fres")
     plot_hilbert_spectrum(hilbert_spec, omegaAxis, show=False)
-
-
 
     plt.show()

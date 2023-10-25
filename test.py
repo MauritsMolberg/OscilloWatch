@@ -4,8 +4,11 @@ from scipy.signal import hilbert
 from emd import emd
 
 
-a = [0,1,0]
-print(isinstance(a, list))
+a = np.array([1,2,3,4,5,6,7])
+b = a[:3][::-1]
+c = a[-3:][::-1]
+print(c)
+print(np.concatenate((b, a, c)))
 
 
 """def f(t):
