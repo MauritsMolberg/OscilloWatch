@@ -1,14 +1,14 @@
 import numpy as np
+from time import time
 import matplotlib.pyplot as plt
-from scipy.signal import hilbert
+from scipy.signal import hilbert,find_peaks
 from emd import emd
 
 
-a = np.array([1,2,3,4,5,6,7])
-b = a[:3][::-1]
-c = a[-3:][::-1]
-print(c)
-print(np.concatenate((b, a, c)))
+a = np.array([[0.2, 0.3, 0.4],
+              [0.5, 0.8, 0.6],
+              [0.2, 0.7, 0.3]])
+
 
 
 """def f(t):

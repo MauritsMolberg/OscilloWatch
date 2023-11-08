@@ -6,8 +6,8 @@ from time import time
 
 
 def get_envelopes(signal, interp_method="cubic"):
-    upper_peaks, p = find_peaks(signal)
-    lower_peaks, p = find_peaks(-signal)
+    upper_peaks, _ = find_peaks(signal)
+    lower_peaks, _ = find_peaks(-signal)
 
     if len(upper_peaks) < 4 or len(lower_peaks) < 4:  #Unable to extract more IMFs
         return None, None

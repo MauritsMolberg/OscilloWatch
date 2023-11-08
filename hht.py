@@ -3,21 +3,21 @@ import matplotlib.pyplot as plt
 from emd import emd, plot_emd_results
 from scipy.signal import hilbert
 from time import time
-from hilbert_spectrum_stft import hilbert_spectrum_stft
 
 def calc_hilbert_spectrum(signal_list,
+                          amp_tol = 0.0,
                           freq_resolution = 1e-4,
-                          freq_tol = "fres",
+                          freq_tol = "f_res",
                           samples_to_remove_start = 0,
                           samples_to_remove_end = 0):
     hilbert_signal_list =  []
     freq_signal_list = []
     amplitude_signal_list = []
 
-    if freq_tol == "fres":
+    if freq_tol == "f_res":
         freq_tol = freq_resolution
 
-    if freq_tol == "2fres":
+    if freq_tol == "2f_res":
         freq_tol = 2*freq_resolution
 
     # Handling the case of signal_list being only one signal (puts it in a list)
@@ -49,15 +49,30 @@ def calc_hilbert_spectrum(signal_list,
     for k in range(len(signal_list)):
         for i in range(len(tAxis)):
             for j in range(len(freqAxis)):
-                if abs(freqAxis[j] - freq_signal_list[k][i]) < freq_tol:
+                if abs(freqAxis[j] - freq_signal_list[k][i]) < freq_tol and amplitude_signal_list[k][i] > amp_tol:
                     hilbert_spectrum[j][i] += amplitude_signal_list[k][i]
+
+    # Removing frequencies with zero amplitude across time axis from hilbert_spectrum and freqAxis, until an amplitude
+    # > 0 is found.
+    remove_count = 0
+    for freq in reversed(hilbert_spectrum):
+        if np.amax(freq) > 0.0:
+            break
+        else:
+            remove_count += 1
+
+    if remove_count > 0:
+        print("remove count:", remove_count)
+        freqAxis = freqAxis[:-remove_count]
+        hilbert_spectrum = hilbert_spectrum[:-remove_count]
 
     return hilbert_spectrum, freqAxis
 
 
 def hht(signal,
+        amp_tol = 0.0,
         freq_resolution = 1e-4,
-        freq_tol = "fres",
+        freq_tol = "f_res",
         sd_tolerance=.2,
         max_imfs=10,
         max_sifting_iterations = 30,
@@ -80,7 +95,7 @@ def hht(signal,
                         print_time=print_emd_time)
 
     # Calculate how much to remove after Hilbert transform in Hilbert Spectrum calculation:
-    if remove_padding_after_hht and not remove_padding_after_emd:
+    if remove_padding_after_hht and not remove_padding_after_emd: # Will not remove after hht if already removed after emd
         samples_to_remove_start = int(mirror_padding_fraction*len(signal))
         samples_to_remove_end = samples_to_remove_start
     else:
@@ -88,10 +103,11 @@ def hht(signal,
         samples_to_remove_end = 0
 
     hilbert_spectrum, freqAxis = calc_hilbert_spectrum(imf_list,
-                                 freq_resolution,
-                                 freq_tol,
-                                 samples_to_remove_start = samples_to_remove_start,
-                                 samples_to_remove_end = samples_to_remove_end)
+                                amp_tol=amp_tol,
+                                freq_resolution = freq_resolution,
+                                freq_tol = freq_tol,
+                                samples_to_remove_start = samples_to_remove_start,
+                                samples_to_remove_end = samples_to_remove_end)
 
     if print_hht_time:
         print("HHT completed in", round(time() - start_time, 3), "seconds.")
@@ -115,7 +131,7 @@ if __name__ == "__main__":
 
     start = 0
     end = 5
-    fs = 100
+    fs = 50
     input_signal1 = f(np.arange(start, end, 1/fs))
 
     #Random (reproducable) signal
@@ -123,12 +139,15 @@ if __name__ == "__main__":
     input_signal2 = np.random.randn(500)
 
 
-    imf_list, res = emd(input_signal2, remove_padding=True)
-    #imf_list, res = emd(input_signal2, remove_padding=True)
+    imf_list, res = emd(input_signal1, remove_padding=True)
 
-    plot_emd_results(input_signal2, imf_list, res, show=False)
+    plot_emd_results(input_signal1, imf_list, res, show=False)
 
-    hilbert_spectrum, freqAxis = hht(input_signal1, freq_resolution=1e-5, freq_tol="2fres", print_hht_time=True, print_emd_time=True)
+    hilbert_spectrum, freqAxis = hht(input_signal1,
+                                     freq_resolution=1e-5,
+                                     freq_tol="2f_res",
+                                     print_hht_time=True,
+                                     print_emd_time=True)
 
 
     plot_hilbert_spectrum(hilbert_spectrum, freqAxis, show=False)

@@ -120,7 +120,7 @@ class MyTestCase(unittest.TestCase):
         import dynpssimpy.ps_models.sm_ib as model_data_smib
         import dynpssimpy.ps_models.k2a as model_data_k2a
         import dynpssimpy.ps_models.ieee39 as model_data_ieee39
-        import dynpssimpy.ps_models.n44 as model_data_n44
+        import dynpssimpy.ps_models.n44_no_controls as model_data_n44
 
         for model_data in [model_data_smib, model_data_k2a, model_data_ieee39, model_data_n44]:
             model = model_data.load()

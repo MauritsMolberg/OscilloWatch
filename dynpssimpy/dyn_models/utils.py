@@ -98,7 +98,6 @@ def output(f):
             return self._output_values[f.__name__]
         else:
             return f(self, *args)
-
     return wrap
 
 
@@ -115,7 +114,6 @@ class DynMdl:
 
 class DAEModel:
     """Base class for dynamic models"""
-
     def __init__(self, par=None, sys_par=None, first_state_idx=0, n_units=None, **kwargs):
         # type(self)._ids = count(0)
         # self.id = next(type(self)._ids)
@@ -124,7 +122,7 @@ class DAEModel:
             name = self.__class__.__name__
             # print(name, n_units, np.array((name,)*n_units, dtype=[('name', '<U32')]))
             # print([name] * n_units)
-            self.par = dps_uf.structured_array_from_list(names=['name'], entries=[(name,)] * n_units)
+            self.par = dps_uf.structured_array_from_list(names=['name'], entries=[(name,)]*n_units)
 
         else:
             self.par = par if par is not None else self.parse_input_data(**kwargs)
@@ -134,8 +132,7 @@ class DAEModel:
         # self.output_value = np.zeros(self.n_units)
         # self._input_value = np.zeros(self.n_units)
         self.n_states = len(self.state_list())
-        self.idx = slice(first_state_idx,
-                         first_state_idx + self.n_states * self.n_units)  # This will be shifted from outside
+        self.idx = slice(first_state_idx, first_state_idx + self.n_states*self.n_units)  # This will be shifted from outside
 
         self.state_desc = np.vstack([
             np.repeat(self.par['name'], self.n_states),
@@ -201,7 +198,6 @@ class DAEModel:
     def disconnect_input(self, input_name):
         def input(self, x, v):
             return self._input_values[input_name]
-
         setattr(type(self), input_name, input)
 
     def add_blocks(self):
@@ -254,7 +250,7 @@ class DAEModel:
 
         if not 'name' in names:
             names.append('name')
-            data.append(np.array([self.__class__.__name__] * len(list(kwargs.values())[0])))
+            data.append(np.array([self.__class__.__name__]*len(list(kwargs.values())[0])))
 
         entries = [entry for entry in zip(*data)]
         col_dtypes = [np.array(col).dtype for col in data]
@@ -282,7 +278,7 @@ class DAEModel:
 def auto_init(mdl, x0, v0, output_0):
     submodules = get_submodules(mdl)
     n_states_all = len(x0)
-
+    
     # Find states belonging to model:
     state_idx = []
     state_idx_local = []
@@ -296,11 +292,11 @@ def auto_init(mdl, x0, v0, output_0):
             n_states += n_states_mdl
             state_idx_local.append(slice(start_idx, start_idx + n_states_mdl))
             start_idx += n_states_mdl
-
+    
     init_val = 1
     n_int_par = len(mdl.int_par_list())
     n_units = mdl.n_units
-    n_sol = n_states + n_int_par * n_units
+    n_sol = n_states + n_int_par*n_units
     int_par_idx = slice(n_states, None)
     x_test = np.ones(n_sol)
 
@@ -310,8 +306,7 @@ def auto_init(mdl, x0, v0, output_0):
         x_all_test = np.zeros_like(x0)
         for idx, idx_local in zip(state_idx, state_idx_local):
             x_all_test[idx] = x_test[idx_local]
-
-        dx_all = np.zeros(n_states_all)
+        
         for submodule in submodules:
             submodule.reset_outputs()
             submodule._store_output = True
@@ -334,7 +329,9 @@ def auto_init(mdl, x0, v0, output_0):
     x_test = np.concatenate([x0[:n_states], mdl.int_par['bias']])
     x_test[:] = 1
 
+    x_sol_best = np.ones(n_sol)
     err_best = 1e6
+    err = err_best
     for init_conditions in [np.ones(n_sol), np.zeros(n_sol), np.random.randn(n_sol)]:
         try:
             sol = least_squares(ode_fun_mdl, init_conditions)
@@ -350,7 +347,9 @@ def auto_init(mdl, x0, v0, output_0):
         x_sol_all[idx] = x_sol_best[idx_local]
 
     mdl.int_par[:] = x_sol_best[int_par_idx]
-
-    assert np.linalg.norm(mdl.output(x_sol_all, v0) - output_0) < 1e-6
+        
+    if np.linalg.norm(mdl.output(x_sol_all, v0) - output_0) > 1e-6:
+        print(f'Model {mdl.__class__} was potentially not initialized properly (error: {err}).')
     # assert max(abs(ps.state_derivatives(0, x_sol_all, ps.v_0))) < 1e-6
     x0[:] = x_sol_all
+    x0

@@ -9,11 +9,15 @@ import dynpssimpy.solvers as dps_sol
 import importlib
 importlib.reload(dps)
 
+from emd import emd, plot_emd_results
+from hht import calc_hilbert_spectrum, hht, plot_hilbert_spectrum
+from hilbert_spectrum_stft import hilbert_spectrum_stft
+
 
 if __name__ == '__main__':
 
     # Load model
-    import dynpssimpy.ps_models.n44 as model_data
+    import dynpssimpy.ps_models.n44_with_controls as model_data
     model = model_data.load()
 
     # Power system model
@@ -27,7 +31,7 @@ if __name__ == '__main__':
     np.max(ps.ode_fun(0.0, ps.x0))
     # Specify simulation time
     #
-    t_end = 50
+    t_end = 32
     x0 = ps.x0.copy()
     # Add small perturbation to initial angle of first generator
     # x0[ps.gen_mdls['GEN'].state_idx['angle'][0]] += 1
@@ -70,10 +74,10 @@ if __name__ == '__main__':
     #print(' ')
     # print('Forskjell på red og full Ybus = ',ps.y_bus_red_full - ps.y_bus_red)
     #
-    print('state description: ', ps.state_desc)
-    print('Initial values on all state variables (G1 and IB) :')
-    print(x0)
-    print(' ')
+    #print('state description: ', ps.state_desc)
+    #print('Initial values on all state variables (G1 and IB) :')
+    #print(x0)
+    #print(' ')
 
 
     # Run simulation
@@ -108,6 +112,7 @@ if __name__ == '__main__':
         V3_stored.append(abs(v[2]))
         V4_stored.append(abs(v[3]))
         I_stored.append(np.abs(Igen))
+
 
     #print("Q_e:", [round(num/900, 4) for num in Q_e_stored[0]] , [round(num/900, 4) for num in Q_e_stored[-1]] )
     #print("V1:", round(V1_stored[0], 4), round(V1_stored[-1], 4))
@@ -157,5 +162,11 @@ if __name__ == '__main__':
     #plt.plot(result[('Global', 't')], np.array(E_f_stored))
     #plt.xlabel('time (s)')
     #plt.ylabel('E_q (p.u.)')
+
+    #imf_list, res = emd(V1_stored, max_imfs=4, remove_padding=True)
+    #plot_emd_results(V1_stored, imf_list, res, show=False)
+
+    hilbert_spec, omegaAxis = hht([V1_stored[i*4] for i in range(len(V1_stored)//4)], freq_resolution=1e-4, print_emd_time=True, print_hht_time=True, freq_tol="2_fres")
+    plot_hilbert_spectrum(hilbert_spec, omegaAxis, show=False)
 
     plt.show()

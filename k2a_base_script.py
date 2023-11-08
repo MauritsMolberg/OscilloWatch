@@ -16,8 +16,7 @@ importlib.reload(dps)
 
 if __name__ == '__main__':
 
-    # Load model
-    import dynpssimpy.ps_models.k2a_no_controls as model_data
+    import dynpssimpy.ps_models.k2a as model_data
     model = model_data.load()
 
     # Power system model
@@ -113,11 +112,11 @@ if __name__ == '__main__':
         V4_stored.append(abs(v[3]))
         I_stored.append(np.abs(Igen))
 
-    print("Q_e:", [round(num/900, 4) for num in Q_e_stored[0]] , [round(num/900, 4) for num in Q_e_stored[-1]] )
-    print("V1:", round(V1_stored[0], 4), round(V1_stored[-1], 4))
-    print("V2:", round(V2_stored[0], 4), round(V2_stored[-1], 4))
-    print("V3:", round(V3_stored[0], 4), round(V3_stored[-1], 4))
-    print("V4:", round(V4_stored[0], 4), round(V4_stored[-1], 4))
+    #print("Q_e:", [round(num/900, 4) for num in Q_e_stored[0]] , [round(num/900, 4) for num in Q_e_stored[-1]] )
+    #print("V1:", round(V1_stored[0], 4), round(V1_stored[-1], 4))
+    #print("V2:", round(V2_stored[0], 4), round(V2_stored[-1], 4))
+    #print("V3:", round(V3_stored[0], 4), round(V3_stored[-1], 4))
+    #print("V4:", round(V4_stored[0], 4), round(V4_stored[-1], 4))
 
     print('Simulation completed in {:.2f} seconds.'.format(time.time() - t_0))
 
@@ -167,7 +166,7 @@ if __name__ == '__main__':
     imf_list, res = emd(V1_stored, max_imfs=4, remove_padding=True)
     plot_emd_results(V1_stored, imf_list, res, show=False)
 
-    hilbert_spec, omegaAxis = hht(V1_stored, freq_resolution=1e-4, print_emd_time=True, print_hht_time=True, freq_tol="2fres")
+    hilbert_spec, omegaAxis = hht([V1_stored[i*4] for i in range(len(V1_stored)//4)], freq_resolution=1e-4, print_emd_time=True, print_hht_time=True)
     plot_hilbert_spectrum(hilbert_spec, omegaAxis, show=False)
 
     plt.show()
