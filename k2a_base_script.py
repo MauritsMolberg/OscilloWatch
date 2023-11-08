@@ -9,7 +9,6 @@ import dynpssimpy.solvers as dps_sol
 import importlib
 from emd import emd, plot_emd_results
 from hht import calc_hilbert_spectrum, hht, plot_hilbert_spectrum
-from hilbert_spectrum_stft import hilbert_spectrum_stft
 importlib.reload(dps)
 
 
@@ -71,8 +70,6 @@ if __name__ == '__main__':
     # print(ps.v_n)
     print('v_vector = ', ps.v_0)
     print(' ')
-    # print('Forskjell på red og full Ybus = ',ps.y_bus_red_full - ps.y_bus_red)
-    #
     print('state description: ', ps.state_desc)
     print('Initial values on all state variables (G1 and IB) :')
     print(x0)
@@ -161,12 +158,12 @@ if __name__ == '__main__':
     #plt.xlabel('time (s)')
     #plt.ylabel('E_q (p.u.)')
 
+    V1_new = [V1_stored[i*4] for i in range(len(V1_stored)//4)]
 
+    imf_list, res = emd(V1_new, max_imfs=4, remove_padding=True)
+    plot_emd_results(V1_new, imf_list, res, 50, show=False)
 
-    imf_list, res = emd(V1_stored, max_imfs=4, remove_padding=True)
-    plot_emd_results(V1_stored, imf_list, res, show=False)
-
-    hilbert_spec, omegaAxis = hht([V1_stored[i*4] for i in range(len(V1_stored)//4)], freq_resolution=1e-4, print_emd_time=True, print_hht_time=True)
-    plot_hilbert_spectrum(hilbert_spec, omegaAxis, show=False)
+    hilbert_spec, freqAxis = hht(V1_new, print_emd_time=True, print_hht_time=True)
+    plot_hilbert_spectrum(hilbert_spec, freqAxis, 50, show=False)
 
     plt.show()

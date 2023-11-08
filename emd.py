@@ -46,7 +46,10 @@ def emd(input_signal,
         r = np.concatenate((mirrored_fraction_start, r, mirrored_fraction_end))
 
 
-    emd_done = False # If no more IMFs can be extracted, i.e. if residual has less than 4 upper and lower peaks. Breaks out of both loops if True.
+    # Set to True if no more IMFs can be extracted, i.e. if residual has less than 4 upper and lower peaks.
+    # Breaks out of both loops if True.
+    emd_done = False
+
     for n in range(max_imfs):
         h = np.copy(r) # First iteration: Applied to original signal. Otherwise: Previous IMF subtracted from signal.
 
@@ -84,34 +87,35 @@ def emd(input_signal,
         r = r[ext_len:-ext_len]
 
     if print_time:
-        print("EMD completed in", round(time()-start_time, 3), "seconds.")
+        print(f"EMD completed in {time()-start_time:.3f} seconds.")
 
     return imf_list, r
 
 
-def plot_emd_results(input_signal, imf_list, residual, show = True):
+def plot_emd_results(input_signal, imf_list, residual, sampling_freq, show = True):
     num_imfs = len(imf_list)
+    tAxis = np.linspace(0, len(input_signal)/sampling_freq, len(input_signal))
 
     # Create a grid of subplots for IMFs and residual
     fig, axes = plt.subplots(num_imfs + 2, 1, figsize=(8, 2 * (num_imfs + 1)))
 
     # Plot the input signal
-    axes[0].plot(input_signal, color='blue', linewidth = .7)
+    axes[0].plot(tAxis, input_signal, color='blue', linewidth = .7)
     axes[0].set_title('Input Signal')
 
     # Plot each IMF
     for i, imf in enumerate(imf_list):
-        axes[i + 1].plot(imf, color='green', linewidth = .7)
+        axes[i + 1].plot(tAxis, imf, color='green', linewidth = .7)
         axes[i + 1].set_title(f'IMF {i + 1}')
 
     # Plot the residual
-    axes[num_imfs+1].plot(residual, color='red', linewidth = .7)
+    axes[num_imfs+1].plot(tAxis, residual, color='red', linewidth = .7)
     axes[num_imfs+1].set_title('Residual')
 
-    # Set labels and legend for all subplots
+    # Set labels
     for ax in axes:
-        ax.set_xlabel('Time')
         ax.set_ylabel('Amplitude')
+    axes[num_imfs+1].set_xlabel('Time [s]')
 
     plt.tight_layout()
     if show:

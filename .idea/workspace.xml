@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Mirror padding improved + keep padding between EMD and Hilb. spec. calculation">
-      <change afterPath="$PROJECT_DIR$/dynpssimpy/ps_models/n44_with_controls.py" afterDir="false" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added amplitude tolerance for Hilbert spectrum">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/N44_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/N44_base_script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/avr.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynpssimpy/dyn_models/avr.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/blocks.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynpssimpy/dyn_models/blocks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/gen.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynpssimpy/dyn_models/gen.py" afterDir="false" />
@@ -21,14 +18,10 @@
       <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynpssimpy/dyn_models/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/vsc.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynpssimpy/dyn_models/vsc.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dynpssimpy/dynamic.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynpssimpy/dynamic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/n44.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynpssimpy/ps_models/n44_no_controls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/result_keeper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/modal_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynpssimpy/modal_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/emd.py" beforeDir="false" afterPath="$PROJECT_DIR$/emd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hht.py" beforeDir="false" afterPath="$PROJECT_DIR$/hht.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/k2a_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/k2a_base_script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/test_validate.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_validation/test_validate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/test_validate_quick.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_validation/test_validate_quick.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,9 +173,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.hht" />
+        <item itemvalue="Python.k2a_base_script" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.N44_base_script" />
-        <item itemvalue="Python.k2a_base_script" />
         <item itemvalue="Python.modal_analysis" />
       </list>
     </recent_temporary>
@@ -256,7 +249,13 @@
       <option name="presentableId" value="LOCAL−00010" />
       <updated>1698265089265</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL−00011" summary="Added amplitude tolerance for Hilbert spectrum">
+      <created>1699437932979</created>
+      <option name="number" value="LOCAL−00011" />
+      <option name="presentableId" value="LOCAL−00011" />
+      <updated>1699437932979</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -278,7 +277,8 @@
     <MESSAGE value="HHT for single signal working, HHT on multiple IMFs needs fixing" />
     <MESSAGE value="Probably possibly working HHT maybe?" />
     <MESSAGE value="Mirror padding improved + keep padding between EMD and Hilb. spec. calculation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mirror padding improved + keep padding between EMD and Hilb. spec. calculation" />
+    <MESSAGE value="Added amplitude tolerance for Hilbert spectrum" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added amplitude tolerance for Hilbert spectrum" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
