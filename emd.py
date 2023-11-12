@@ -1,5 +1,5 @@
 from scipy.signal import find_peaks
-from scipy.interpolate import interp1d
+from scipy.interpolate import CubicSpline
 import matplotlib.pyplot as plt
 import numpy as np
 from time import time
@@ -13,8 +13,8 @@ def get_envelopes(signal, interp_method="cubic"):
         return None, None
 
     xAxis = np.arange(len(signal))
-    interp_upper = interp1d(upper_peaks, signal[upper_peaks], kind=interp_method, fill_value="extrapolate")
-    interp_lower = interp1d(lower_peaks, signal[lower_peaks], kind=interp_method, fill_value="extrapolate")
+    interp_upper = CubicSpline(upper_peaks, signal[upper_peaks])
+    interp_lower = CubicSpline(lower_peaks, signal[lower_peaks])
 
     upper_envelope = interp_upper(xAxis)
     lower_envelope = interp_lower(xAxis)
@@ -68,9 +68,9 @@ def emd(input_signal,
             h -= avg_envelope
 
             if print_sifting_details:
-                print("Sifting iteration:", k+1, "\nSD:", np.std(h-h_old))
+                print("Sifting iteration:", k+1, "\nSD:", np.std(h-h_old, dtype=np.float64))
 
-            if np.std(h-h_old) < sd_tolerance:
+            if np.std(h-h_old, dtype=np.float64) < sd_tolerance:
                 break
 
         if emd_done:
@@ -121,3 +121,9 @@ def plot_emd_results(input_signal, imf_list, residual, sampling_freq, show = Tru
     if show:
         plt.show()
 
+
+"""
+Plot peaks:
+plt.plot(upper_peaks/fs,x[upper_peaks],'o',label = 'Upper peaks')
+plt.plot(lower_peaks/fs,x[lower_peaks],'o',label = 'Lower peaks')
+"""

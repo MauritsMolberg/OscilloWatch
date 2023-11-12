@@ -4,6 +4,44 @@ from emd import emd, plot_emd_results
 from scipy.signal import hilbert
 from time import time
 
+
+def moving_average(signal, window_size=5):
+    if window_size % 2 == 0:
+        raise ValueError("Window size must be an odd number.")
+
+    half_window = window_size // 2
+    smoothed_signal = np.zeros_like(signal, dtype=float)
+
+    for i in range(len(signal)):
+        start_idx = max(0, i - half_window)
+        end_idx = min(len(signal), i + half_window + 1)
+        smoothed_signal[i] = np.mean(signal[start_idx:end_idx])
+
+    return smoothed_signal
+
+
+def remove_spikes(signal, spike_threshold=7.0, max_spike_duration=5):
+    cleaned_signal = np.copy(signal)
+
+    # Detect spikes (values exceeding the threshold)
+    spikes = np.where(np.abs(signal) > spike_threshold)[0]
+
+    # Find consecutive spike segments
+    spike_segments = np.split(spikes, np.where(np.diff(spikes) != 1)[0] + 1)
+
+    # Remove short-duration spikes
+    for segment in spike_segments:
+        if len(segment) <= max_spike_duration:
+            cleaned_signal[segment] = np.nan
+
+    # Linear interpolation to fill in the gaps
+    nan_indices = np.isnan(cleaned_signal)
+    cleaned_signal = np.interp(np.arange(len(cleaned_signal)), np.arange(len(cleaned_signal))[~nan_indices],
+                               cleaned_signal[~nan_indices])
+
+    return cleaned_signal
+
+
 def calc_hilbert_spectrum(signal_list,
                           amp_tol = 0.0,
                           sampling_freq = 50,
@@ -40,9 +78,20 @@ def calc_hilbert_spectrum(signal_list,
             hilbert_signal = hilbert_signal[:-samples_to_remove_end]
             freq_signal = freq_signal[:-samples_to_remove_end]
 
+
+        freq_signal = remove_spikes(freq_signal)
+        freq_signal = moving_average(freq_signal, window_size=21)
+
+        #plt.figure()
+        #plt.plot(freq_signal)
+        #plt.plot(np.angle(hilbert_signal))
+
+
         # Store inst. freq. and amplitude to
         freq_signal_list.append(freq_signal)
         amplitude_signal_list.append(np.abs(hilbert_signal))
+
+
 
     # Create frequency axis. Necessary for knowing what frequencies the amplitudes in the Hilbert spectrum correspond to
     max_freq = np.amax(freq_signal_list)
@@ -55,8 +104,7 @@ def calc_hilbert_spectrum(signal_list,
                 if abs(freqAxis[j] - freq_signal_list[k][i]) < freq_tol and amplitude_signal_list[k][i] > amp_tol:
                     hilbert_spectrum[j][i] += amplitude_signal_list[k][i] # Row = one frequency, column = one sample
 
-    # Remove frequencies with zero amplitude across time axis from hilbert_spectrum and freqAxis, until an amplitude >0
-    # is found.
+    # Deleting rows with only zeros from the top of the spectrum, to possibly reduce its size
     remove_count = 0
     for freq in reversed(hilbert_spectrum):
         if np.amax(freq) > 0.0:
@@ -138,17 +186,22 @@ def plot_hilbert_spectrum(hilbert_spectrum, freqAxis, sampling_freq, show = True
         plt.show()
 
 if __name__ == "__main__":
+    np.random.seed(0)
+
     def f(t):
-        return 10*np.exp(.2*t)*np.cos(2.4*np.pi*t) + 8*np.exp(-.1*t)*np.cos(np.pi*t)
+        #return 10*np.exp(.2*t)*np.cos(2.4*np.pi*t) + 8*np.exp(-.1*t)*np.cos(np.pi*t) # 1.2 Hz (growing) + 0.5 Hz (decaying)
+        return (10*np.exp(.2*t)*np.cos(2.4*np.pi*t)
+                + 8*np.exp(-.1*t)*np.cos(np.pi*t)
+                #+ 2*np.exp(.3*t)*np.cos(5*np.pi*t)
+                + 14*np.exp(-.2*t)*np.cos(10*np.pi*t))
         #return 3*np.sin(5*np.pi*t)
 
     start = 0
     end = 5
     fs = 50
-    input_signal1 = f(np.arange(start, end, 1/fs))
+    input_signal1 = f(np.arange(start, end, 1/fs)) #+ np.random.normal(0, 1, (end-start)*fs)
 
-    #Random (reproducable) signal
-    np.random.seed(0)
+    # Random (reproducable) signal
     input_signal2 = np.random.randn(500)
 
 
@@ -170,6 +223,10 @@ if __name__ == "__main__":
 
     plt.show()
 
+# EMD idea (mode mixing mitigation): Use STFT, and/or possibly 1st/2nd derivative to locate where frequency changes
+# abruptly, and perform EMD separately on sections with very different frequencies.
 
-# Damping measurement idea: Use scipy.optimize.curve_fit() to fit rows or sets of rows (frequency bands) to damped oscillation model:
-# A * np.exp(-zeta * omega_n * t) * np.sin(omega_n * t)
+# Damping measurement idea: Use scipy.optimize.curve_fit() to fit rows or sets of rows (frequency bands) to decaying exponential:
+# A*exp(-k*t) (or A * np.exp(-zeta * omega_n * t) * np.sin(omega_n * t + phi))
+# Start with one row at a time, then combine n rows into a frequency band and perform damping analysis on those, then
+# combine into even wider frequency band, etc.

@@ -163,10 +163,9 @@ if __name__ == '__main__':
     #plt.xlabel('time (s)')
     #plt.ylabel('E_q (p.u.)')
 
-    #imf_list, res = emd(V1_stored, max_imfs=4, remove_padding=True)
+    #imf_list, res = emd(V1_stored, max_imfs=4, remove_padding=True, print_sifting_details=True)
     #plot_emd_results(V1_stored, imf_list, res, show=False)
-
-    hilbert_spec, omegaAxis = hht([V1_stored[i*4] for i in range(len(V1_stored)//4)], freq_resolution=1e-4, print_emd_time=True, print_hht_time=True, freq_tol="2_fres")
-    plot_hilbert_spectrum(hilbert_spec, omegaAxis, show=False)
+    hilbert_spec, omegaAxis = hht([V1_stored[i*4] for i in range(len(V1_stored)//4)], print_emd_time=True, print_hht_time=True, print_emd_sifting_details=True)
+    plot_hilbert_spectrum(hilbert_spec, omegaAxis, 50, show=False)
 
     plt.show()
