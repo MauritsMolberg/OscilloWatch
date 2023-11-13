@@ -17,7 +17,7 @@ from hilbert_spectrum_stft import hilbert_spectrum_stft
 if __name__ == '__main__':
 
     # Load model
-    import dynpssimpy.ps_models.n44_with_controls as model_data
+    import dynpssimpy.ps_models.n44_no_controls as model_data
     model = model_data.load()
 
     # Power system model
@@ -27,8 +27,7 @@ if __name__ == '__main__':
     ps.power_flow()
     # Initialization
     ps.init_dyn_sim()
-    #
-    np.max(ps.ode_fun(0.0, ps.x0))
+    #    np.max(ps.ode_fun(0.0, ps.x0))
     # Specify simulation time
     #
     t_end = 32
@@ -163,9 +162,9 @@ if __name__ == '__main__':
     #plt.xlabel('time (s)')
     #plt.ylabel('E_q (p.u.)')
 
-    #imf_list, res = emd(V1_stored, max_imfs=4, remove_padding=True, print_sifting_details=True)
-    #plot_emd_results(V1_stored, imf_list, res, show=False)
-    hilbert_spec, omegaAxis = hht([V1_stored[i*4] for i in range(len(V1_stored)//4)], print_emd_time=True, print_hht_time=True, print_emd_sifting_details=True)
+    imf_list, res = emd(V1_stored, max_imfs=4, remove_padding=True, print_sifting_details=True)
+    plot_emd_results(V1_stored, imf_list, res, 50, show=False,)
+    hilbert_spec, omegaAxis = hht([V1_stored[i*4] for i in range(len(V1_stored)//4)], print_emd_time=True, print_hht_time=True, print_emd_sifting_details=True, freq_resolution=1/250)
     plot_hilbert_spectrum(hilbert_spec, omegaAxis, 50, show=False)
 
     plt.show()

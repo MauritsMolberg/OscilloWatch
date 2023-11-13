@@ -1,13 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from emd import emd, plot_emd_results
-from scipy.signal import hilbert
+from scipy.signal import hilbert, stft, find_peaks
 from time import time
 
 
 def moving_average(signal, window_size=5):
     if window_size % 2 == 0:
         raise ValueError("Window size must be an odd number.")
+
+
 
     half_window = window_size // 2
     smoothed_signal = np.zeros_like(signal, dtype=float)
@@ -41,6 +43,23 @@ def remove_spikes(signal, spike_threshold=7.0, max_spike_duration=5):
 
     return cleaned_signal
 
+def split_signal_freq_change(signal, fs=50, threshold=1, nperseg=256):
+    split_signal = []
+
+    f, t, Zxx = stft(signal, fs=fs, nperseg=nperseg)
+    dominant_frequencies = np.argmax(np.abs(Zxx), axis=0)
+    freq_gradient = np.gradient(dominant_frequencies)
+
+    peaks, _ = find_peaks(np.abs(freq_gradient))
+
+    remaining = np.copy(signal)
+    for ind in peaks:
+        split_signal.append(remaining[:ind*nperseg//2])
+        remaining = remaining[ind*nperseg//2:]
+        peaks -= ind
+    split_signal.append(remaining)
+
+    return split_signal
 
 def calc_hilbert_spectrum(signal_list,
                           amp_tol = 0.0,
@@ -64,11 +83,21 @@ def calc_hilbert_spectrum(signal_list,
     if not isinstance(signal_list[0], np.ndarray) and not isinstance(signal_list[0], list):
         signal_list = [signal_list]
 
-
+    imf_count = 1 # For plotting
     for signal in signal_list:
-        # Calculate Hilbert transform on signal to find inst. freq. and amplitude.
-        hilbert_signal = hilbert(signal)
-        freq_signal = np.gradient(np.angle(hilbert_signal)) * sampling_freq / (2*np.pi)
+        # Split the signal where there is an abrupt change in frequency
+        split_signal = split_signal_freq_change(signal, nperseg=50)
+
+        # Calculate Hilbert transform on each portion of the split signal to find inst. freq. and amplitude.
+        hilbert_signal = np.array([])
+        freq_signal = np.array([])
+        for portion in split_signal:
+            hilbert_portion = hilbert(portion)
+            freq_portion = np.gradient(np.angle(hilbert_portion)) * sampling_freq / (2*np.pi)
+
+            hilbert_signal = np.concatenate((hilbert_signal, hilbert_portion))
+            freq_signal = np.concatenate((freq_signal, freq_portion))
+
 
         # Remove padding, if specified.
         if samples_to_remove_start > 0:
@@ -78,18 +107,24 @@ def calc_hilbert_spectrum(signal_list,
             hilbert_signal = hilbert_signal[:-samples_to_remove_end]
             freq_signal = freq_signal[:-samples_to_remove_end]
 
+        amplitude_signal = np.abs(hilbert_signal)
+        amplitude_signal = moving_average(amplitude_signal, window_size=11)
 
         freq_signal = remove_spikes(freq_signal)
         freq_signal = moving_average(freq_signal, window_size=21)
 
-        #plt.figure()
-        #plt.plot(freq_signal)
-        #plt.plot(np.angle(hilbert_signal))
 
+        #fig, axes = plt.subplots(2, 1, figsize=(8, 8))
+        #axes[0].plot(amplitude_signal)
+        #axes[0].set_title(f"Amplitude IMF {imf_count} (unfiltered)")
 
-        # Store inst. freq. and amplitude to
+        #axes[1].plot(freq_signal, color="red")
+        #axes[1].set_title(f"Frequency IMF {imf_count} (unfiltered)")
+        imf_count += 1
+
+        # Store inst. freq. and amplitude to lists
         freq_signal_list.append(freq_signal)
-        amplitude_signal_list.append(np.abs(hilbert_signal))
+        amplitude_signal_list.append(amplitude_signal)
 
 
 
@@ -152,7 +187,7 @@ def hht(signal,
                         print_time=print_emd_time)
 
     # Calculate how much to remove after Hilbert transform in Hilbert Spectrum calculation:
-    if remove_padding_after_hht and not remove_padding_after_emd: # Will not remove after hht if already removed after emd
+    if remove_padding_after_hht and not remove_padding_after_emd: # Will not remove after HHT if already removed after EMD
         samples_to_remove_start = int(mirror_padding_fraction*len(signal))
         samples_to_remove_end = samples_to_remove_start
     else:
@@ -176,7 +211,7 @@ def hht(signal,
 def plot_hilbert_spectrum(hilbert_spectrum, freqAxis, sampling_freq, show = True):
     xAxis = np.linspace(0, len(hilbert_spectrum[0])/sampling_freq, len(hilbert_spectrum[0]))
     xAxis_mesh, freqAxis_mesh = np.meshgrid(xAxis, freqAxis)
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(15,9))
     ax.set_title("Hilbert spectrum")
     ax.set_xlabel("Time [s]")
     ax.set_ylabel("Frequency [Hz]")
@@ -192,12 +227,12 @@ if __name__ == "__main__":
         #return 10*np.exp(.2*t)*np.cos(2.4*np.pi*t) + 8*np.exp(-.1*t)*np.cos(np.pi*t) # 1.2 Hz (growing) + 0.5 Hz (decaying)
         return (10*np.exp(.2*t)*np.cos(2.4*np.pi*t)
                 + 8*np.exp(-.1*t)*np.cos(np.pi*t)
-                #+ 2*np.exp(.3*t)*np.cos(5*np.pi*t)
+                + 3*np.exp(.3*t)*np.cos(5*np.pi*t)
                 + 14*np.exp(-.2*t)*np.cos(10*np.pi*t))
-        #return 3*np.sin(5*np.pi*t)
+        #return 3*np.exp(-.1*t)*np.sin(5*np.pi*t)
 
     start = 0
-    end = 5
+    end = 20
     fs = 50
     input_signal1 = f(np.arange(start, end, 1/fs)) #+ np.random.normal(0, 1, (end-start)*fs)
 
@@ -206,20 +241,23 @@ if __name__ == "__main__":
 
 
     imf_list, res = emd(input_signal1, remove_padding=True)
-
+    #split_imf = split_signal_freq_change(imf_list[0], nperseg=50)
+    #plt.figure()
+    #plt.plot(split_imf[0])
     plot_emd_results(input_signal1, imf_list, res, fs, show=False)
 
     hilbert_spectrum, freqAxis = hht(input_signal1,
+                                     sd_tolerance=.1,
                                      max_imfs=6,
                                      sampling_freq=fs,
                                      mirror_padding_fraction=1,
                                      print_hht_time=True,
                                      print_emd_time=True)
 
+
     #hilbert_spectrum, freqAxis = calc_hilbert_spectrum(input_signal1)
 
     plot_hilbert_spectrum(hilbert_spectrum, freqAxis, fs, show=False)
-
 
     plt.show()
 

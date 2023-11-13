@@ -51,7 +51,7 @@ def emd(input_signal,
     emd_done = False
 
     for n in range(max_imfs):
-        h = np.copy(r) # First iteration: Applied to original signal. Otherwise: Previous IMF subtracted from signal.
+        h = np.copy(r)
 
         if print_sifting_details:
             print("----------------\nIMF iteration:", n+1)
@@ -59,8 +59,8 @@ def emd(input_signal,
         for k in range(max_sifting_iterations):
             upper_envelope, lower_envelope = get_envelopes(h)
 
-            if upper_envelope is None or lower_envelope is None: # h has less than 4 upper and lower peaks
-                emd_done = True # Breaks out of both loops
+            if upper_envelope is None or lower_envelope is None:  # h has less than 4 upper and lower peaks
+                emd_done = True  # Breaks out of both loops
                 break
 
             avg_envelope = (upper_envelope + lower_envelope) / 2
@@ -82,7 +82,7 @@ def emd(input_signal,
 
     # Removing the extensions added for padding if desired
     if remove_padding:
-        ext_len = int(original_length*mirror_padding_fraction)
+        ext_len = int(original_length * mirror_padding_fraction)
         imf_list = [imf[ext_len:-ext_len] for imf in imf_list]
         r = r[ext_len:-ext_len]
 
@@ -94,10 +94,13 @@ def emd(input_signal,
 
 def plot_emd_results(input_signal, imf_list, residual, sampling_freq, show = True):
     num_imfs = len(imf_list)
+
+    # Need different time axes for the input signal and IMFs in case the IMFs have padding that is not removed.
     tAxis = np.linspace(0, len(input_signal)/sampling_freq, len(input_signal))
+    tAxis_imf = np.linspace(0, len(imf_list[0])/sampling_freq, len(imf_list[0]))
 
     # Create a grid of subplots for IMFs and residual
-    fig, axes = plt.subplots(num_imfs + 2, 1, figsize=(8, 2 * (num_imfs + 1)))
+    fig, axes = plt.subplots(num_imfs + 2, 1, figsize=(8, 2 * (num_imfs + 1)), sharex=True)
 
     # Plot the input signal
     axes[0].plot(tAxis, input_signal, color='blue', linewidth = .7)
@@ -105,11 +108,11 @@ def plot_emd_results(input_signal, imf_list, residual, sampling_freq, show = Tru
 
     # Plot each IMF
     for i, imf in enumerate(imf_list):
-        axes[i + 1].plot(tAxis, imf, color='green', linewidth = .7)
+        axes[i + 1].plot(tAxis_imf, imf, color='green', linewidth = .7)
         axes[i + 1].set_title(f'IMF {i + 1}')
 
     # Plot the residual
-    axes[num_imfs+1].plot(tAxis, residual, color='red', linewidth = .7)
+    axes[num_imfs+1].plot(tAxis_imf, residual, color='red', linewidth = .7)
     axes[num_imfs+1].set_title('Residual')
 
     # Set labels
