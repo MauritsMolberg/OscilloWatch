@@ -1,26 +1,33 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from emd import emd
-from hht import hht, calc_hilbert_spectrum, split_signal_freq_change
 from scipy.optimize import curve_fit
 from scipy.interpolate import CubicSpline
 from scipy.signal import stft, find_peaks
 
 
-
+class Test:
+    def __init__(self, a=3):
+        self.a = a
 
 if __name__ == "__main__":
-    a = np.array([0,0,0,0,0,1,1,1,1,1,0,0,0,-1,0])
-    peaks, _ = find_peaks(np.abs(a))
-    remaining = np.copy(a)
-    print("Original:", remaining)
-    for ind in peaks:
-        print("Added to list:", remaining[:ind])
-        remaining = remaining[ind:]
-        peaks -= ind
-        print(f"Peak at {ind}. Remaining: {remaining}")
-
+    t = Test()
+    print("g")
 """
+    start = 0
+    stop = 5
+    fs = 50
+    tAxis = np.arange(start, stop, 1/fs)
+    def f(t):
+        return 5*np.exp(.1*t)
+
+    freqAxis = np.linspace(0, 4, 200)
+    hilbert_spectrum = np.empty((len(freqAxis), len(tAxis)))
+    hilbert_spectrum[:] = np.nan
+    a = f(tAxis)
+    hilbert_spectrum[149] = f(tAxis)
+
+    plot_hilbert_spectrum(hilbert_spectrum, freqAxis, fs)
+
     fs = 50
     nperseg = 100
 
@@ -43,7 +50,7 @@ if __name__ == "__main__":
     plt.ylabel('Frequency [Hz]')
     plt.xlabel('Time [sec]')
 
-    split_signal_freq_change(joined_signal, fs=fs, threshold=1, nperseg=nperseg)
+    parts = split_signal_freq_change(joined_signal, fs=fs, nperseg=nperseg)
 
 
     plt.show()

@@ -89,7 +89,6 @@ damping_info = damping_analysis(imf_list)
 hilbert_spectrum, freqAxis = hht(input_signal1,
                                 max_imfs=6,
                                 sampling_freq=fs,
-                                mirror_padding_fraction=.5,
                                 print_hht_time=True,
                                 print_emd_time=True)
 

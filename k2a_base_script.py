@@ -15,7 +15,7 @@ importlib.reload(dps)
 
 if __name__ == '__main__':
 
-    import dynpssimpy.ps_models.k2a_no_controls as model_data
+    import dynpssimpy.ps_models.k2a as model_data
     model = model_data.load()
 
     # Power system model
@@ -158,12 +158,12 @@ if __name__ == '__main__':
     #plt.xlabel('time (s)')
     #plt.ylabel('E_q (p.u.)')
 
-    V1_new = [V1_stored[i*4] for i in range(len(V1_stored)//4)]
+    V1_new = [V1_stored[i*4] for i in range(300, len(V1_stored)//4)]
 
     imf_list, res = emd(V1_new, max_imfs=4, remove_padding=True, mirror_padding_fraction=1)
     plot_emd_results(V1_new, imf_list, res, 50, show=False)
 
-    hilbert_spec, freqAxis = hht(V1_new, print_emd_time=True, print_hht_time=True, print_emd_sifting_details=True, mirror_padding_fraction=1)
+    hilbert_spec, freqAxis = hht(V1_new, print_emd_time=True, print_hht_time=True, print_emd_sifting_details=True, mirror_padding_fraction=1, freq_resolution=.01)
     plot_hilbert_spectrum(hilbert_spec, freqAxis, 50, show=False)
 
     plt.show()
