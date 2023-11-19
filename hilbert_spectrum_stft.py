@@ -1,5 +1,5 @@
 """
-STFT variant of HHT. Will probably not be used for anything.
+STFT variant of HHT made by ChatGPT. Will probably not be used for anything.
 """
 
 import numpy as np

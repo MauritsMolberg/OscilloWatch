@@ -4,16 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added automatic signal splitting at abrupt frequency changes">
-      <change afterPath="$PROJECT_DIR$/AnalysisSettings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClassTest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClassTest2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/segment_analysis.py" afterDir="false" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Made object-oriented">
+      <change afterPath="$PROJECT_DIR$/DampingAnalysis.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spectrum_plot_cheat.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/damping_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/damping_analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/emd.py" beforeDir="false" afterPath="$PROJECT_DIR$/emd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hht.py" beforeDir="false" afterPath="$PROJECT_DIR$/hht.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnalysisSettings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/N44_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/N44_base_script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/damping_analysis.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/emd.py" beforeDir="false" afterPath="$PROJECT_DIR$/EMD.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/modal_analysis/plot_eigs.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/modal_analysis/plot_eigs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hht.py" beforeDir="false" afterPath="$PROJECT_DIR$/HHT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hilbert_spectrum_stft.py" beforeDir="false" afterPath="$PROJECT_DIR$/hilbert_spectrum_stft.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/k2a_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/k2a_base_script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/segment_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/segment_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,23 +58,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/mauri/OneDrive - NTNU/NTNU/Semester 9 (H23)/Methods and algorithms&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Font&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/mauri/OneDrive - NTNU/NTNU/Semester 9 (H23)/Methods and algorithms",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.hht">
-    <configuration name="ClassTest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.DampingAnalysis">
+    <configuration name="DampingAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -83,7 +86,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ClassTest.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\DampingAnalysis.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -92,7 +95,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="damping_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="HHT" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -104,7 +107,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/damping_analysis.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\HHT.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -113,7 +116,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="hht" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="N44_base_script" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -125,7 +128,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hht.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/N44_base_script.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -142,11 +145,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/dyn_sim" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\k2a_base_script.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/k2a_base_script.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -155,7 +158,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="plot_eigs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -163,11 +166,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/modal_analysis" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/modal_analysis/plot_eigs.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -178,11 +181,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.hht" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.damping_analysis" />
-        <item itemvalue="Python.ClassTest" />
+        <item itemvalue="Python.DampingAnalysis" />
+        <item itemvalue="Python.HHT" />
         <item itemvalue="Python.k2a_base_script" />
+        <item itemvalue="Python.N44_base_script" />
+        <item itemvalue="Python.plot_eigs" />
       </list>
     </recent_temporary>
   </component>
@@ -279,7 +282,13 @@
       <option name="presentableId" value="LOCAL−00014" />
       <updated>1699901335500</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL−00015" summary="Made object-oriented">
+      <created>1700163265463</created>
+      <option name="number" value="LOCAL−00015" />
+      <option name="presentableId" value="LOCAL−00015" />
+      <updated>1700163265464</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -305,7 +314,8 @@
     <MESSAGE value="Added sampling frequency handling" />
     <MESSAGE value="Added frequency spike removal and moving average for frequency curve" />
     <MESSAGE value="Added automatic signal splitting at abrupt frequency changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added automatic signal splitting at abrupt frequency changes" />
+    <MESSAGE value="Made object-oriented" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made object-oriented" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -319,11 +329,6 @@
           <url>file://$PROJECT_DIR$/test.py</url>
           <line>25</line>
           <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>13</line>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

@@ -7,8 +7,10 @@ import sys
 import dynpssimpy.dynamic as dps
 import dynpssimpy.solvers as dps_sol
 import importlib
-from emd import emd, plot_emd_results
-from hht import calc_hilbert_spectrum, hht, plot_hilbert_spectrum
+from AnalysisSettings import AnalysisSettings
+from EMD import EMD
+from HHT import HHT, moving_average
+from DampingAnalysis import DampingAnalysis
 importlib.reload(dps)
 
 
@@ -158,12 +160,25 @@ if __name__ == '__main__':
     #plt.xlabel('time (s)')
     #plt.ylabel('E_q (p.u.)')
 
-    V1_new = [V1_stored[i*4] for i in range(300, len(V1_stored)//4)]
+    V1_new = [V1_stored[i*4] for i in range(len(V1_stored)//4)]
+    V1_new = moving_average(V1_new, 3)
+    #np.save("k2a_with_controls.npy", V1_new)
 
-    imf_list, res = emd(V1_new, max_imfs=4, remove_padding=True, mirror_padding_fraction=1)
-    plot_emd_results(V1_new, imf_list, res, 50, show=False)
 
-    hilbert_spec, freqAxis = hht(V1_new, print_emd_time=True, print_hht_time=True, print_emd_sifting_details=True, mirror_padding_fraction=1, freq_resolution=.01)
-    plot_hilbert_spectrum(hilbert_spec, freqAxis, 50, show=False)
+
+    settings1 = AnalysisSettings(remove_padding_after_emd=True)
+
+    emd1 = EMD(V1_new, settings1)
+    emd1.perform_emd()
+    emd1.plot_emd_results(show=False)
+
+    settings = AnalysisSettings(max_imfs=3)
+
+    hht = HHT(V1_new, settings)
+    hht.full_hht()
+    hht.plot_hilbert_spectrum(show=False)
+
+    damp = DampingAnalysis(V1_new, settings)
+    damp.damping_analysis()
 
     plt.show()

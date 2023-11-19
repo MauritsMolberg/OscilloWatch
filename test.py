@@ -5,28 +5,18 @@ from scipy.interpolate import CubicSpline
 from scipy.signal import stft, find_peaks
 
 
-class Test:
-    def __init__(self, a=3):
-        self.a = a
-
 if __name__ == "__main__":
-    t = Test()
-    print("g")
+    # Example arrays
+    array1 = np.array([1, 3, 5, 7])
+    array2 = np.array([2, 4, 6, 8])
+
+    # Combine arrays and keep the maximum values
+    result = np.maximum(array1, array2)
+
+    print(result)
+
 """
-    start = 0
-    stop = 5
-    fs = 50
-    tAxis = np.arange(start, stop, 1/fs)
-    def f(t):
-        return 5*np.exp(.1*t)
-
-    freqAxis = np.linspace(0, 4, 200)
-    hilbert_spectrum = np.empty((len(freqAxis), len(tAxis)))
-    hilbert_spectrum[:] = np.nan
-    a = f(tAxis)
-    hilbert_spectrum[149] = f(tAxis)
-
-    plot_hilbert_spectrum(hilbert_spectrum, freqAxis, fs)
+    
 
     fs = 50
     nperseg = 100

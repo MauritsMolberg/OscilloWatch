@@ -9,9 +9,10 @@ import dynpssimpy.solvers as dps_sol
 import importlib
 importlib.reload(dps)
 
-from emd import emd, plot_emd_results
-from hht import calc_hilbert_spectrum, hht, plot_hilbert_spectrum
-from hilbert_spectrum_stft import hilbert_spectrum_stft
+from EMD import EMD
+from HHT import HHT
+from AnalysisSettings import AnalysisSettings
+from DampingAnalysis import DampingAnalysis
 
 
 if __name__ == '__main__':
@@ -139,9 +140,9 @@ if __name__ == '__main__':
     ax[1].set_ylabel('Angle (rad.)')
     ax[2].plot(result[('Global', 't')], np.array(P_e_stored))
     ax[2].set_ylabel('Active power (p.u.)')
-    ax[3].plot(result[('Global', 't')], np.array(Q_e_stored))
-    ax[3].set_ylabel('Reactive power (p.u.)')
     ax[3].set_xlabel('time (s)')
+    ax[3].plot(result[('Global', 't')], result.xs(key='speed', axis='columns', level=1))
+    ax[3].set_ylabel('Speed (p.u.)')
 
 
     plt.figure()
@@ -162,9 +163,20 @@ if __name__ == '__main__':
     #plt.xlabel('time (s)')
     #plt.ylabel('E_q (p.u.)')
 
-    imf_list, res = emd(V1_stored, max_imfs=4, remove_padding=True, print_sifting_details=True)
-    plot_emd_results(V1_stored, imf_list, res, 50, show=False,)
-    hilbert_spec, omegaAxis = hht([V1_stored[i*4] for i in range(len(V1_stored)//4)], print_emd_time=True, print_hht_time=True, print_emd_sifting_details=True, freq_resolution=1/250)
-    plot_hilbert_spectrum(hilbert_spec, omegaAxis, 50, show=False)
+    V1_new = [V1_stored[i*4] for i in range(len(V1_stored)//4)]
 
+    settings1 = AnalysisSettings(remove_padding_after_emd=True)
+
+    emd1 = EMD(V1_new, settings1)
+    emd1.perform_emd()
+    emd1.plot_emd_results(show=False)
+
+    settings = AnalysisSettings()
+
+    hht = HHT(V1_new, settings)
+    hht.full_hht()
+    hht.plot_hilbert_spectrum(show=False)
+
+    damp = DampingAnalysis(V1_new, settings)
+    damp.damping_analysis()
     plt.show()

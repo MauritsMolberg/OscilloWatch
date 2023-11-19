@@ -2,6 +2,7 @@ class AnalysisSettings:
 
     def __init__(self,
                  fs=50,
+                 noise_reduction_moving_avg_window = 1,
 
                  emd_sd_tolerance=0.2,
                  max_imfs=10,
@@ -22,9 +23,17 @@ class AnalysisSettings:
                  hht_frequency_moving_avg_window=21,
                  hht_split_signal_freq_change_toggle=True,
                  hht_split_signal_freq_change_threshold=0.5,
-                 hht_split_signal_freq_change_nperseg=100):
+                 hht_split_signal_freq_change_nperseg=100,
+
+                 minimum_non_zero_fraction=0.2,
+                 minimum_consecutive_non_zero_length=5,
+                 minimum_non_zero_improvement=4,
+                 max_freq_band_width=1.5
+                 ):
 
         self.fs = fs
+        self.noise_reduction_moving_avg_window = noise_reduction_moving_avg_window
+
         self.emd_sd_tolerance = emd_sd_tolerance
         self.max_imfs = max_imfs
         self.max_emd_sifting_iterations = max_emd_sifting_iterations
@@ -46,4 +55,7 @@ class AnalysisSettings:
         self.hht_split_signal_freq_change_threshold = hht_split_signal_freq_change_threshold
         self.hht_split_signal_freq_change_nperseg = hht_split_signal_freq_change_nperseg
 
-
+        self.minimum_non_zero_fraction = minimum_non_zero_fraction
+        self.minimum_consecutive_non_zero_length = minimum_consecutive_non_zero_length
+        self.minimum_non_zero_improvement = minimum_non_zero_improvement
+        self.max_freq_band_width = max_freq_band_width

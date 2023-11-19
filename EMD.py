@@ -8,10 +8,10 @@ from AnalysisSettings import AnalysisSettings
 
 
 
-class EmpiricalModeDecomposition:
-    def __init__(self, signal, settings:AnalysisSettings):
+class EMD:
+    def __init__(self, input_signal, settings: AnalysisSettings):
         self.settings = settings
-        self.signal = signal
+        self.input_signal = input_signal
 
         self.imf_list = []
         self.res = np.array([])
@@ -21,8 +21,8 @@ class EmpiricalModeDecomposition:
     def perform_emd(self):
         start_time = time()
 
-        r = np.copy(self.signal) # Updated every time an IMF is subtracted from it
-        original_length = len(self.signal)
+        r = np.copy(self.input_signal) # Updated every time an IMF is subtracted from it
+        original_length = len(self.input_signal)
 
         # Mirror padding, to handle boundary effects
         if self.settings.mirror_padding_fraction > 0: # Skip if zero or negative
@@ -77,24 +77,23 @@ class EmpiricalModeDecomposition:
         self.runtime = time() - start_time
         if self.settings.print_emd_time:
             print(f"EMD completed in {self.runtime:.3f} seconds.")
-
         return
 
     def plot_emd_results(self, show = True):
         num_imfs = len(self.imf_list)
 
         # Need different time axes for the input signal and IMFs in case the IMFs have padding that is not removed.
-        tAxis = np.linspace(0, len(self.signal)/self.settings.fs, len(self.signal))
+        tAxis = np.linspace(0, len(self.input_signal)/self.settings.fs, len(self.input_signal))
         if self.imf_list:
             tAxis_imf = np.linspace(0, len(self.imf_list[0])/self.settings.fs, len(self.imf_list[0]))
         else:
             tAxis_imf = tAxis
 
         # Create a grid of subplots for IMFs and residual
-        fig, axes = plt.subplots(num_imfs + 2, 1, figsize=(8, 2 * (num_imfs + 1)), sharex=True)
+        fig, axes = plt.subplots(num_imfs + 2, 1, figsize=(7, 2 * (num_imfs + 1)), sharex=True)
 
         # Plot the input signal
-        axes[0].plot(tAxis, self.signal, color='blue', linewidth = .7)
+        axes[0].plot(tAxis, self.input_signal, color='blue', linewidth = .7)
         axes[0].set_title('Input Signal')
 
         # Plot each IMF
