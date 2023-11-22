@@ -2,6 +2,7 @@ import numpy as np
 from scipy.optimize import curve_fit
 from scipy.interpolate import CubicSpline
 import matplotlib.pyplot as plt
+from time import time
 from methods.HHT import HHT
 from methods.EMD import EMD
 from methods.AnalysisSettings import AnalysisSettings
@@ -57,16 +58,16 @@ class SegmentAnalysis:
 
         # Find the first and last index that is not zero
         first_non_zero_index = non_zero_indices[0]
-        damping_info["start_time"] = first_non_zero_index/self.settings.fs
+        damping_info["Start time"] = first_non_zero_index/self.settings.fs
         last_non_zero_index = non_zero_indices[-1] + 1
-        damping_info["end_time"] = last_non_zero_index/self.settings.fs
+        damping_info["End time"] = last_non_zero_index/self.settings.fs
 
         # Ignore all zero values before the first and after the last non-zero value
         cropped_signal = signal[first_non_zero_index:last_non_zero_index]
 
         # Recalculate non_zero_indices based on the cropped signal
         non_zero_indices = np.nonzero(cropped_signal)[0]
-        damping_info["interpolated_fraction"] = 1 - len(non_zero_indices)/len(cropped_signal)
+        damping_info["Interpolated fraction"] = 1 - len(non_zero_indices)/len(cropped_signal)
 
         # Get the corresponding non-zero values and their indices
         non_zero_values = [cropped_signal[i] for i in non_zero_indices]
@@ -118,18 +119,19 @@ class SegmentAnalysis:
         """
         non_zero_fraction = np.count_nonzero(amp_curve)/len(amp_curve)
         damping_info = {
-            "frequency_range": (self.hht.freq_axis[n], self.hht.freq_axis[n+k]),
-            "start_time": 0.0,  # Start and end time are set in the interpolate_signal function
-            "end_time": 0.0,
-            "non_zero_fraction": non_zero_fraction,
-            "initial_amplitude": 0.0,
-            "final_amplitude": 0.0,
-            "initial_amplitude_estimate": 0.0,
-            "decay_rate": 0.0,
-            "damping_ratio": 0.0,
-            "interpolated_fraction": 0.0,
-            "coefficient_of_variation": 0.0,
-            "note": ""
+            "Freq. band start": self.hht.freq_axis[n],
+            "Freq. band stop": self.hht.freq_axis[n+k],
+            "Start time": 0.0,  # Start and end time are set in the interpolate_signal function
+            "End time": 0.0,
+            "Non zero fraction": non_zero_fraction,
+            "Initial amplitude": 0.0,
+            "Final amplitude": 0.0,
+            "Initial amplitude estimate": 0.0,
+            "Decay rate": 0.0,
+            "Damping ratio": 0.0,
+            "Interpolated fraction": 0.0,
+            "Coefficient of variation": 0.0,
+            "Note": ""
         }
         interp_amp_curve = self.interpolate_signal(amp_curve, damping_info)
 
@@ -144,18 +146,17 @@ class SegmentAnalysis:
             return
         A, decay_rate = popt[0], popt[1]
 
-        damping_info["initial_amplitude"] = interp_amp_curve[0]
-        damping_info["final_amplitude"] = interp_amp_curve[-1]
-        damping_info["initial_amplitude_estimate"] = A
+        damping_info["Initial amplitude"] = interp_amp_curve[0]
+        damping_info["Final amplitude"] = interp_amp_curve[-1]
+        damping_info["Initial amplitude estimate"] = A
         row_ind = n + int((k+1)//2)
-        damping_info["decay_rate"] = decay_rate
-        damping_info["damping_ratio"] = decay_rate/(np.sqrt(decay_rate**2 + (2*np.pi*self.hht.freq_axis[row_ind])**2))
-        damping_info["coefficient_of_variation"]\
+        damping_info["Decay rate"] = decay_rate
+        damping_info["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2 + (2*np.pi*self.hht.freq_axis[row_ind])**2))
+        damping_info["Coefficient of variation"]\
             = np.std(interp_amp_curve - exponential_decay_model(time_points, A, decay_rate)) / np.mean(interp_amp_curve)
-        print(damping_info, "\n")
-        fig, ax = plt.subplots()
-        ax.plot(interp_amp_curve)
-        ax.plot(exponential_decay_model(time_points, A, decay_rate))
+        #plt.figure()
+        #plt.plot(interp_amp_curve)
+        #plt.plot(exponential_decay_model(time_points, A, decay_rate))
         self.damping_info_list.append(damping_info)
         return
 
@@ -166,6 +167,7 @@ class SegmentAnalysis:
         to analyze the Hilbert spectrum.
         :return: None
         """
+        start_time = time()
         self.hht.full_hht()  # Calculate hilbert_spectrum and freq_axis
 
         n = 0
@@ -192,6 +194,10 @@ class SegmentAnalysis:
             if non_zero_count/len(self.input_signal) > self.settings.minimum_total_non_zero_fraction:
                 self.analyze_frequency_band(combined_row, n, k-1)
             n += k
+
+        self.runtime = time() - start_time
+        if self.settings.print_segment_analysis_time:
+            print(f"Segment analysis completed in {self.runtime:.3f} seconds.")
 
 def remove_short_consecutive_sequences(non_zero_indices, min_consecutive_length):
     """

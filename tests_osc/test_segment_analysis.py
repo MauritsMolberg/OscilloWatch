@@ -40,7 +40,12 @@ if __name__ == "__main__":
 
     settings.print_emd_time = True
     settings.print_hht_time = True
+    settings.print_segment_analysis_time = True
+
     damp = SegmentAnalysis(input_signal1, settings)
     damp.damping_analysis()
+
+    for i in range(len(damp.damping_info_list)):
+        print(damp.damping_info_list[i], "\n")
 
     plt.show()

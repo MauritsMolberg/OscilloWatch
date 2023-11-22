@@ -1,102 +1,26 @@
-import matplotlib.pyplot as plt
-import numpy as np
-from scipy.optimize import curve_fit
-from scipy.interpolate import CubicSpline
-from scipy.signal import stft, find_peaks
+import csv
 
+def write_dicts_to_csv(file_path, list_of_dicts):
+    # Extracting headers from the first dictionary in the list
+    headers = list(list_of_dicts[0].keys())
 
-if __name__ == "__main__":
+    with open(file_path, 'w', newline='') as csv_file:
+        # Creating a CSV writer object with semicolon as the delimiter
+        csv_writer = csv.writer(csv_file, delimiter=';')
 
-    
-    fs = 50
-    nperseg = 100
+        # Writing the headers to the CSV file
+        csv_writer.writerow(headers)
 
-    time1 = np.arange(0, 4, 1/fs)  # 4 seconds
-    signal1 = np.sin(2 * np.pi * 5 * time1)
-
-    time2 = np.arange(4, 10, 1/fs)  # 6 seconds
-    signal2 = np.sin(2 * np.pi * 4 * time2)
-
-    # Concatenate the two signals
-    joined_signal = np.concatenate([signal1, signal2])
-
-    print(type(signal2))
-
-
-
-"""
-    f,t,Zxx = stft(joined_signal, fs=fs, nperseg=nperseg)
-
-    plt.pcolormesh(t, f, np.abs(Zxx), shading='gouraud')
-    plt.title('STFT Magnitude')
-    plt.ylabel('Frequency [Hz]')
-    plt.xlabel('Time [sec]')
-
-    parts = split_signal_freq_change(joined_signal, fs=fs, nperseg=nperseg)
-
-
-    plt.show()
-
-def interpolate_signal(input_signal):
-    # Find the indices of non-None values
-    non_none_indices = [i for i, value in enumerate(input_signal) if value is not None]
-
-    # If there are no non-None values, return the original signal
-    if not non_none_indices:
-        return input_signal
-
-
-    # Find the first index that is not None
-    first_non_none_index = non_none_indices[0]
-
-    # Ignore all None values before the first non-None value
-    cropped_signal = input_signal[first_non_none_index:]
-
-    # Recalculate non_none_indices based on the cropped signal
-    non_none_indices = [i for i, value in enumerate(cropped_signal) if value is not None]
-
-
-    # Get the corresponding non-None values and their indices
-    non_none_values = [cropped_signal[i] for i in non_none_indices]
-
-    # Create a cubic spline interpolation function
-    spline = CubicSpline(non_none_indices, non_none_values)
-
-    # Generate the new signal with interpolated values
-    new_signal = [float(spline(i)) if value is None else value for i, value in enumerate(cropped_signal)]
-
-    return new_signal
-
+        # Writing the values for each dictionary in the list
+        for data_dict in list_of_dicts:
+            # Writing each value separately
+            csv_writer.writerow([data_dict[header] for header in headers])
 
 # Example usage:
-input_signal = [None, None, 2, 4, None, None, None, 64, None, None, 512]
-output_signal = interpolate_signal(input_signal)
-print(output_signal)
+data = [
+    {'Name': 'John', 'Age': 30, 'City': 'New York'},
+    {'Name': 'Alice', 'Age': 25, 'City': 'San Francisco'},
+    {'Name': 'Bob', 'Age': 35, 'City': 'Los Angeles'}
+]
 
-plt.figure()
-plt.plot([2,4,8,16,32,64,128,256,512])
-plt.plot(output_signal)
-plt.show()
-
-
-
-
-# Damped sinusoidal model function
-def damped_sinusoidal_model(t, A, omega, zeta, phi):
-    return A * np.exp(-zeta * omega * t) * np.sin(omega * t + phi)
-
-# Sample data for irregularly sampled time axis
-time_points = np.linspace(0, 10, num=100)
-amplitude = 2.0 * np.exp(-0.3 * time_points) * np.sin(2 * np.pi * 0.5 * time_points)
-
-# Fit the model using np.linspace
-popt_linspace, _ = curve_fit(damped_sinusoidal_model, time_points, amplitude)
-
-# Fit the model using np.arange (assuming regularly sampled data)
-popt_arange, _ = curve_fit(damped_sinusoidal_model, np.arange(len(amplitude)), amplitude)
-
-print("Fitted Parameters using np.linspace:", popt_linspace)
-print("Fitted Parameters using np.arange:", popt_arange)
-
-
-"""
+write_dicts_to_csv('output.csv', data)
