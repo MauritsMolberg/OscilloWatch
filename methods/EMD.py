@@ -100,36 +100,46 @@ class EMD:
             print(f"EMD completed in {self.runtime:.3f} seconds.")
         return
 
-    def plot_emd_results(self, show = True):
+    def plot_emd_results(self, show = True, include_mirror_padding = False):
         """
         Plots input signal and IMFs of EMD object. The function perform_emd() must have been run before.
 
         :param bool show: Specifies whether the plt.show() should be run at the end of the function.
         :return: None
         """
-        num_imfs = len(self.imf_list)
 
-        # Need different time axes for the input signal and IMFs in case the IMFs have padding that is not removed.
-        tAxis = np.linspace(0, len(self.input_signal)/self.settings.fs, len(self.input_signal))
-        if self.imf_list:
-            tAxis_imf = np.linspace(0, len(self.imf_list[0])/self.settings.fs, len(self.imf_list[0]))
+        if include_mirror_padding:
+            orig_signal = self.extended_signal
+            new_imf_list = self.imf_list
+            res_new = self.residual
+        elif self.settings.remove_padding_after_emd:  # Do not remove padding again if already removed
+            orig_signal = self.input_signal
+            new_imf_list = self.imf_list
+            res_new = self.residual
         else:
-            tAxis_imf = tAxis
+            orig_signal = self.input_signal
+            ext_len = int(len(self.input_signal)*self.settings.mirror_padding_fraction)
+            new_imf_list = [imf[ext_len:-ext_len] for imf in self.imf_list]
+            res_new = self.residual[ext_len:-ext_len]
+
+        tAxis = np.linspace(0, len(orig_signal)/self.settings.fs, len(orig_signal))
+
+        num_imfs = len(self.imf_list)
 
         # Create a grid of subplots for IMFs and residual
         fig, axes = plt.subplots(num_imfs + 2, 1, figsize=(7, 2 * (num_imfs + 1)), sharex=True)
 
         # Plot the input signal
-        axes[0].plot(tAxis, self.input_signal, color='blue', linewidth = .7)
+        axes[0].plot(tAxis, orig_signal, color='blue', linewidth = .7)
         axes[0].set_title('Input Signal')
 
         # Plot each IMF
-        for i, imf in enumerate(self.imf_list):
-            axes[i + 1].plot(tAxis_imf, imf, color='green', linewidth = .7)
+        for i, imf in enumerate(new_imf_list):
+            axes[i + 1].plot(tAxis, imf, color='green', linewidth = .7)
             axes[i + 1].set_title(f'IMF {i + 1}')
 
         # Plot the residual
-        axes[num_imfs+1].plot(tAxis_imf, self.residual, color='red', linewidth = .7)
+        axes[num_imfs+1].plot(tAxis, res_new, color='red', linewidth = .7)
         axes[num_imfs+1].set_title('Residual')
 
         # Set labels

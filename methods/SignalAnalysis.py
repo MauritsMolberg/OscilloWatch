@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import csv
 from methods.AnalysisSettings import AnalysisSettings
 from methods.EMD import EMD
 from methods.HHT import HHT
@@ -11,7 +12,7 @@ class SignalAnalysis:
     Class that splits an input signal into segments and performs damping analysis on each segment. Simulates how the
     analysis would be performed on a real-time data stream.
     """
-    def __init__(self, input_signal, settings: AnalysisSettings):
+    def __init__(self, input_signal, settings: AnalysisSettings, results_file_path="results.csv"):
         self.settings = settings
         self.input_signal = input_signal
 
@@ -19,6 +20,8 @@ class SignalAnalysis:
         self.split_signal()
 
         self.segment_analysis_list = []
+
+        self.results_file_path = results_file_path
 
     def split_signal(self):
         """
@@ -40,6 +43,22 @@ class SignalAnalysis:
             seg_analysis = SegmentAnalysis(segment, self.settings)
             seg_analysis.damping_analysis()
             self.segment_analysis_list.append(seg_analysis)
+
+    def write_results_to_file(self):
+        # Extracting headers from the first dictionary in the list
+        headers = list(self.segment_analysis_list[0].damping_info_list[0].keys())
+
+        with open(self.results_file_path, 'w', newline='') as csv_file:
+            # Creating a CSV writer object with semicolon as the delimiter
+            csv_writer = csv.writer(csv_file, delimiter=';')
+
+            # Writing the headers to the CSV file
+            csv_writer.writerow(headers)
+
+            # Writing the values for each dictionary in the list
+            for data_dict in list_of_dicts:
+                # Writing each value separately
+                csv_writer.writerow([data_dict[header] for header in headers])
 
 
 if __name__ == "__main__":

@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Reorganized, added documentation for functions">
-      <change afterPath="$PROJECT_DIR$/methods/SignalAnalysis.py" afterDir="false" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Signal Analysis started">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClassTest.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClassTest2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hilbert_spectrum_stft.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/hilbert_spectrum_stft.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/segment_analysis.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/EMD.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/EMD.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SignalAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests_osc/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +66,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.SignalAnalysis">
+  <component name="RunManager" selected="Python.test_segment_analysis">
     <configuration name="SegmentAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -180,9 +174,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.SignalAnalysis" />
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.test_segment_analysis" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.SignalAnalysis" />
         <item itemvalue="Python.SegmentAnalysis" />
         <item itemvalue="Python.test_hht" />
       </list>
@@ -299,7 +293,13 @@
       <option name="presentableId" value="LOCAL−00017" />
       <updated>1700655801803</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL−00018" summary="Signal Analysis started">
+      <created>1700674185728</created>
+      <option name="number" value="LOCAL−00018" />
+      <option name="presentableId" value="LOCAL−00018" />
+      <updated>1700674185729</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -328,15 +328,16 @@
     <MESSAGE value="Made object-oriented" />
     <MESSAGE value="Added damping analysis" />
     <MESSAGE value="Reorganized, added documentation for functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reorganized, added documentation for functions" />
+    <MESSAGE value="Signal Analysis started" />
+    <option name="LAST_COMMIT_MESSAGE" value="Signal Analysis started" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/methods/SignalAnalysis.py</url>
-          <line>68</line>
-          <option name="timeStamp" value="50" />
+          <url>file://$PROJECT_DIR$/methods/EMD.py</url>
+          <line>127</line>
+          <option name="timeStamp" value="51" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
