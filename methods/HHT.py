@@ -2,18 +2,29 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import hilbert, stft, find_peaks
 from time import time
-from AnalysisSettings import AnalysisSettings
-from EMD import EMD
+from methods.AnalysisSettings import AnalysisSettings
+from methods.EMD import EMD
 
 
 class HHT:
+    """
+    Class for performing the Hilbert Huang Transform on a signal segment.
+    """
 
     def __init__(self, input_signal, settings: AnalysisSettings):
+        """
+        Constructor for HHT class. Initializes variables, but does not perform the actual HHT algorithm.
+
+        :param input_signal: Signal to be decomposed.
+        :type input_signal: numpy.ndarray or list
+        :param settings: Object containing the settings for the HHT algorithm, and the other methods that will be used
+            in the signal analysis
+        :type settings: AnalysisSettings
+        """
         self.settings = settings
         self.input_signal = input_signal
 
         self.emd = EMD(self.input_signal, self.settings)
-        self.emd.perform_emd()  # Calculate imf_list and res
 
         self.samples_to_remove_start = 0
         self.samples_to_remove_end = 0
@@ -26,6 +37,14 @@ class HHT:
         self.runtime = 0
 
     def calc_hilbert_spectrum(self, signal_list):
+        """
+        Calculates the Hilbert spectrum on a signal or list of signals. Updates the hilbert_spectrum and freq_axis
+        variables of the HHT object.
+
+        :param signal_list: Either a list of signals or a single signal, which the Hilbert spectrum is to be calculated
+            for.
+        :return: None
+        """
         if self.settings.hht_frequency_resolution == "auto":
             self.settings.hht_frequency_resolution = 1/self.settings.fs
 
@@ -117,7 +136,15 @@ class HHT:
 
 
     def full_hht(self):
+        """
+        Performs the HHT algorithm on the HHT object's input signal. Performs EMD to find IMFs, then calculates the
+        Hilbert spectrum on the list of IMFs using calc_hilbert_spectrum().
+
+        :return: None
+        """
         start_time = time()
+
+        self.emd.perform_emd()  # Calculate imf_list and res
 
         # Use residual if no IMFs were found
         if not self.emd.imf_list:
@@ -125,8 +152,11 @@ class HHT:
 
         # Calculate how much to remove after Hilbert transform in Hilbert Spectrum calculation:
         if self.settings.remove_padding_after_hht and not self.settings.remove_padding_after_emd:
-            self.samples_to_remove_start = int(self.settings.mirror_padding_fraction*len(self.input_signal))
-            self.samples_to_remove_end = self.samples_to_remove_start
+            mirror_fraction_removal = int(self.settings.mirror_padding_fraction*len(self.input_signal))
+            self.samples_to_remove_start = mirror_fraction_removal\
+                                           + self.settings.extra_padding_time_start * self.settings.fs
+            self.samples_to_remove_end = mirror_fraction_removal\
+                                         + self.settings.extra_padding_time_start * self.settings.fs
         # Else: Both kept at 0
 
         self.calc_hilbert_spectrum(self.emd.imf_list)  # Calculate hilbert_spectrum and freq_axis
@@ -137,13 +167,18 @@ class HHT:
         return
 
     def plot_hilbert_spectrum(self, show = True):
+        """
+        Plots the HHT object's Hilbert spectrum as a heatmap.
+
+        :param bool show: Specifies whether the plt.show() should be run at the end of the function.
+        :return: None
+        """
         spec_copy = np.copy(self.hilbert_spectrum)
         # Set zeros to None (for clearer plot)
         for i in range(len(spec_copy)):
             for j in range(len(spec_copy[0])):
                 if not spec_copy[i][j]:
                     spec_copy[i][j] = None
-
         xAxis = np.linspace(0, len(spec_copy[0])/self.settings.fs, len(spec_copy[0]))
         xAxis_mesh, freq_axis_mesh = np.meshgrid(xAxis, self.freq_axis)
         fig, ax = plt.subplots(figsize=(12, 7))
@@ -158,6 +193,17 @@ class HHT:
 
 
 def moving_average(signal, window_size=5):
+    """
+    Smooths out the signal using a moving average filter.
+
+    :param signal: Signal to be smoothed out.
+    :type signal: numpy.ndarray or list
+    :param window_size: Size of the moving window.
+    :type signal: int
+    :return: Smoothed signal.
+    :rtype: numpy.ndarray or list
+    :raises ValueError: If the window size is an even number.
+    """
     if window_size % 2 == 0:
         raise ValueError("Window size must be an odd number.")
 
@@ -173,6 +219,19 @@ def moving_average(signal, window_size=5):
 
 
 def remove_spikes(signal, spike_threshold=7.0, max_spike_duration=5):
+    """
+    Removes all spikes that exceed a threshold and last for a short enough amount of time, and uses linear interpolation
+    to fill them in. Intended for instantaneous frequency curves, which usually have periodic large spikes due to the
+    nature of the Hilbert transform.
+
+    :param signal: Signal to have its spikes removed.
+    :type signal: numpy.ndarray or list
+    :param spike_threshold: The threshold for the value the spike must exceed to be removed.
+    :type spike_threshold: float
+    :param max_spike_duration: The maximum duration the spike can last for to be removed.
+    :return: Signal with spikes removed and filled in
+    :rtype: numpy.ndarray or list
+    """
     cleaned_signal = np.copy(signal)
 
     # Detect spikes (values exceeding the threshold)
@@ -195,6 +254,26 @@ def remove_spikes(signal, spike_threshold=7.0, max_spike_duration=5):
 
 
 def split_signal_freq_change(signal, threshold = 0.5, fs=50, nperseg=256):
+    """
+    Performs STFT on the signal, finds the dominant frequency and its derivative to estimate where the dominant
+    frequency changes abruptly. Splits the signal in these places and returns a list containing each of the portions of
+    the original signal. Intended to be used on IMFs, to ensure a well-behaving Hilbert transform on most of the IMF,
+    even if it abruptly changes frequency.
+
+    :param signal: Signal to be split at abrupt frequency changes.
+    :type signal: numpy.ndarray or list
+    :param threshold: The value the peak in derivative of dominant must exceed for the function to split the signal.
+    :type threshold: float
+    :param fs: Sampling frequency. Number of samples per second. Used to give accurate frequencies.
+    :type fs: int
+    :param nperseg: Number of samples in each segment of the STFT. Higher means better frequency resolution (and thereby
+        more accurate dominant frequency, making it easier to set a universial threshold), at the cost of worse time
+        resolution, making the location of the abrupt frequency changes less accurate.
+    :type nperseg: int
+
+    :return: List of signal portions, split where the dominant frequency changes abruptly.
+    :rtype: list
+    """
     split_signal = []
 
     f, t, Zxx = stft(signal, fs=fs, nperseg=nperseg)
@@ -215,44 +294,3 @@ def split_signal_freq_change(signal, threshold = 0.5, fs=50, nperseg=256):
     split_signal.append(remaining)
 
     return split_signal
-    
-    
-if __name__ == "__main__":
-    np.random.seed(0)
-
-    def f(t):
-        #return 6*np.exp(.2*t)*np.cos(3*np.pi*t) + 15*np.exp(-.1*t)*np.cos(np.pi*t)
-        return (10*np.exp(.2*t)*np.cos(2.4*np.pi*t)
-                + 8*np.exp(-.1*t)*np.cos(np.pi*t)
-                + 3*np.exp(.3*t)*np.cos(5*np.pi*t)
-                + 20*np.exp(-.2*t)*np.cos(10*np.pi*t))
-
-    def g(t):
-        return 4*np.exp(.2*t)*np.cos(3*np.pi*t)
-
-
-    settings1 = AnalysisSettings(remove_padding_after_emd=True, noise_reduction_moving_avg_window=5)
-    start = 0
-    end = 10
-    fs = 50
-    t = np.arange(start, end, 1/fs)
-    input_signal1 = f(t) + np.random.normal(0, 5, (end-start)*fs)
-    # Random (reproducable) signal
-    input_signal2 = np.random.randn(500)
-
-    input_signal1 = moving_average(input_signal1, settings1.noise_reduction_moving_avg_window)
-
-
-
-    emd1 = EMD(input_signal1, settings1)
-    emd1.perform_emd()
-    emd1.plot_emd_results(show=False)
-
-
-    settings = AnalysisSettings()
-
-    hht = HHT(input_signal1, settings)
-    hht.full_hht()
-    hht.plot_hilbert_spectrum(show=False)
-
-    plt.show()

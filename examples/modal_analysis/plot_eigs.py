@@ -25,9 +25,9 @@ if __name__ == '__main__':
     mode_shape = rev[np.ix_(ps.gen['GEN'].state_idx_global['speed'], mode_idx)]
 
     # Plot mode shape
-    #fig, ax = plt.subplots(1, mode_shape.shape[1], subplot_kw={'projection': 'polar'})
-    #for ax_, ms in zip(ax, mode_shape.T):
-    #    dps_plt.plot_mode_shape(ms, ax=ax_, normalize=True)
+    fig, ax = plt.subplots(1, mode_shape.shape[1], subplot_kw={'projection': 'polar'})
+    for ax_, ms in zip(ax, mode_shape.T):
+        dps_plt.plot_mode_shape(ms, ax=ax_, normalize=True)
 
     plt.show()
     print(' ')

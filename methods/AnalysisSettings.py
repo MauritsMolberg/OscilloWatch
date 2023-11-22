@@ -8,6 +8,8 @@ class AnalysisSettings:
                  max_imfs=10,
                  max_emd_sifting_iterations=30,
                  mirror_padding_fraction=1,
+                 extra_padding_time_start=0,
+                 extra_padding_time_end=0,
                  print_emd_sifting_details=False,
                  print_emd_time=False,
                  print_hht_time=False,
@@ -25,10 +27,9 @@ class AnalysisSettings:
                  hht_split_signal_freq_change_threshold=0.5,
                  hht_split_signal_freq_change_nperseg=100,
 
-                 minimum_non_zero_fraction=0.2,
+                 minimum_total_non_zero_fraction=0.2,
                  minimum_consecutive_non_zero_length=5,
                  minimum_non_zero_improvement=4,
-                 max_freq_band_width=1.5
                  ):
 
         self.fs = fs
@@ -38,6 +39,8 @@ class AnalysisSettings:
         self.max_imfs = max_imfs
         self.max_emd_sifting_iterations = max_emd_sifting_iterations
         self.mirror_padding_fraction = mirror_padding_fraction
+        self.extra_padding_time_start = extra_padding_time_start
+        self.extra_padding_time_end = extra_padding_time_end
         self.print_emd_sifting_details = print_emd_sifting_details
         self.print_emd_time = print_emd_time
         self.print_hht_time = print_hht_time
@@ -55,7 +58,6 @@ class AnalysisSettings:
         self.hht_split_signal_freq_change_threshold = hht_split_signal_freq_change_threshold
         self.hht_split_signal_freq_change_nperseg = hht_split_signal_freq_change_nperseg
 
-        self.minimum_non_zero_fraction = minimum_non_zero_fraction
+        self.minimum_total_non_zero_fraction = minimum_total_non_zero_fraction
         self.minimum_consecutive_non_zero_length = minimum_consecutive_non_zero_length
         self.minimum_non_zero_improvement = minimum_non_zero_improvement
-        self.max_freq_band_width = max_freq_band_width

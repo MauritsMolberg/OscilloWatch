@@ -3,22 +3,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import time
-import sys
 import dynpssimpy.dynamic as dps
 import dynpssimpy.solvers as dps_sol
 import importlib
+from methods.AnalysisSettings import AnalysisSettings
+from methods.EMD import EMD
+from methods.HHT import HHT
+from methods.SegmentAnalysis import SegmentAnalysis
 importlib.reload(dps)
 
-from EMD import EMD
-from HHT import HHT
-from AnalysisSettings import AnalysisSettings
-from DampingAnalysis import DampingAnalysis
 
 
 if __name__ == '__main__':
 
-    # Load model
-    import dynpssimpy.ps_models.n44_no_controls as model_data
+    import dynpssimpy.ps_models.k2a_no_controls as model_data
     model = model_data.load()
 
     # Power system model
@@ -28,10 +26,11 @@ if __name__ == '__main__':
     ps.power_flow()
     # Initialization
     ps.init_dyn_sim()
-    #    np.max(ps.ode_fun(0.0, ps.x0))
+    #
+    np.max(ps.ode_fun(0.0, ps.x0))
     # Specify simulation time
     #
-    t_end = 32
+    t_end = 20
     x0 = ps.x0.copy()
     # Add small perturbation to initial angle of first generator
     # x0[ps.gen_mdls['GEN'].state_idx['angle'][0]] += 1
@@ -56,28 +55,26 @@ if __name__ == '__main__':
     t_0 = time.time()
     # ps.build_y_bus_red(ps.buses['name'])
     ps.build_y_bus(['B8'])
-    #print('Ybus_full = ', ps.y_bus_red_full)
-    #print('Ybus_red = ', ps.y_bus_red)
+    print('Ybus_full = ', ps.y_bus_red_full)
+    print('Ybus_red = ', ps.y_bus_red)
 
     v_bus_mag = np.abs(ps.v_0)
     v_bus_angle = ps.v_0.imag / v_bus_mag
     #
-    #print(' ')
-    #print('Voltage magnitudes (p.u) = ', v_bus_mag)
-    #print(' ')
-    #print('Voltage angles     (rad) = ', v_bus_angle)
-    #print(' ')
-    #print('Voltage magnitudes  (kV) = ', v_bus_mag*[20, 20, 20, 20, 230, 230, 230, 230, 230, 230, 230])
-    #print(' ')
+    print(' ')
+    print('Voltage magnitudes (p.u) = ', v_bus_mag)
+    print(' ')
+    print('Voltage angles     (rad) = ', v_bus_angle)
+    print(' ')
+    print('Voltage magnitudes  (kV) = ', v_bus_mag*[20, 20, 20, 20, 230, 230, 230, 230, 230, 230, 230])
+    print(' ')
     # print(ps.v_n)
-    #print('v_vector = ', ps.v_0)
-    #print(' ')
-    # print('Forskjell på red og full Ybus = ',ps.y_bus_red_full - ps.y_bus_red)
-    #
-    #print('state description: ', ps.state_desc)
-    #print('Initial values on all state variables (G1 and IB) :')
-    #print(x0)
-    #print(' ')
+    print('v_vector = ', ps.v_0)
+    print(' ')
+    print('state description: ', ps.state_desc)
+    print('Initial values on all state variables (G1 and IB) :')
+    print(x0)
+    print(' ')
 
 
     # Run simulation
@@ -85,13 +82,13 @@ if __name__ == '__main__':
         # print(t)
         #v_bus_full = ps.red_to_full.dot(ps.v_red)
         # Simulate short circuit
-        if 1 < t < 1.05:
-            ps.y_bus_red_mod[30, 30] = 10000
+        if 5 < t < 5.1:
+            ps.y_bus_red_mod[7, 7] = 10000
         else:
-            ps.y_bus_red_mod[30, 30] = 0
+            ps.y_bus_red_mod[7, 7] = 0
         # simulate a load change
         #if 2 < t < 4:
-        #    ps.y_bus_red_mod[2, 2] = 0.05
+        #    ps.y_bus_red_mod[2, 2] = 0.1
         #else:
         #    ps.y_bus_red_mod[2, 2] = 0
         # Simulate next step
@@ -113,7 +110,6 @@ if __name__ == '__main__':
         V4_stored.append(abs(v[3]))
         I_stored.append(np.abs(Igen))
 
-
     #print("Q_e:", [round(num/900, 4) for num in Q_e_stored[0]] , [round(num/900, 4) for num in Q_e_stored[-1]] )
     #print("V1:", round(V1_stored[0], 4), round(V1_stored[-1], 4))
     #print("V2:", round(V2_stored[0], 4), round(V2_stored[-1], 4))
@@ -127,22 +123,22 @@ if __name__ == '__main__':
     result = pd.DataFrame(result_dict, columns=index)
 
     # Plot angle and speed
-    fig, ax = plt.subplots(4)
+    fig, ax = plt.subplots(5)
     #fig.suptitle('Generator speed, angle and electric power')
-    #ax[0].plot(result[('Global', 't')], result.xs(key='speed', axis='columns', level=1))
-    #ax[0].set_ylabel('Speed (p.u.)')
-    ax[0].plot(result[('Global', 't')], np.array(V1_stored))
-    ax[0].plot(result[('Global', 't')], np.array(V2_stored))
-    ax[0].plot(result[('Global', 't')], np.array(V3_stored))
-    ax[0].plot(result[('Global', 't')], np.array(V4_stored))
-    ax[0].set_ylabel("Terminal voltage (p.u.)")
-    ax[1].plot(result[('Global', 't')], result.xs(key='angle', axis='columns', level=1))
-    ax[1].set_ylabel('Angle (rad.)')
-    ax[2].plot(result[('Global', 't')], np.array(P_e_stored))
-    ax[2].set_ylabel('Active power (p.u.)')
-    ax[3].set_xlabel('time (s)')
-    ax[3].plot(result[('Global', 't')], result.xs(key='speed', axis='columns', level=1))
-    ax[3].set_ylabel('Speed (p.u.)')
+    ax[0].plot(result[('Global', 't')], result.xs(key='speed', axis='columns', level=1))
+    ax[0].set_ylabel('Speed (p.u.)')
+    ax[1].plot(result[('Global', 't')], np.array(V1_stored))
+    ax[1].plot(result[('Global', 't')], np.array(V2_stored))
+    ax[1].plot(result[('Global', 't')], np.array(V3_stored))
+    ax[1].plot(result[('Global', 't')], np.array(V4_stored))
+    ax[1].set_ylabel("Terminal voltage (p.u.)")
+    ax[2].plot(result[('Global', 't')], result.xs(key='angle', axis='columns', level=1))
+    ax[2].set_ylabel('Angle (rad.)')
+    ax[3].plot(result[('Global', 't')], np.array(P_e_stored)/[900, 900, 900, 900])
+    ax[3].set_ylabel('Active power (p.u.)')
+    ax[4].plot(result[('Global', 't')], np.array(Q_e_stored)/[900, 900, 900, 900])
+    ax[4].set_ylabel('Reactive power (p.u.)')
+    ax[4].set_xlabel('time (s)')
 
 
     plt.figure()
@@ -164,6 +160,10 @@ if __name__ == '__main__':
     #plt.ylabel('E_q (p.u.)')
 
     V1_new = [V1_stored[i*4] for i in range(len(V1_stored)//4)]
+    #V1_new = moving_average(V1_new, 3)
+    #np.save("k2a_with_controls.npy", V1_new)
+
+
 
     settings1 = AnalysisSettings(remove_padding_after_emd=True)
 
@@ -171,12 +171,13 @@ if __name__ == '__main__':
     emd1.perform_emd()
     emd1.plot_emd_results(show=False)
 
-    settings = AnalysisSettings()
+    settings = AnalysisSettings(max_imfs=3)
 
     hht = HHT(V1_new, settings)
     hht.full_hht()
     hht.plot_hilbert_spectrum(show=False)
 
-    damp = DampingAnalysis(V1_new, settings)
+    damp = SegmentAnalysis(V1_new, settings)
     damp.damping_analysis()
+
     plt.show()

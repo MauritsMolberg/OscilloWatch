@@ -6,18 +6,8 @@ from scipy.signal import stft, find_peaks
 
 
 if __name__ == "__main__":
-    # Example arrays
-    array1 = np.array([1, 3, 5, 7])
-    array2 = np.array([2, 4, 6, 8])
 
-    # Combine arrays and keep the maximum values
-    result = np.maximum(array1, array2)
-
-    print(result)
-
-"""
     
-
     fs = 50
     nperseg = 100
 
@@ -30,9 +20,11 @@ if __name__ == "__main__":
     # Concatenate the two signals
     joined_signal = np.concatenate([signal1, signal2])
 
+    print(type(signal2))
 
 
 
+"""
     f,t,Zxx = stft(joined_signal, fs=fs, nperseg=nperseg)
 
     plt.pcolormesh(t, f, np.abs(Zxx), shading='gouraud')

@@ -3,22 +3,42 @@ from scipy.interpolate import CubicSpline
 import matplotlib.pyplot as plt
 import numpy as np
 from time import time
-from AnalysisSettings import AnalysisSettings
+from methods.AnalysisSettings import AnalysisSettings
 
 
 
 
 class EMD:
+    """
+    Class for performing Empirical Mode Decomposition on a signal segment.
+    """
+
     def __init__(self, input_signal, settings: AnalysisSettings):
+        """
+        Constructor for EMD class. Initializes variables, but does not perform the actual EMD algorithm.
+
+        :param input_signal: Signal to be decomposed.
+        :type input_signal: numpy.ndarray or list
+        :param settings: Object containing the settings for the EMD algorithm, and the other methods that will be used
+            in the signal analysis
+        :type settings: AnalysisSettings
+        """
         self.settings = settings
         self.input_signal = input_signal
+        self.extended_signal = np.array([])
 
         self.imf_list = []
-        self.res = np.array([])
+        self.residual = np.array([])
 
         self.runtime = 0
 
     def perform_emd(self):
+        """
+        Performs the EMD algorithm on the input signal of the EMD object. Updates object's imf_list and residual
+        variables.
+
+        :return: None
+        """
         start_time = time()
 
         r = np.copy(self.input_signal) # Updated every time an IMF is subtracted from it
@@ -30,7 +50,8 @@ class EMD:
 
             mirrored_fraction_start = r[:num_samples_to_mirror][::-1]
             mirrored_fraction_end = r[-num_samples_to_mirror:][::-1]
-            r = np.concatenate((mirrored_fraction_start, r, mirrored_fraction_end))
+            self.extended_signal = np.concatenate((mirrored_fraction_start, r, mirrored_fraction_end))
+            r = np.copy(self.extended_signal)
 
         # Set to True if no more IMFs can be extracted, i.e. if residual has less than 4 upper and lower peaks.
         # Breaks out of both for-loops if True.
@@ -72,7 +93,7 @@ class EMD:
             self.imf_list = [imf[ext_len:-ext_len] for imf in self.imf_list]
             r = r[ext_len:-ext_len]
 
-        self.res = r
+        self.residual = r
 
         self.runtime = time() - start_time
         if self.settings.print_emd_time:
@@ -80,6 +101,12 @@ class EMD:
         return
 
     def plot_emd_results(self, show = True):
+        """
+        Plots input signal and IMFs of EMD object. The function perform_emd() must have been run before.
+
+        :param bool show: Specifies whether the plt.show() should be run at the end of the function.
+        :return: None
+        """
         num_imfs = len(self.imf_list)
 
         # Need different time axes for the input signal and IMFs in case the IMFs have padding that is not removed.
@@ -102,7 +129,7 @@ class EMD:
             axes[i + 1].set_title(f'IMF {i + 1}')
 
         # Plot the residual
-        axes[num_imfs+1].plot(tAxis_imf, self.res, color='red', linewidth = .7)
+        axes[num_imfs+1].plot(tAxis_imf, self.residual, color='red', linewidth = .7)
         axes[num_imfs+1].set_title('Residual')
 
         # Set labels
@@ -116,6 +143,18 @@ class EMD:
 
 
 def get_envelopes(signal):
+    """
+    Calculates and returns the peaks of the input signal and constructs the upper and lower envelopes using cubic spline
+    interpolation.
+
+    :param signal: Signal for which the envelopes should be calculated.
+    :type signal: numpy.ndarray or list
+
+    :return upper_envelope: Envelope interpolated using upper peaks.
+    :rtype upper_envelope: numpy.ndarray
+    :return lower_envelope: Envelope interpolated using lower peaks.
+    :rtype lower_envelope: numpy.ndarray
+    """
     upper_peaks, _ = find_peaks(signal)
     lower_peaks, _ = find_peaks(-signal)
 
