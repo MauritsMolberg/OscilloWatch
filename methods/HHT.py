@@ -105,13 +105,23 @@ class HHT:
             self.freq_signal_list.append(freq_signal)
             self.amplitude_signal_list.append(amplitude_signal)
 
-        # Create frequency axis. Necessary for knowing what frequencies the amplitudes in the Hilbert spectrum
-        # correspond to
+        # Creating frequency axis
         max_freq = np.amax(self.freq_signal_list)
+        min_freq = 1/self.settings.segment_length_time
+
+        # Cannot construct meaningful Hilbert spectrum if the lowest detectable frequency is higher than the highest
+        # measured frequency
+        if min_freq >= max_freq:
+            self.freq_axis=np.zeros(1)
+            self.hilbert_spectrum = np.zeros([1,1])
+            return
+
         if max_freq < self.settings.hht_frequency_resolution: # Give frequency axis length of at least 1
             max_freq = self.settings.hht_frequency_resolution
-        self.freq_axis = np.linspace(0, max_freq, int(max_freq/self.settings.hht_frequency_resolution))
+        self.freq_axis = np.linspace(min_freq, max_freq,
+                                     int(max_freq/self.settings.hht_frequency_resolution))
 
+        # Constructing spectrum:
         self.hilbert_spectrum = np.zeros((len(self.freq_axis), len(self.amplitude_signal_list[0])))
         for k in range(len(signal_list)): # For each signal
             for i in range(len(self.amplitude_signal_list[0])): # For each sample in segment
@@ -144,19 +154,19 @@ class HHT:
         """
         start_time = time()
 
-        self.emd.perform_emd()  # Calculate imf_list and res
+        self.emd.perform_emd()  # Calculate imf_list and residual
 
         # Use residual if no IMFs were found
         if not self.emd.imf_list:
-            self.emd.imf_list = [self.emd.res]
+            self.emd.imf_list = [self.emd.residual]
 
         # Calculate how much to remove after Hilbert transform in Hilbert Spectrum calculation:
         if self.settings.remove_padding_after_hht and not self.settings.remove_padding_after_emd:
             mirror_fraction_removal = int(self.settings.mirror_padding_fraction*len(self.input_signal))
             self.samples_to_remove_start = mirror_fraction_removal\
-                                           + self.settings.extra_padding_time_start * self.settings.fs
+                                           + self.settings.extra_padding_samples_start
             self.samples_to_remove_end = mirror_fraction_removal\
-                                         + self.settings.extra_padding_time_start * self.settings.fs
+                                         + self.settings.extra_padding_samples_end
         # Else: Both kept at 0
 
         self.calc_hilbert_spectrum(self.emd.imf_list)  # Calculate hilbert_spectrum and freq_axis

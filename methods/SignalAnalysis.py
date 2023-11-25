@@ -1,9 +1,7 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import csv
+import os
 from methods.AnalysisSettings import AnalysisSettings
-from methods.EMD import EMD
-from methods.HHT import HHT
 from methods.SegmentAnalysis import SegmentAnalysis
 
 
@@ -22,6 +20,7 @@ class SignalAnalysis:
         self.segment_analysis_list = []
 
         self.results_file_path = results_file_path
+        self.file_save_attemt_count = 0
 
     def split_signal(self):
         """
@@ -45,49 +44,47 @@ class SignalAnalysis:
             self.segment_analysis_list.append(seg_analysis)
 
     def write_results_to_file(self):
-        # Extracting headers from the first dictionary in the list
-        headers = list(self.segment_analysis_list[0].damping_info_list[0].keys())
+        headers = ["Warning",
+                    "Freq. band start",
+                    "Freq. band stop",
+                    "Start time",
+                    "End time",
+                    "Non zero fraction",
+                    "Initial amplitude",
+                    "Final amplitude",
+                    "Initial amplitude estimate",
+                    "Decay rate",
+                    "Damping ratio",
+                    "Interpolated fraction",
+                    "Coefficient of variation",
+                    "Note"]
+
+        # Adds _new to file name if permission denied (likely already open in Excel)
+        try:
+            with open(self.results_file_path, 'w', newline='') as csv_file:
+                pass
+        except PermissionError:
+            if self.file_save_attemt_count > 9:
+                print("Unable to save results to file.")
+                return
+            new_path = os.path.splitext(self.results_file_path)[0] +"_new"+ os.path.splitext(self.results_file_path)[1]
+            print(f"Permission denied for file {self.results_file_path}. Trying to save to {new_path} instead.")
+            self.results_file_path = new_path
+            self.file_save_attemt_count += 1
+            return self.write_results_to_file()
 
         with open(self.results_file_path, 'w', newline='') as csv_file:
-            # Creating a CSV writer object with semicolon as the delimiter
             csv_writer = csv.writer(csv_file, delimiter=';')
 
-            # Writing the headers to the CSV file
-            csv_writer.writerow(headers)
-
-            # Writing the values for each dictionary in the list
-            for data_dict in list_of_dicts:
-                # Writing each value separately
-                csv_writer.writerow([data_dict[header] for header in headers])
-
-
-if __name__ == "__main__":
-    np.random.seed(0)
-    def f(t):
-        #return 6*np.exp(.2*t)*np.cos(3*np.pi*t) + 15*np.exp(-.1*t)*np.cos(np.pi*t)
-        return (10*np.exp(.2*t)*np.cos(2.4*np.pi*t)
-                #+ 8*np.exp(-.1*t)*np.cos(np.pi*t)
-                #+ 3*np.exp(.3*t)*np.cos(5*np.pi*t)
-                + 20*np.exp(-.2*t)*np.cos(10*np.pi*t))
-    def g(t):
-        return 4*np.exp(.2*t)*np.cos(3*np.pi*t)
-
-
-    start = -1
-    end = 51
-    fs = 50
-    t = np.arange(start, end, 1/fs)
-    input_signal = f(t)
-    #input_signal1 = np.load("k2a_with_controls.npy")
-
-    settings = AnalysisSettings(segment_length_time=10, extra_padding_time_start=1, extra_padding_time_end=1)
-
-    sig_an = SignalAnalysis(input_signal, settings)
-    sig_an.analyze_whole_signal()
-
-    for segment in sig_an.segment_analysis_list:
-        segment.hht.plot_hilbert_spectrum(show=False)
-        segment.hht.emd.plot_emd_results(show=False)
-
-
-    plt.show()
+            csv_writer.writerow(["Segment"] + headers)
+            for i, segment in enumerate(self.segment_analysis_list):
+                for data_dict in segment.oscillation_info_list:
+                    row = [i+1]
+                    for header in headers:
+                        if type(data_dict[header]) == float or type(data_dict[header]) == np.float64:
+                            row.append(f"{data_dict[header]:.{self.settings.csv_decimals}f}")
+                        else:
+                            row.append(data_dict[header])
+                    csv_writer.writerow(row)
+        print(f"Results successfully saved to {self.results_file_path}.")
+        return

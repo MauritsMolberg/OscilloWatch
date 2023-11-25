@@ -90,8 +90,10 @@ class EMD:
         # Removing the extensions added for padding if desired
         if self.settings.remove_padding_after_emd:
             ext_len = int(original_length * self.settings.mirror_padding_fraction)
-            self.imf_list = [imf[ext_len:-ext_len] for imf in self.imf_list]
-            r = r[ext_len:-ext_len]
+            self.imf_list = [imf[ext_len + self.settings.extra_padding_samples_start
+                                 :-ext_len - self.settings.extra_padding_samples_end-1] for imf in self.imf_list]
+            r = r[ext_len + self.settings.extra_padding_samples_start
+                  :-ext_len - self.settings.extra_padding_samples_end-1]
 
         self.residual = r
 
@@ -100,27 +102,32 @@ class EMD:
             print(f"EMD completed in {self.runtime:.3f} seconds.")
         return
 
-    def plot_emd_results(self, show = True, include_mirror_padding = False):
+    def plot_emd_results(self, show = True, include_padding = False):
         """
         Plots input signal and IMFs of EMD object. The function perform_emd() must have been run before.
 
         :param bool show: Specifies whether the plt.show() should be run at the end of the function.
+        :param bool include_padding: Includes all padding in the plots if True. Removes them first if False. No effect
+            if the remove_padding_after_emd setting is True.
         :return: None
         """
-
-        if include_mirror_padding:
+        if self.settings.remove_padding_after_emd:  # Do not remove padding again if already removed
+            orig_signal = self.input_signal[self.settings.extra_padding_samples_start
+                                            :-self.settings.extra_padding_samples_end-1:]
+            new_imf_list = self.imf_list
+            res_new = self.residual
+        elif include_padding:
             orig_signal = self.extended_signal
             new_imf_list = self.imf_list
             res_new = self.residual
-        elif self.settings.remove_padding_after_emd:  # Do not remove padding again if already removed
-            orig_signal = self.input_signal
-            new_imf_list = self.imf_list
-            res_new = self.residual
         else:
-            orig_signal = self.input_signal
+            orig_signal = self.input_signal[self.settings.extra_padding_samples_start
+                                            :-self.settings.extra_padding_samples_end-1:]
             ext_len = int(len(self.input_signal)*self.settings.mirror_padding_fraction)
-            new_imf_list = [imf[ext_len:-ext_len] for imf in self.imf_list]
-            res_new = self.residual[ext_len:-ext_len]
+            new_imf_list = [imf[ext_len + self.settings.extra_padding_samples_start
+                                :-ext_len - self.settings.extra_padding_samples_end-1] for imf in self.imf_list]
+            res_new = self.residual[ext_len + self.settings.extra_padding_samples_start
+                                :-ext_len - self.settings.extra_padding_samples_end-1]
 
         tAxis = np.linspace(0, len(orig_signal)/self.settings.fs, len(orig_signal))
 

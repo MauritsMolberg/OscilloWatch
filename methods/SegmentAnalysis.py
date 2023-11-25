@@ -29,7 +29,7 @@ class SegmentAnalysis:
         self.hht = HHT(self.input_signal, self.settings)
 
 
-        self.damping_info_list = []
+        self.oscillation_info_list = []
 
     def interpolate_signal(self, signal, damping_info):
         """
@@ -56,18 +56,26 @@ class SegmentAnalysis:
         if not len(non_zero_indices):
             return signal
 
-        # Find the first and last index that is not zero
-        first_non_zero_index = non_zero_indices[0]
-        damping_info["Start time"] = first_non_zero_index/self.settings.fs
+        first_max_index = np.argmax(signal)
+        if self.settings.start_amp_curve_at_peak and first_max_index <= len(signal)/2:
+            start_index = first_max_index
+        else:
+            start_index = non_zero_indices[0]
+
+        damping_info["Start time"] = start_index/self.settings.fs
         last_non_zero_index = non_zero_indices[-1] + 1
         damping_info["End time"] = last_non_zero_index/self.settings.fs
 
         # Ignore all zero values before the first and after the last non-zero value
-        cropped_signal = signal[first_non_zero_index:last_non_zero_index]
+        cropped_signal = signal[start_index:last_non_zero_index]
 
         # Recalculate non_zero_indices based on the cropped signal
         non_zero_indices = np.nonzero(cropped_signal)[0]
         damping_info["Interpolated fraction"] = 1 - len(non_zero_indices)/len(cropped_signal)
+        if damping_info["Interpolated fraction"] > self.settings.max_interp_fraction:
+            if self.settings.skip_storing_uncertain_results:
+                return None
+            damping_info["Note"] += "High interpolation fraction. "
 
         # Get the corresponding non-zero values and their indices
         non_zero_values = [cropped_signal[i] for i in non_zero_indices]
@@ -118,7 +126,8 @@ class SegmentAnalysis:
         :return: None
         """
         non_zero_fraction = np.count_nonzero(amp_curve)/len(amp_curve)
-        damping_info = {
+        oscillation_info = {
+            "Warning": "No",
             "Freq. band start": self.hht.freq_axis[n],
             "Freq. band stop": self.hht.freq_axis[n+k],
             "Start time": 0.0,  # Start and end time are set in the interpolate_signal function
@@ -133,7 +142,12 @@ class SegmentAnalysis:
             "Coefficient of variation": 0.0,
             "Note": ""
         }
-        interp_amp_curve = self.interpolate_signal(amp_curve, damping_info)
+
+        interp_amp_curve = self.interpolate_signal(amp_curve, oscillation_info)
+
+        # If too high interpolated fraction and refusing to store (interpolate_signal() returns None)
+        if not interp_amp_curve:
+            return
 
         # Curve fit to find approximate initial amplitude and decay rate
         time_points = np.linspace(0, len(interp_amp_curve)/self.settings.fs, len(interp_amp_curve))
@@ -141,23 +155,32 @@ class SegmentAnalysis:
         try:
             popt, _ = curve_fit(exponential_decay_model, time_points, interp_amp_curve, maxfev=1500)
         except RuntimeError:
-            damping_info["note"] = "Skipped. Could not fit curve."
-            self.damping_info_list.append(damping_info)
+            oscillation_info["Note"] += "Skipped. Could not fit curve. "
+            self.oscillation_info_list.append(oscillation_info)
             return
         A, decay_rate = popt[0], popt[1]
-
-        damping_info["Initial amplitude"] = interp_amp_curve[0]
-        damping_info["Final amplitude"] = interp_amp_curve[-1]
-        damping_info["Initial amplitude estimate"] = A
-        row_ind = n + int((k+1)//2)
-        damping_info["Decay rate"] = decay_rate
-        damping_info["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2 + (2*np.pi*self.hht.freq_axis[row_ind])**2))
-        damping_info["Coefficient of variation"]\
-            = np.std(interp_amp_curve - exponential_decay_model(time_points, A, decay_rate)) / np.mean(interp_amp_curve)
         #plt.figure()
         #plt.plot(interp_amp_curve)
         #plt.plot(exponential_decay_model(time_points, A, decay_rate))
-        self.damping_info_list.append(damping_info)
+        oscillation_info["Coefficient of variation"]\
+            = np.std(interp_amp_curve - exponential_decay_model(time_points, A, decay_rate))/np.mean(interp_amp_curve)
+        if oscillation_info["Coefficient of variation"] > self.settings.max_coefficient_of_variation:
+            if self.settings.skip_storing_uncertain_results:
+                return
+            oscillation_info["Note"] += "High uncertainty. "
+
+        oscillation_info["Initial amplitude"] = interp_amp_curve[0]
+        oscillation_info["Final amplitude"] = interp_amp_curve[-1]
+        oscillation_info["Initial amplitude estimate"] = A
+        oscillation_info["Decay rate"] = decay_rate
+        row_ind = n + int((k + 1)//2)
+        oscillation_info["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2 + (2*np.pi*self.hht.freq_axis[row_ind])**2))
+
+        if oscillation_info["Damping ratio"] <= self.settings.damping_ratio_warning_threshold\
+                and self.settings.segment_length_time - oscillation_info["End time"] <= self.settings.oscillation_timeout:
+            oscillation_info["Warning"] = "Yes"
+
+        self.oscillation_info_list.append(oscillation_info)
         return
 
 

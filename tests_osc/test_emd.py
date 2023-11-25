@@ -21,7 +21,7 @@ def g(t):
 settings = AnalysisSettings(remove_padding_after_emd=False, max_imfs=3)
 
 start = 0
-end = 11
+end = 10
 fs = 50
 t = np.arange(start, end, 1/fs)
 input_signal1 = g(t)

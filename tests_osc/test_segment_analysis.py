@@ -37,7 +37,7 @@ if __name__ == "__main__":
     damp.hht.emd.plot_emd_results(show=False, include_padding=True)
     damp.hht.plot_hilbert_spectrum(show=False)
 
-    for i in range(len(damp.damping_info_list)):
-        print(damp.damping_info_list[i], "\n")
+    for i in range(len(damp.oscillation_info_list)):
+        print(damp.oscillation_info_list[i], "\n")
 
     plt.show()

@@ -4,11 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Signal Analysis started">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added option to keep/not keep mirror padding for EMD">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/modal_analysis/plot_eigs.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/modal_analysis/plot_eigs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/EMD.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/EMD.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/HHT.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/HHT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/SignalAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/N44_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/N44_base_script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/k2a_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/k2a_base_script.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests_osc/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/test_emd.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test_emd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,8 +74,8 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_segment_analysis">
-    <configuration name="SegmentAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.k2a_base_script">
+    <configuration name="N44_base_script" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -75,11 +83,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods\SegmentAnalysis.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/N44_base_script.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -109,6 +117,48 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="k2a_base_script" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/k2a_base_script.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plot_eigs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/modal_analysis" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/modal_analysis/plot_eigs.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -130,55 +180,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_hht" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/test_hht.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_segment_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_segment_analysis" />
+        <item itemvalue="Python.k2a_base_script" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.plot_eigs" />
+        <item itemvalue="Python.N44_base_script" />
         <item itemvalue="Python.SignalAnalysis" />
-        <item itemvalue="Python.SegmentAnalysis" />
-        <item itemvalue="Python.test_hht" />
       </list>
     </recent_temporary>
   </component>
@@ -299,7 +307,13 @@
       <option name="presentableId" value="LOCAL−00018" />
       <updated>1700674185729</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL−00019" summary="Added option to keep/not keep mirror padding for EMD">
+      <created>1700676327218</created>
+      <option name="number" value="LOCAL−00019" />
+      <option name="presentableId" value="LOCAL−00019" />
+      <updated>1700676327218</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -329,15 +343,16 @@
     <MESSAGE value="Added damping analysis" />
     <MESSAGE value="Reorganized, added documentation for functions" />
     <MESSAGE value="Signal Analysis started" />
-    <option name="LAST_COMMIT_MESSAGE" value="Signal Analysis started" />
+    <MESSAGE value="Added option to keep/not keep mirror padding for EMD" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added option to keep/not keep mirror padding for EMD" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/methods/EMD.py</url>
-          <line>127</line>
-          <option name="timeStamp" value="51" />
+          <url>file://$PROJECT_DIR$/tests_osc/k2a_base_script.py</url>
+          <line>193</line>
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

@@ -10,6 +10,7 @@ from methods.AnalysisSettings import AnalysisSettings
 from methods.EMD import EMD
 from methods.HHT import HHT
 from methods.SegmentAnalysis import SegmentAnalysis
+from methods.SignalAnalysis import SignalAnalysis
 importlib.reload(dps)
 
 
@@ -30,7 +31,7 @@ if __name__ == '__main__':
     np.max(ps.ode_fun(0.0, ps.x0))
     # Specify simulation time
     #
-    t_end = 20
+    t_end = 40
     x0 = ps.x0.copy()
     # Add small perturbation to initial angle of first generator
     # x0[ps.gen_mdls['GEN'].state_idx['angle'][0]] += 1
@@ -146,8 +147,13 @@ if __name__ == '__main__':
     plt.plot(result[('Global', 't')], np.array(V2_stored))
     plt.plot(result[('Global', 't')], np.array(V3_stored))
     plt.plot(result[('Global', 't')], np.array(V4_stored))
-    plt.ylabel("Terminal voltage (p.u.)")
+    plt.ylabel("Bus 1 voltage (p.u.)")
     plt.xlabel('time (s)')
+
+    #plt.figure()
+    #plt.plot(result[('Global', 't')], np.array(result_dict[("G1", "Speed")]))
+    #plt.ylabel("Bus 1 speed (p.u.)")
+    #plt.xlabel('time (s)')
 
     #plt.figure()
     #plt.plot(result[('Global', 't')], np.array(I_stored))
@@ -158,26 +164,32 @@ if __name__ == '__main__':
     #plt.plot(result[('Global', 't')], np.array(E_f_stored))
     #plt.xlabel('time (s)')
     #plt.ylabel('E_q (p.u.)')
-
+    G1_speed = result.xs(key='speed', axis='columns', level=1)["G1"].tolist()
+    G1_speed_new = [G1_speed[i*4] for i in range(len(G1_speed)//4)]
     V1_new = [V1_stored[i*4] for i in range(len(V1_stored)//4)]
     #V1_new = moving_average(V1_new, 3)
-    #np.save("k2a_with_controls.npy", V1_new)
+    #np.save("k2a_with_controls_1s_fault_V.npy", V1_new)
+
+    plt.figure()
+    plt.plot(G1_speed_new)
+    plt.ylabel("Bus 1 speed (p.u.)")
+    plt.xlabel('time (s)')
 
 
+    settings = AnalysisSettings(segment_length_time=10,
+                                extra_padding_time_start=1,
+                                extra_padding_time_end=1,
+                                print_segment_analysis_time=True,
+                                start_amp_curve_at_peak=False,
+                                hht_amplitude_threshold=.0001)
 
-    settings1 = AnalysisSettings(remove_padding_after_emd=True)
+    sig_an = SignalAnalysis(G1_speed_new, settings)
+    sig_an.analyze_whole_signal()
+    sig_an.write_results_to_file()
 
-    emd1 = EMD(V1_new, settings1)
-    emd1.perform_emd()
-    emd1.plot_emd_results(show=False)
-
-    settings = AnalysisSettings(max_imfs=3)
-
-    hht = HHT(V1_new, settings)
-    hht.full_hht()
-    hht.plot_hilbert_spectrum(show=False)
-
-    damp = SegmentAnalysis(V1_new, settings)
-    damp.damping_analysis()
+    for segment in sig_an.segment_analysis_list:
+        segment.hht.emd.plot_emd_results(show=False)
+        segment.hht.plot_hilbert_spectrum(show=False)
 
     plt.show()
+
