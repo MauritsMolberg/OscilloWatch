@@ -6,7 +6,7 @@ from methods.AnalysisSettings import AnalysisSettings
 
 np.random.seed(0)
 
-def f(t):
+def f_old(t):
     #return 6*np.exp(.2*t)*np.cos(3*np.pi*t) + 15*np.exp(-.1*t)*np.cos(np.pi*t)
     return (10*np.exp(.2*t)*np.cos(2.4*np.pi*t)
             #+ 8*np.exp(-.1*t)*np.cos(np.pi*t)
@@ -14,12 +14,17 @@ def f(t):
             + 20*np.exp(-.2*t)*np.cos(10*np.pi*t))
 
 def g(t):
-    return 4*np.exp(.2*t)*np.cos(2.6*np.pi*t)
+    return f(t) + 10*np.exp(-.2*t)*np.cos(2.6*np.pi*t)
 
+def a(t):
+    return 4*np.exp(.1*t)
 
-settings = AnalysisSettings(remove_padding_after_emd=False, max_imfs=5)
-start = 0
-end = 11
+def f(t):
+    return a(t)*np.cos(3*2*np.pi*t)
+
+settings = AnalysisSettings(max_imfs=0, extension_padding_time_start=5, extension_padding_time_end=10)
+start = -5
+end = 20
 fs = 50
 
 t = np.arange(start, end, 1/fs)

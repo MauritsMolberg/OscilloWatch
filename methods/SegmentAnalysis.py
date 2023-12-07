@@ -1,10 +1,8 @@
 import numpy as np
-from scipy.optimize import curve_fit
-from scipy.interpolate import CubicSpline
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 from time import time
 from methods.HHT import HHT
-from methods.EMD import EMD
 from methods.AnalysisSettings import AnalysisSettings
 
 
@@ -55,44 +53,41 @@ class SegmentAnalysis:
         # If there are no non-zero values, return the original signal
         if not len(non_zero_indices):
             return signal
-
+        
+        start_index = non_zero_indices[0]
+        end_index = non_zero_indices[-1] + 1
+        
         first_max_index = np.argmax(signal)
-        if self.settings.start_amp_curve_at_peak and first_max_index <= len(signal)/2:
+        if self.settings.start_amp_curve_at_peak and first_max_index <= len(signal[start_index:end_index])/2:
             start_index = first_max_index
-        else:
-            start_index = non_zero_indices[0]
 
         damping_info["Start time"] = start_index/self.settings.fs
-        last_non_zero_index = non_zero_indices[-1] + 1
-        damping_info["End time"] = last_non_zero_index/self.settings.fs
+        damping_info["End time"] = end_index/self.settings.fs
 
         # Ignore all zero values before the first and after the last non-zero value
-        cropped_signal = signal[start_index:last_non_zero_index]
+        cropped_signal = signal[start_index:end_index]
 
         # Recalculate non_zero_indices based on the cropped signal
         non_zero_indices = np.nonzero(cropped_signal)[0]
-        damping_info["Interpolated fraction"] = 1 - len(non_zero_indices)/len(cropped_signal)
-        if damping_info["Interpolated fraction"] > self.settings.max_interp_fraction:
+        damping_info["Interp. frac."] = 1 - len(non_zero_indices)/len(cropped_signal)
+        if damping_info["Interp. frac."] > self.settings.max_interp_fraction:
             if self.settings.skip_storing_uncertain_results:
                 return None
-            damping_info["Note"] += "High interpolation fraction. "
+            damping_info["Note"] += "High interp. frac. "
 
         # Get the corresponding non-zero values and their indices
         non_zero_values = [cropped_signal[i] for i in non_zero_indices]
-
-        # Create a cubic spline interpolation function
-        spline = CubicSpline(non_zero_indices, non_zero_values)
 
         # Generate the new signal with interpolated values
         new_signal = []
         for i, value in enumerate(cropped_signal):
             if not value:
-                new_signal.append(float(spline(i)))
+                new_signal.append(float(np.interp(i, non_zero_indices, non_zero_values)))
             else:
                 new_signal.append(value)
         return new_signal
 
-    def analyze_frequency_band(self, amp_curve, n, k):
+    def analyze_frequency_band(self, amp_curve, bottom_row, top_row):
         """
         Analyzes the damping of a frequency band by curve fitting an amplitude curve to a decaying exponential curve.
         Removes zero-values before and after the first and last non-zero value and interpolates the remaining curve
@@ -127,19 +122,19 @@ class SegmentAnalysis:
         """
         non_zero_fraction = np.count_nonzero(amp_curve)/len(amp_curve)
         oscillation_info = {
-            "Warning": "No",
-            "Freq. band start": self.hht.freq_axis[n],
-            "Freq. band stop": self.hht.freq_axis[n+k],
+            "Warning": "",
+            "Freq. start": self.hht.freq_axis[bottom_row],
+            "Freq. stop": self.hht.freq_axis[top_row],
             "Start time": 0.0,  # Start and end time are set in the interpolate_signal function
             "End time": 0.0,
-            "Non zero fraction": non_zero_fraction,
-            "Initial amplitude": 0.0,
-            "Final amplitude": 0.0,
-            "Initial amplitude estimate": 0.0,
+            "NZF": non_zero_fraction,
+            "Init. amp.": 0.0,
+            "Final amp.": 0.0,
+            "Init. amp est.": 0.0,
             "Decay rate": 0.0,
             "Damping ratio": 0.0,
-            "Interpolated fraction": 0.0,
-            "Coefficient of variation": 0.0,
+            "Interp. frac.": 0.0,
+            "CV": 0.0,
             "Note": ""
         }
 
@@ -159,26 +154,46 @@ class SegmentAnalysis:
             self.oscillation_info_list.append(oscillation_info)
             return
         A, decay_rate = popt[0], popt[1]
+
         #plt.figure()
-        #plt.plot(interp_amp_curve)
-        #plt.plot(exponential_decay_model(time_points, A, decay_rate))
-        oscillation_info["Coefficient of variation"]\
+        #plt.plot(np.arange(oscillation_info["Start time"], oscillation_info["End time"], 1/self.settings.fs), interp_amp_curve, label="Amplitude curve w. interpolation")
+        #plt.plot(np.arange(oscillation_info["Start time"], oscillation_info["End time"], 1/self.settings.fs), exponential_decay_model(time_points, A, decay_rate), label="Fitted curve")
+        #plt.xlabel("Time [s]")
+        #plt.ylabel("Amplitude")
+        #plt.legend()
+        #plt.tight_layout()
+
+        oscillation_info["CV"]\
             = np.std(interp_amp_curve - exponential_decay_model(time_points, A, decay_rate))/np.mean(interp_amp_curve)
-        if oscillation_info["Coefficient of variation"] > self.settings.max_coefficient_of_variation:
+        if oscillation_info["CV"] > self.settings.max_coefficient_of_variation:
             if self.settings.skip_storing_uncertain_results:
                 return
-            oscillation_info["Note"] += "High uncertainty. "
+            oscillation_info["Note"] += "High CV. "
 
-        oscillation_info["Initial amplitude"] = interp_amp_curve[0]
-        oscillation_info["Final amplitude"] = interp_amp_curve[-1]
-        oscillation_info["Initial amplitude estimate"] = A
+        oscillation_info["Init. amp."] = interp_amp_curve[0]
+        oscillation_info["Final amp."] = interp_amp_curve[-1]
+        oscillation_info["Init. amp. est."] = A
         oscillation_info["Decay rate"] = decay_rate
-        row_ind = n + int((k + 1)//2)
-        oscillation_info["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2 + (2*np.pi*self.hht.freq_axis[row_ind])**2))
 
-        if oscillation_info["Damping ratio"] <= self.settings.damping_ratio_warning_threshold\
-                and self.settings.segment_length_time - oscillation_info["End time"] <= self.settings.oscillation_timeout:
-            oscillation_info["Warning"] = "Yes"
+        central_row_ind = (bottom_row + top_row)//2
+        oscillation_info["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2
+                                                                + (2*np.pi*self.hht.freq_axis[central_row_ind])**2))
+
+        if oscillation_info["Damping ratio"] < 0:
+            if self.settings.segment_length_time - oscillation_info["End time"] <= self.settings.oscillation_timeout:
+                oscillation_info["Warning"] = "Negative"
+            else:
+                oscillation_info["Warning"] = "Ended early"
+        elif oscillation_info["Damping ratio"] <= self.settings.damping_ratio_strong_warning_threshold:
+            if self.settings.segment_length_time - oscillation_info["End time"] <= self.settings.oscillation_timeout:
+                oscillation_info["Warning"] = "Strong"
+            else:
+                oscillation_info["Warning"] = "Ended early"
+        elif oscillation_info["Damping ratio"] <= self.settings.damping_ratio_weak_warning_threshold:
+            if self.settings.segment_length_time - oscillation_info["End time"] <= self.settings.oscillation_timeout:
+                oscillation_info["Warning"] = "Weak"
+            else:
+                oscillation_info["Warning"] = "Ended early"
 
         self.oscillation_info_list.append(oscillation_info)
         return
@@ -186,24 +201,30 @@ class SegmentAnalysis:
 
     def damping_analysis(self):
         """
-        Analyzes the damping of different components of the signal segment by performing HHT and using the developed algorithm
-        to analyze the Hilbert spectrum.
+        Analyzes the damping of different components of the signal segment by performing HHT and using the developed
+        algorithm to analyze the Hilbert spectrum.
         :return: None
         """
         start_time = time()
         self.hht.full_hht()  # Calculate hilbert_spectrum and freq_axis
+        #self.hht.hilbert_spectrum = self.hht.hilbert_spectrum[::-1]
+        #self.hht.freq_axis = self.hht.freq_axis[::-1]
 
+        # Main loop
         n = 0
         while n < len(self.hht.freq_axis):
+            # Row adding loop (top)
             # k = 0
             non_zero_count = np.count_nonzero(self.hht.hilbert_spectrum[n])
             if not non_zero_count:
                 n += 1
                 continue
             combined_row = self.hht.hilbert_spectrum[n]
-
+            combined_row_old = np.copy(combined_row)
+            non_zero_count_old = non_zero_count
             k = 1
             while n + k < len(self.hht.freq_axis):
+                combined_row_old = np.copy(combined_row)
                 non_zero_count_old = non_zero_count
                 combined_row = np.maximum(combined_row, self.hht.hilbert_spectrum[n+k])
                 non_zero_count = np.count_nonzero(combined_row)
@@ -212,15 +233,46 @@ class SegmentAnalysis:
                         > self.settings.minimum_total_non_zero_fraction*len(self.input_signal):
                     k += 1
                 else:
-                    non_zero_count = non_zero_count_old
                     break
-            if non_zero_count/len(self.input_signal) > self.settings.minimum_total_non_zero_fraction:
-                self.analyze_frequency_band(combined_row, n, k-1)
+
+            # Row remove loop (bottom)
+            m = 1
+            while m < k:
+                combined_row_old = self.combine_rows(n+m-1, n+k-1)
+                non_zero_count_old = np.count_nonzero(combined_row_old)
+                combined_row = self.combine_rows(n+m, n+k-1)
+                non_zero_count = np.count_nonzero(combined_row)
+
+                row = self.hht.hilbert_spectrum[n+m-1]
+                non_zero_count_current = np.count_nonzero(row)
+                freq = self.hht.freq_axis[n+m-1]
+
+                if non_zero_count_old - non_zero_count > self.settings.minimum_non_zero_improvement\
+                        or np.count_nonzero(self.hht.hilbert_spectrum[n + m])\
+                        > self.settings.minimum_total_non_zero_fraction*len(self.input_signal):
+                    break
+                else:
+                    m += 1
+
+            # Calculate and store info if non-zero fraction is large enough
+            if non_zero_count_old/len(self.input_signal) > self.settings.minimum_total_non_zero_fraction:
+                self.analyze_frequency_band(combined_row_old, n+m-1, n+k-1)
             n += k
 
         self.runtime = time() - start_time
         if self.settings.print_segment_analysis_time:
             print(f"Segment analysis completed in {self.runtime:.3f} seconds.")
+
+    def combine_rows(self, bottom_row, top_row):
+        combined_row = self.hht.hilbert_spectrum[bottom_row]
+        if bottom_row == top_row:
+            return combined_row
+
+        for i in range(1, top_row - bottom_row + 1):
+            combined_row = np.maximum(combined_row, self.hht.hilbert_spectrum[bottom_row + i])
+        return combined_row
+
+
 
 def remove_short_consecutive_sequences(non_zero_indices, min_consecutive_length):
     """

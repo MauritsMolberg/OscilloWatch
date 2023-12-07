@@ -45,12 +45,6 @@ class HHT:
             for.
         :return: None
         """
-        if self.settings.hht_frequency_resolution == "auto":
-            self.settings.hht_frequency_resolution = 1/self.settings.fs
-
-        if self.settings.hht_frequency_threshold == "auto":
-            self.settings.hht_frequency_threshold = self.settings.hht_frequency_resolution
-
         # Handling the case of signal_list being only one signal (puts it in a list).
         # Not relevant if performed on a list of IMFs.
         if not isinstance(signal_list[0], np.ndarray) and not isinstance(signal_list[0], list):
@@ -67,39 +61,47 @@ class HHT:
                                                         fs=self.settings.fs,
                                                         threshold=self.settings.hht_split_signal_freq_change_threshold)
                 # Calculate Hilbert transform on each portion of the split signal to find inst. freq. and amplitude.
-                hilbert_signal = np.array([])
+                analytic_signal = np.array([])
                 freq_signal = np.array([])
+                amplitude_signal = np.array([])
                 for portion in split_signal:
-                    hilbert_portion = hilbert(portion)
-                    freq_portion = np.gradient(np.angle(hilbert_portion)) * self.settings.fs / (2*np.pi)
-                    # Join Hilbert transformed portions together again
-                    hilbert_signal = np.concatenate((hilbert_signal, hilbert_portion))
+                    analytic_portion = hilbert(portion)
+                    freq_portion = np.gradient(np.unwrap(np.angle(analytic_portion))) * self.settings.fs / (2*np.pi)
+                    freq_portion = moving_average(freq_portion, window_size=self.settings.hht_frequency_moving_avg_window)
+                    amplitude_portion = np.abs(analytic_portion)
+                    # Join calculated freq. and amp. for the portions together again
+                    analytic_signal = np.concatenate((analytic_signal, analytic_portion))
                     freq_signal = np.concatenate((freq_signal, freq_portion))
+                    amplitude_signal = np.concatenate((amplitude_signal, amplitude_portion))
             else:
-                hilbert_signal = hilbert(signal)
-                freq_signal = np.gradient(np.angle(hilbert_signal)) * self.settings.fs / (2*np.pi)
+                analytic_signal = hilbert(signal)
+                freq_signal = np.gradient(np.unwrap(np.angle(analytic_signal))) * self.settings.fs / (2*np.pi)
+                freq_signal = moving_average(freq_signal, window_size=self.settings.hht_frequency_moving_avg_window)
+                amplitude_signal = np.abs(analytic_signal)
+
+            #plt.figure()
+            #plt.plot(np.unwrap(np.angle(analytic_signal)))
+            #plt.plot(freq_signal)
+            #plt.plot()
 
             # Remove padding, if specified.
             if self.samples_to_remove_start > 0:
-                hilbert_signal = hilbert_signal[self.samples_to_remove_start:]
                 freq_signal = freq_signal[self.samples_to_remove_start:]
+                amplitude_signal = amplitude_signal[self.samples_to_remove_start:]
             if self.samples_to_remove_end > 0:
-                hilbert_signal = hilbert_signal[:-self.samples_to_remove_end]
                 freq_signal = freq_signal[:-self.samples_to_remove_end]
-
-            amplitude_signal = np.abs(hilbert_signal)
+                amplitude_signal = amplitude_signal[:-self.samples_to_remove_end]
 
             #fig, axes = plt.subplots(2, 1, figsize=(8, 8))
             #axes[0].plot(amplitude_signal)
             #axes[0].set_title(f"Amplitude IMF {imf_count} (unfiltered)")
             #axes[1].plot(freq_signal, color="red")
             #axes[1].set_title(f"Frequency IMF {imf_count} (unfiltered)")
-            #imf_count += 1
+            imf_count += 1
 
             amplitude_signal = moving_average(amplitude_signal,
                                               window_size=self.settings.hht_amplitude_moving_avg_window)
-            freq_signal = remove_spikes(freq_signal)
-            freq_signal = moving_average(freq_signal, window_size=self.settings.hht_frequency_moving_avg_window)
+
 
             # Store inst. freq. and amplitude to lists
             self.freq_signal_list.append(freq_signal)
@@ -107,24 +109,26 @@ class HHT:
 
         # Creating frequency axis
         max_freq = np.amax(self.freq_signal_list)
-        min_freq = 1/self.settings.segment_length_time
+        min_freq = 1/(self.settings.segment_length_time + self.settings.extension_padding_time_start
+                      + self.settings.extension_padding_time_end)
 
         # Cannot construct meaningful Hilbert spectrum if the lowest detectable frequency is higher than the highest
         # measured frequency
         if min_freq >= max_freq:
-            self.freq_axis=np.zeros(1)
-            self.hilbert_spectrum = np.zeros([1,1])
+            self.freq_axis = np.zeros(1)
+            self.hilbert_spectrum = np.zeros([1, 1])
+            print("No frequencies above minimum limit detected.")
             return
 
         if max_freq < self.settings.hht_frequency_resolution: # Give frequency axis length of at least 1
             max_freq = self.settings.hht_frequency_resolution
-        self.freq_axis = np.linspace(min_freq, max_freq,
+        self.freq_axis = np.linspace(min_freq, max_freq + self.settings.hht_frequency_resolution,
                                      int(max_freq/self.settings.hht_frequency_resolution))
 
         # Constructing spectrum:
         self.hilbert_spectrum = np.zeros((len(self.freq_axis), len(self.amplitude_signal_list[0])))
-        for k in range(len(signal_list)): # For each signal
-            for i in range(len(self.amplitude_signal_list[0])): # For each sample in segment
+        for k in range(len(signal_list)): # For each signal (IMF)
+            for i in range(len(self.amplitude_signal_list[k])): # For each sample in segment
                 for j in range(len(self.freq_axis)): # For each frequency
                     if (abs(self.freq_axis[j] - self.freq_signal_list[k][i]) < self.settings.hht_frequency_threshold
                        and self.amplitude_signal_list[k][i] > self.settings.hht_amplitude_threshold):
@@ -138,12 +142,14 @@ class HHT:
                 break
             else:
                 row_remove_count += 1
-
-        if 0 < row_remove_count < len(self.freq_axis):
+        if 1 < row_remove_count < len(self.freq_axis):
+            #print("Removed rows:", row_remove_count)
             self.freq_axis = self.freq_axis[:-row_remove_count]
             self.hilbert_spectrum = self.hilbert_spectrum[:-row_remove_count]
-        return
 
+        # Add a zero row to the top to simplify the analysis algorithm
+        #self.hilbert_spectrum = np.append(self.hilbert_spectrum, np.zeros(len(self.hilbert_spectrum[0])))
+        return
 
     def full_hht(self):
         """
@@ -164,9 +170,9 @@ class HHT:
         if self.settings.remove_padding_after_hht and not self.settings.remove_padding_after_emd:
             mirror_fraction_removal = int(self.settings.mirror_padding_fraction*len(self.input_signal))
             self.samples_to_remove_start = mirror_fraction_removal\
-                                           + self.settings.extra_padding_samples_start
+                                           + self.settings.extension_padding_samples_start
             self.samples_to_remove_end = mirror_fraction_removal\
-                                         + self.settings.extra_padding_samples_end
+                                         + self.settings.extension_padding_samples_end
         # Else: Both kept at 0
 
         self.calc_hilbert_spectrum(self.emd.imf_list)  # Calculate hilbert_spectrum and freq_axis
@@ -176,7 +182,7 @@ class HHT:
             print(f"HHT completed in {self.runtime:.3f} seconds.")
         return
 
-    def plot_hilbert_spectrum(self, show = True):
+    def plot_hilbert_spectrum(self, show = False):
         """
         Plots the HHT object's Hilbert spectrum as a heatmap.
 
@@ -193,8 +199,8 @@ class HHT:
         xAxis_mesh, freq_axis_mesh = np.meshgrid(xAxis, self.freq_axis)
         fig, ax = plt.subplots(figsize=(12, 7))
         #ax.set_title("Hilbert spectrum")
-        ax.set_xlabel("Time [s]")
-        ax.set_ylabel("Frequency [Hz]")
+        ax.set_xlabel("Time [s]", fontsize=16)
+        ax.set_ylabel("Frequency [Hz]", fontsize=16)
         c = ax.pcolormesh(xAxis_mesh, freq_axis_mesh, spec_copy, shading="auto")
         fig.colorbar(c, ax=ax, fraction=.05)
         plt.tight_layout()
@@ -226,42 +232,6 @@ def moving_average(signal, window_size=5):
         smoothed_signal[i] = np.mean(signal[start_idx:end_idx])
 
     return smoothed_signal
-
-
-def remove_spikes(signal, spike_threshold=7.0, max_spike_duration=5):
-    """
-    Removes all spikes that exceed a threshold and last for a short enough amount of time, and uses linear interpolation
-    to fill them in. Intended for instantaneous frequency curves, which usually have periodic large spikes due to the
-    nature of the Hilbert transform.
-
-    :param signal: Signal to have its spikes removed.
-    :type signal: numpy.ndarray or list
-    :param spike_threshold: The threshold for the value the spike must exceed to be removed.
-    :type spike_threshold: float
-    :param max_spike_duration: The maximum duration the spike can last for to be removed.
-    :return: Signal with spikes removed and filled in
-    :rtype: numpy.ndarray or list
-    """
-    cleaned_signal = np.copy(signal)
-
-    # Detect spikes (values exceeding the threshold)
-    spikes = np.where(np.abs(signal) > spike_threshold)[0]
-
-    # Find consecutive spike segments
-    spike_segments = np.split(spikes, np.where(np.diff(spikes) != 1)[0] + 1)
-
-    # Remove short-duration spikes
-    for segment in spike_segments:
-        if len(segment) <= max_spike_duration:
-            cleaned_signal[segment] = np.nan
-
-    # Linear interpolation to fill in the gaps
-    nan_indices = np.isnan(cleaned_signal)
-    cleaned_signal = np.interp(np.arange(len(cleaned_signal)), np.arange(len(cleaned_signal))[~nan_indices],
-                               cleaned_signal[~nan_indices])
-
-    return cleaned_signal
-
 
 def split_signal_freq_change(signal, threshold = 0.5, fs=50, nperseg=256):
     """

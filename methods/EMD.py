@@ -32,6 +32,35 @@ class EMD:
 
         self.runtime = 0
 
+    def get_envelopes(self, signal):
+        """
+        Calculates and returns the peaks of the input signal and constructs the upper and lower envelopes using cubic spline
+        interpolation.
+
+        :param signal: Signal for which the envelopes should be calculated.
+        :type signal: numpy.ndarray or list
+
+        :return upper_envelope: Envelope interpolated using upper peaks.
+        :rtype upper_envelope: numpy.ndarray
+        :return lower_envelope: Envelope interpolated using lower peaks.
+        :rtype lower_envelope: numpy.ndarray
+        """
+        upper_peaks, _ = find_peaks(signal)
+        lower_peaks, _ = find_peaks(-signal)
+
+        # Stop criteria
+        if len(upper_peaks) < self.settings.emd_min_peaks or len(lower_peaks) < self.settings.emd_min_peaks:
+            return None, None
+
+        xAxis = np.arange(len(signal))
+        interp_upper = CubicSpline(upper_peaks, signal[upper_peaks])
+        interp_lower = CubicSpline(lower_peaks, signal[lower_peaks])
+
+        upper_envelope = interp_upper(xAxis)
+        lower_envelope = interp_lower(xAxis)
+
+        return upper_envelope, lower_envelope
+
     def perform_emd(self):
         """
         Performs the EMD algorithm on the input signal of the EMD object. Updates object's imf_list and residual
@@ -57,14 +86,16 @@ class EMD:
         # Breaks out of both for-loops if True.
         emd_done = False
 
+        # EMD algorithm start
         for n in range(self.settings.max_imfs):
             h = np.copy(r)
 
             if self.settings.print_emd_sifting_details:
                 print("----------------\nIMF iteration:", n+1)
 
+            # Sifting process start
             for k in range(self.settings.max_emd_sifting_iterations):
-                upper_envelope, lower_envelope = get_envelopes(h)
+                upper_envelope, lower_envelope = self.get_envelopes(h)
 
                 if upper_envelope is None or lower_envelope is None:  # h has less than 4 upper and lower peaks
                     emd_done = True  # Breaks out of both loops
@@ -74,11 +105,14 @@ class EMD:
                 h_old = np.copy(h)
                 h -= avg_envelope
 
-                std = np.std(h-h_old, dtype=np.float64)
+                #std = np.std(h-h_old, dtype=np.float64)
+                energy_old = np.sum(h_old**2)
+                energy_new = np.sum(h**2)
+                rec = (energy_old - energy_new) / energy_old
                 if self.settings.print_emd_sifting_details:
-                    print("Sifting iteration:", k+1, "\nStd.:", std)
+                    print("Sifting iteration:", k+1, "\nREC:", rec)
 
-                if std < self.settings.emd_sd_tolerance:
+                if abs(rec) < self.settings.emd_rec_tolerance:
                     break
 
             if emd_done:
@@ -90,10 +124,10 @@ class EMD:
         # Removing the extensions added for padding if desired
         if self.settings.remove_padding_after_emd:
             ext_len = int(original_length * self.settings.mirror_padding_fraction)
-            self.imf_list = [imf[ext_len + self.settings.extra_padding_samples_start
-                                 :-ext_len - self.settings.extra_padding_samples_end-1] for imf in self.imf_list]
-            r = r[ext_len + self.settings.extra_padding_samples_start
-                  :-ext_len - self.settings.extra_padding_samples_end-1]
+            self.imf_list = [imf[ext_len + self.settings.extension_padding_samples_start
+                                 :-ext_len - self.settings.extension_padding_samples_end - 1] for imf in self.imf_list]
+            r = r[ext_len + self.settings.extension_padding_samples_start
+                  :-ext_len - self.settings.extension_padding_samples_end - 1]
 
         self.residual = r
 
@@ -102,7 +136,7 @@ class EMD:
             print(f"EMD completed in {self.runtime:.3f} seconds.")
         return
 
-    def plot_emd_results(self, show = True, include_padding = False):
+    def plot_emd_results(self, show = False, include_padding = False):
         """
         Plots input signal and IMFs of EMD object. The function perform_emd() must have been run before.
 
@@ -112,8 +146,8 @@ class EMD:
         :return: None
         """
         if self.settings.remove_padding_after_emd:  # Do not remove padding again if already removed
-            orig_signal = self.input_signal[self.settings.extra_padding_samples_start
-                                            :-self.settings.extra_padding_samples_end-1:]
+            orig_signal = self.input_signal[self.settings.extension_padding_samples_start
+                                            :-self.settings.extension_padding_samples_end - 1:]
             new_imf_list = self.imf_list
             res_new = self.residual
         elif include_padding:
@@ -121,71 +155,42 @@ class EMD:
             new_imf_list = self.imf_list
             res_new = self.residual
         else:
-            orig_signal = self.input_signal[self.settings.extra_padding_samples_start
-                                            :-self.settings.extra_padding_samples_end-1:]
+            orig_signal = self.input_signal[self.settings.extension_padding_samples_start
+                                            :-self.settings.extension_padding_samples_end - 1:]
             ext_len = int(len(self.input_signal)*self.settings.mirror_padding_fraction)
-            new_imf_list = [imf[ext_len + self.settings.extra_padding_samples_start
-                                :-ext_len - self.settings.extra_padding_samples_end-1] for imf in self.imf_list]
-            res_new = self.residual[ext_len + self.settings.extra_padding_samples_start
-                                :-ext_len - self.settings.extra_padding_samples_end-1]
+            new_imf_list = [imf[ext_len + self.settings.extension_padding_samples_start
+                                :-ext_len - self.settings.extension_padding_samples_end - 1] for imf in self.imf_list]
+            res_new = self.residual[ext_len + self.settings.extension_padding_samples_start
+                                :-ext_len - self.settings.extension_padding_samples_end - 1]
 
         tAxis = np.linspace(0, len(orig_signal)/self.settings.fs, len(orig_signal))
 
         num_imfs = len(self.imf_list)
 
         # Create a grid of subplots for IMFs and residual
-        fig, axes = plt.subplots(num_imfs + 2, 1, figsize=(7, 2 * (num_imfs + 1)), sharex=True)
+        fig, axes = plt.subplots(num_imfs + 2, 1, figsize=(7, 2 * (num_imfs + .7)), sharex=True)
 
         # Plot the input signal
         axes[0].plot(tAxis, orig_signal, color='blue', linewidth = .7)
-        axes[0].set_title('Input Signal')
+        axes[0].set_title('Input Signal', fontsize=16)
 
         # Plot each IMF
         for i, imf in enumerate(new_imf_list):
             axes[i + 1].plot(tAxis, imf, color='green', linewidth = .7)
-            axes[i + 1].set_title(f'IMF {i + 1}')
+            axes[i + 1].set_title(f'IMF {i + 1}', fontsize=16)
 
         # Plot the residual
         axes[num_imfs+1].plot(tAxis, res_new, color='red', linewidth = .7)
-        axes[num_imfs+1].set_title('Residual')
+        axes[num_imfs+1].set_title('Residual', fontsize=16)
 
-        # Set labels
-        for ax in axes:
-            ax.set_ylabel('Amplitude')
-        axes[num_imfs+1].set_xlabel('Time [s]')
+        axes[num_imfs+1].set_xlabel('Time [s]', fontsize=16)
 
         plt.tight_layout()
         if show:
             plt.show()
 
 
-def get_envelopes(signal):
-    """
-    Calculates and returns the peaks of the input signal and constructs the upper and lower envelopes using cubic spline
-    interpolation.
 
-    :param signal: Signal for which the envelopes should be calculated.
-    :type signal: numpy.ndarray or list
-
-    :return upper_envelope: Envelope interpolated using upper peaks.
-    :rtype upper_envelope: numpy.ndarray
-    :return lower_envelope: Envelope interpolated using lower peaks.
-    :rtype lower_envelope: numpy.ndarray
-    """
-    upper_peaks, _ = find_peaks(signal)
-    lower_peaks, _ = find_peaks(-signal)
-
-    if len(upper_peaks) < 4 or len(lower_peaks) < 4:  #Unable to extract more IMFs
-        return None, None
-
-    xAxis = np.arange(len(signal))
-    interp_upper = CubicSpline(upper_peaks, signal[upper_peaks])
-    interp_lower = CubicSpline(lower_peaks, signal[lower_peaks])
-
-    upper_envelope = interp_upper(xAxis)
-    lower_envelope = interp_lower(xAxis)
-
-    return upper_envelope, lower_envelope
 
 
 """

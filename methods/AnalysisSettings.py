@@ -3,23 +3,27 @@ class AnalysisSettings:
     def __init__(self,
                  fs=50,
                  noise_reduction_moving_avg_window=1,
+                 print_segment_number=False,
                  print_emd_time=False,
                  print_hht_time=False,
                  print_segment_analysis_time=False,
-                 csv_decimals=3,
+                 csv_decimals=5,
+                 csv_delimiter=";",
+                 max_csv_save_attempts=9,
 
-                 emd_sd_tolerance=0.2,
+                 emd_rec_tolerance=0.003,
                  max_imfs=10,
-                 max_emd_sifting_iterations=30,
+                 max_emd_sifting_iterations=100,
                  print_emd_sifting_details=False,
+                 emd_min_peaks=4,
 
                  mirror_padding_fraction=1,
-                 extra_padding_time_start=0,
-                 extra_padding_time_end=0,
+                 extension_padding_time_start=0,
+                 extension_padding_time_end=0,
                  remove_padding_after_emd=False,
                  remove_padding_after_hht=True,
 
-                 hht_amplitude_threshold=0,
+                 hht_amplitude_threshold=1e-6,
                  hht_frequency_resolution="auto",
                  hht_frequency_threshold="auto",
                  hht_frequency_spike_threshold=0.7,
@@ -31,43 +35,57 @@ class AnalysisSettings:
                  hht_split_signal_freq_change_nperseg=100,
 
                  skip_storing_uncertain_results=False,
-                 minimum_total_non_zero_fraction=0.2,
+                 minimum_total_non_zero_fraction=0.1,
                  minimum_consecutive_non_zero_length=5,
-                 minimum_non_zero_improvement=4,
+                 minimum_non_zero_improvement=3,
                  max_coefficient_of_variation=0.4,
                  max_interp_fraction=0.3,
                  start_amp_curve_at_peak=True,
 
-                 segment_length_time=5,
+                 segment_length_time=10,
 
-                 damping_ratio_warning_threshold=0.4,
+                 damping_ratio_weak_warning_threshold=0.15,
+                 damping_ratio_strong_warning_threshold=0.05,
                  oscillation_timeout=2
 
                  ):
 
         self.fs = fs
         self.noise_reduction_moving_avg_window = noise_reduction_moving_avg_window
+        self.print_segment_number = print_segment_number
         self.print_emd_time = print_emd_time
         self.print_hht_time = print_hht_time
         self.print_segment_analysis_time = print_segment_analysis_time
         self.csv_decimals = csv_decimals
+        self.csv_delimiter = csv_delimiter
+        self.max_csv_save_attempts = max_csv_save_attempts
 
-        self.emd_sd_tolerance = emd_sd_tolerance
+        self.emd_rec_tolerance = emd_rec_tolerance
         self.max_imfs = max_imfs
         self.max_emd_sifting_iterations = max_emd_sifting_iterations
         self.print_emd_sifting_details = print_emd_sifting_details
+        self.emd_min_peaks = max(emd_min_peaks, 2)  # Needs to be at least 2
 
         self.mirror_padding_fraction = mirror_padding_fraction
-        self.extra_padding_time_start = extra_padding_time_start
-        self.extra_padding_time_end = extra_padding_time_end
-        self.extra_padding_samples_start = extra_padding_time_start*fs
-        self.extra_padding_samples_end = extra_padding_time_end*fs
+        self.extension_padding_time_start = extension_padding_time_start
+        self.extension_padding_time_end = extension_padding_time_end
+        self.extension_padding_samples_start = extension_padding_time_start*fs
+        self.extension_padding_samples_end = extension_padding_time_end*fs
         self.remove_padding_after_emd = remove_padding_after_emd
         self.remove_padding_after_hht = remove_padding_after_hht
 
         self.hht_amplitude_threshold = hht_amplitude_threshold
-        self.hht_frequency_resolution = hht_frequency_resolution
-        self.hht_frequency_threshold = hht_frequency_threshold
+
+        if hht_frequency_resolution == "auto":
+            self.hht_frequency_resolution = 1/self.fs
+        else:
+            self.hht_frequency_resolution = hht_frequency_resolution
+
+        if hht_frequency_threshold == "auto":
+            self.hht_frequency_threshold = self.hht_frequency_resolution/2
+        else:
+            self.hht_frequency_threshold = hht_frequency_threshold
+
         self.hht_frequency_spike_threshold = hht_frequency_spike_threshold
         self.hht_max_frequency_spike_duration = hht_max_frequency_spike_duration
         self.hht_amplitude_moving_avg_window = hht_amplitude_moving_avg_window
@@ -87,5 +105,6 @@ class AnalysisSettings:
         self.segment_length_time = segment_length_time
         self.segment_length_samples = segment_length_time*fs
 
-        self.damping_ratio_warning_threshold = damping_ratio_warning_threshold
+        self.damping_ratio_weak_warning_threshold = damping_ratio_weak_warning_threshold
+        self.damping_ratio_strong_warning_threshold = damping_ratio_strong_warning_threshold
         self.oscillation_timeout = oscillation_timeout

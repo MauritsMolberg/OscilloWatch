@@ -8,7 +8,7 @@ import dynpssimpy.solvers as dps_sol
 import importlib
 from methods.AnalysisSettings import AnalysisSettings
 from methods.EMD import EMD
-from methods.HHT import HHT
+from methods.HHT import HHT, moving_average
 from methods.SegmentAnalysis import SegmentAnalysis
 from methods.SignalAnalysis import SignalAnalysis
 importlib.reload(dps)
@@ -17,7 +17,7 @@ importlib.reload(dps)
 
 if __name__ == '__main__':
 
-    import dynpssimpy.ps_models.k2a_no_controls as model_data
+    import dynpssimpy.ps_models.k2a as model_data
     model = model_data.load()
 
     # Power system model
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     np.max(ps.ode_fun(0.0, ps.x0))
     # Specify simulation time
     #
-    t_end = 40
+    t_end = 32
     x0 = ps.x0.copy()
     # Add small perturbation to initial angle of first generator
     # x0[ps.gen_mdls['GEN'].state_idx['angle'][0]] += 1
@@ -83,10 +83,10 @@ if __name__ == '__main__':
         # print(t)
         #v_bus_full = ps.red_to_full.dot(ps.v_red)
         # Simulate short circuit
-        if 5 < t < 5.1:
-            ps.y_bus_red_mod[7, 7] = 10000
+        if 15 < t < 15.1:
+            ps.y_bus_red_mod[0, 0] = 10000
         else:
-            ps.y_bus_red_mod[7, 7] = 0
+            ps.y_bus_red_mod[0, 0] = 0
         # simulate a load change
         #if 2 < t < 4:
         #    ps.y_bus_red_mod[2, 2] = 0.1
@@ -144,9 +144,9 @@ if __name__ == '__main__':
 
     plt.figure()
     plt.plot(result[('Global', 't')], np.array(V1_stored))
-    plt.plot(result[('Global', 't')], np.array(V2_stored))
-    plt.plot(result[('Global', 't')], np.array(V3_stored))
-    plt.plot(result[('Global', 't')], np.array(V4_stored))
+    #plt.plot(result[('Global', 't')], np.array(V2_stored))
+    #plt.plot(result[('Global', 't')], np.array(V3_stored))
+    #plt.plot(result[('Global', 't')], np.array(V4_stored))
     plt.ylabel("Bus 1 voltage (p.u.)")
     plt.xlabel('time (s)')
 
@@ -166,23 +166,32 @@ if __name__ == '__main__':
     #plt.ylabel('E_q (p.u.)')
     G1_speed = result.xs(key='speed', axis='columns', level=1)["G1"].tolist()
     G1_speed_new = [G1_speed[i*4] for i in range(len(G1_speed)//4)]
+
+    G2_speed = result.xs(key='speed', axis='columns', level=1)["G2"].tolist()
+    G2_speed_new = [G2_speed[i*4] for i in range(len(G2_speed)//4)]
+
     V1_new = [V1_stored[i*4] for i in range(len(V1_stored)//4)]
+    V2_new = [V2_stored[i*4] for i in range(len(V2_stored)//4)]
     #V1_new = moving_average(V1_new, 3)
     #np.save("k2a_with_controls_1s_fault_V.npy", V1_new)
 
     plt.figure()
-    plt.plot(G1_speed_new)
-    plt.ylabel("Bus 1 speed (p.u.)")
+    plt.plot(G2_speed_new)
+    plt.ylabel("Bus 2 speed (p.u.)")
     plt.xlabel('time (s)')
 
 
     settings = AnalysisSettings(segment_length_time=10,
-                                extra_padding_time_start=1,
-                                extra_padding_time_end=1,
+                                extension_padding_time_start=10,
+                                extension_padding_time_end=1,
                                 print_segment_analysis_time=True,
-                                start_amp_curve_at_peak=False,
-                                hht_amplitude_threshold=.0001)
+                                start_amp_curve_at_peak=True,
+                                print_segment_number=True,
+                                print_emd_sifting_details=True,
+                                hht_frequency_moving_avg_window=51)
 
+    #V1_new += np.random.normal(0, .001, len(V1_new))
+    #V1_new = moving_average(V1_new, 35)
     sig_an = SignalAnalysis(G1_speed_new, settings)
     sig_an.analyze_whole_signal()
     sig_an.write_results_to_file()
