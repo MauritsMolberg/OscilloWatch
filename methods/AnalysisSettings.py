@@ -26,8 +26,6 @@ class AnalysisSettings:
                  hht_amplitude_threshold=1e-6,
                  hht_frequency_resolution="auto",
                  hht_frequency_threshold="auto",
-                 hht_frequency_spike_threshold=0.7,
-                 hht_max_frequency_spike_duration=5,
                  hht_amplitude_moving_avg_window=5,
                  hht_frequency_moving_avg_window=41,
                  hht_split_signal_freq_change_toggle=True,
@@ -39,7 +37,7 @@ class AnalysisSettings:
                  minimum_consecutive_non_zero_length=5,
                  minimum_non_zero_improvement=3,
                  max_coefficient_of_variation=0.4,
-                 max_interp_fraction=0.3,
+                 max_interp_fraction=0.4,
                  start_amp_curve_at_peak=True,
 
                  segment_length_time=10,
@@ -86,8 +84,6 @@ class AnalysisSettings:
         else:
             self.hht_frequency_threshold = hht_frequency_threshold
 
-        self.hht_frequency_spike_threshold = hht_frequency_spike_threshold
-        self.hht_max_frequency_spike_duration = hht_max_frequency_spike_duration
         self.hht_amplitude_moving_avg_window = hht_amplitude_moving_avg_window
         self.hht_frequency_moving_avg_window = hht_frequency_moving_avg_window
         self.hht_split_signal_freq_change_toggle = hht_split_signal_freq_change_toggle

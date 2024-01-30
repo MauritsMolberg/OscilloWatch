@@ -130,7 +130,7 @@ class SegmentAnalysis:
             "NZF": non_zero_fraction,
             "Init. amp.": 0.0,
             "Final amp.": 0.0,
-            "Init. amp est.": 0.0,
+            "Init. amp. est.": 0.0,
             "Decay rate": 0.0,
             "Damping ratio": 0.0,
             "Interp. frac.": 0.0,
@@ -156,8 +156,8 @@ class SegmentAnalysis:
         A, decay_rate = popt[0], popt[1]
 
         #plt.figure()
-        #plt.plot(np.arange(oscillation_info["Start time"], oscillation_info["End time"], 1/self.settings.fs), interp_amp_curve, label="Amplitude curve w. interpolation")
-        #plt.plot(np.arange(oscillation_info["Start time"], oscillation_info["End time"], 1/self.settings.fs), exponential_decay_model(time_points, A, decay_rate), label="Fitted curve")
+        #plt.plot(time_points, interp_amp_curve, label="Amplitude curve w. interpolation")
+        #plt.plot(time_points, exponential_decay_model(time_points, A, decay_rate), label="Fitted curve", linestyle="dashed")
         #plt.xlabel("Time [s]")
         #plt.ylabel("Amplitude")
         #plt.legend()

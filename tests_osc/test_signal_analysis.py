@@ -19,7 +19,7 @@ if __name__ == "__main__":
         return 4*np.exp(.1*t)*np.cos(np.pi*t) + 15*np.exp(-.1*t)*np.cos(.4*np.pi*t)
 
 
-    start = -30
+    start = -10
     end = 32
     fs = 50
 
@@ -35,9 +35,11 @@ if __name__ == "__main__":
     plt.tight_layout()
 
     settings = AnalysisSettings(
+                                fs=fs,
                                 segment_length_time=10,
-                                extension_padding_time_start=30,
+                                extension_padding_time_start=10,
                                 extension_padding_time_end=2,
+                                mirror_padding_fraction=1,
                                 start_amp_curve_at_peak=True,
                                 print_emd_time=True,
                                 print_hht_time=True,
