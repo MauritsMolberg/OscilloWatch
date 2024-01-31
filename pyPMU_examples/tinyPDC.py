@@ -16,6 +16,7 @@ import socket
 if __name__ == "__main__":
 
     ip = socket.gethostbyname(socket.gethostname())
+    ip = "localhost"
     #ip = "192.168.0.7"
     pdc = Pdc(pdc_id=1410, pmu_ip=ip, pmu_port=50000)
     pdc.logger.setLevel("DEBUG")

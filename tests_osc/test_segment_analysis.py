@@ -19,7 +19,7 @@ if __name__ == "__main__":
         return 4*np.exp(.2*t)*np.cos(3*np.pi*t)
 
 
-    settings = AnalysisSettings(max_imfs=3, extra_padding_time_start=2, extra_padding_time_end=2)
+    settings = AnalysisSettings(max_imfs=3, extension_padding_time_start=2, extension_padding_time_end=2)
     start = -1
     end = 11
     fs = 50
@@ -32,12 +32,12 @@ if __name__ == "__main__":
     settings.print_hht_time = True
     settings.print_segment_analysis_time = True
 
-    damp = SegmentAnalysis(input_signal1, settings)
-    damp.damping_analysis()
-    damp.hht.emd.plot_emd_results(show=False, include_padding=True)
-    damp.hht.plot_hilbert_spectrum(show=False)
+    seg_an = SegmentAnalysis(input_signal1, settings)
+    seg_an.damping_analysis()
+    seg_an.hht.emd.plot_emd_results(show=False, include_padding=True)
+    seg_an.hht.plot_hilbert_spectrum(show=False)
 
-    for i in range(len(damp.oscillation_info_list)):
-        print(damp.oscillation_info_list[i], "\n")
+    for i in range(len(seg_an.oscillation_info_list)):
+        print(seg_an.oscillation_info_list[i], "\n")
 
     plt.show()

@@ -5,7 +5,7 @@ from methods.AnalysisSettings import AnalysisSettings
 from methods.SegmentAnalysis import SegmentAnalysis
 
 
-class SignalAnalysis:
+class SignalSnapshotAnalysis:
     """
     Class that splits an input signal into segments and performs damping analysis on each segment. Simulates how the
     analysis would be performed on a real-time data stream.
@@ -20,7 +20,7 @@ class SignalAnalysis:
         self.segment_analysis_list = []
 
         self.results_file_path = results_file_path
-        self.file_save_attemt_count = 0
+        self.file_save_attempt_count = 0
 
     def split_signal(self):
         """
@@ -87,13 +87,13 @@ class SignalAnalysis:
                         csv_writer.writerow(row)
 
         except PermissionError:
-            if self.file_save_attemt_count > 9:
+            if self.file_save_attempt_count > 9:
                 print("Unable to save results to file.")
                 return
             new_path = os.path.splitext(self.results_file_path)[0] +"_new"+ os.path.splitext(self.results_file_path)[1]
             print(f"Permission denied for file {self.results_file_path}. Trying to save to {new_path} instead.")
             self.results_file_path = new_path
-            self.file_save_attemt_count += 1
+            self.file_save_attempt_count += 1
             return self.write_results_to_file()
 
         print(f"Results successfully saved to {self.results_file_path}.")

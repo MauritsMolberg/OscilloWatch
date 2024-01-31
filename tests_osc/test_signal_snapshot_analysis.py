@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from methods.AnalysisSettings import AnalysisSettings
 from methods.EMD import EMD
 from methods.HHT import HHT
-from methods.SignalAnalysis import SignalAnalysis
+from methods.SignalSnapshotAnalysis import SignalSnapshotAnalysis
 
 if __name__ == "__main__":
     np.random.seed(0)
@@ -50,7 +50,7 @@ if __name__ == "__main__":
                                 max_imfs=4,
                                 hht_frequency_moving_avg_window=41)
 
-    sig_an = SignalAnalysis(input_signal, settings)
+    sig_an = SignalSnapshotAnalysis(input_signal, settings)
     sig_an.analyze_whole_signal()
     sig_an.write_results_to_file()
 

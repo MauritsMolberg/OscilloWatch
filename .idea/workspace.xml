@@ -5,14 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Row removal from bottom and more">
+      <change afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pmu_scripts/send_array.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a_no_controls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a_no_controls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/modal_analysis/plot_eigs.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/modal_analysis/plot_eigs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SignalAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyPMU_examples/pyPMU.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyPMU_examples/pyPMU.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyPMU_examples/randomPMU.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/randomPMU.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyPMU_examples/simplePMU.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyPMU_examples/simplePMU.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyPMU_examples/tinyPDC.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyPMU_examples/tinyPDC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyPMU_examples/tinyPMU.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyPMU_examples/tinyPMU.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/N44_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/N44_base_script.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests_osc/k2a_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/k2a_base_script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests_osc/test_signal_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test_signal_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/test_signal_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test_signal_snapshot_analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,25 +67,34 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.RealTimeAnalysis.executor": "Run",
+    "Python.randomPMU.executor": "Run",
+    "Python.send_array.executor": "Run",
+    "Python.simplePMU.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.test_segment_analysis.executor": "Run",
     "Python.test_signal_analysis.executor": "Run",
+    "Python.tinyPDC.executor": "Run",
+    "Python.tinyPMU.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/mauri/OneDrive - NTNU/NTNU/Fordypningsprosjekt/OscillationDetection",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\pmu_scripts" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_signal_analysis">
-    <configuration name="HHT" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.RealTimeAnalysis">
+    <configuration name="RealTimeAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -89,7 +107,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/methods/HHT.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/methods/RealTimeAnalysis.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -98,7 +116,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="k2a_base_script" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="send_array" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -107,33 +125,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pmu_scripts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/k2a_base_script.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="plot_eigs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/modal_analysis" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/modal_analysis/plot_eigs.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pmu_scripts/send_array.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -164,7 +160,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_signal_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="test_segment_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -173,11 +169,33 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc\test_signal_analysis.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tinyPMU" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pyPMU_examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pyPMU_examples/tinyPMU.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -188,11 +206,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_signal_analysis" />
-        <item itemvalue="Python.HHT" />
+        <item itemvalue="Python.RealTimeAnalysis" />
+        <item itemvalue="Python.send_array" />
+        <item itemvalue="Python.test_segment_analysis" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.k2a_base_script" />
-        <item itemvalue="Python.plot_eigs" />
+        <item itemvalue="Python.tinyPMU" />
       </list>
     </recent_temporary>
   </component>
@@ -338,7 +356,14 @@
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL−00022" summary="Row removal from bottom and more">
+      <option name="closed" value="true" />
+      <created>1706610951551</created>
+      <option name="number" value="LOCAL−00022" />
+      <option name="presentableId" value="LOCAL−00022" />
+      <updated>1706610951551</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

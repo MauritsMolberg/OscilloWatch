@@ -8,6 +8,7 @@ if __name__ == '__main__':
     publish_frequency = 5
 
     ip = socket.gethostbyname(socket.gethostname())
+    ip="localhost"
     port = 50000
 
     station_names = ['PMU1', 'PMU2', 'PMU3']
@@ -38,7 +39,7 @@ if __name__ == '__main__':
     pmu.run()
 
     k = 0
-    while k < 200:
+    while True:
         time.sleep(1/publish_frequency)
         if pmu.pmu.clients:  # Check if there is any connected PDCs
             k += 1

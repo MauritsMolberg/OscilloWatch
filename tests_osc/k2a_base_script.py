@@ -10,7 +10,7 @@ from methods.AnalysisSettings import AnalysisSettings
 from methods.EMD import EMD
 from methods.HHT import HHT, moving_average
 from methods.SegmentAnalysis import SegmentAnalysis
-from methods.SignalAnalysis import SignalAnalysis
+from methods.SignalSnapshotAnalysis import SignalSnapshotAnalysis
 importlib.reload(dps)
 
 
@@ -228,7 +228,7 @@ if __name__ == '__main__':
 
     #V1_new += np.random.normal(0, .001, len(V1_new))
     #V1_new = moving_average(V1_new, 35)
-    sig_an = SignalAnalysis(G1_speed_new, settings)
+    sig_an = SignalSnapshotAnalysis(G1_speed_new, settings)
     sig_an.analyze_whole_signal()
     sig_an.write_results_to_file()
 

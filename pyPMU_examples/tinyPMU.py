@@ -13,6 +13,7 @@ be sent.
 if __name__ == "__main__":
 
     ip = socket.gethostbyname(socket.gethostname())
+    ip = "localhost"
     pmu = Pmu(ip=ip, port=50000)
     pmu.logger.setLevel("DEBUG")
 

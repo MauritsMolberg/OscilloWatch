@@ -12,7 +12,7 @@ from methods.EMD import EMD
 from methods.HHT import HHT
 from methods.AnalysisSettings import AnalysisSettings
 from methods.SegmentAnalysis import SegmentAnalysis
-from methods.SignalAnalysis import SignalAnalysis
+from methods.SignalSnapshotAnalysis import SignalSnapshotAnalysis
 
 
 if __name__ == '__main__':
@@ -170,7 +170,7 @@ if __name__ == '__main__':
                                 print_segment_analysis_time=True,
                                 start_amp_curve_at_peak=False)
 
-    sig_an = SignalAnalysis(V1_new, settings)
+    sig_an = SignalSnapshotAnalysis(V1_new, settings)
     sig_an.analyze_whole_signal()
     sig_an.write_results_to_file()
 

@@ -26,7 +26,6 @@ class SegmentAnalysis:
 
         self.hht = HHT(self.input_signal, self.settings)
 
-
         self.oscillation_info_list = []
 
     def interpolate_signal(self, signal, damping_info):
