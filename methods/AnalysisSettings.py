@@ -66,7 +66,7 @@ class AnalysisSettings:
 
         self.fs = fs
         self.segment_length_time = segment_length_time
-        self.segment_length_samples = segment_length_time*fs
+        self.segment_length_samples = int(segment_length_time*fs)
         self.noise_reduction_moving_avg_window = noise_reduction_moving_avg_window
         self.print_segment_number = print_segment_number
         self.print_emd_time = print_emd_time
@@ -85,8 +85,8 @@ class AnalysisSettings:
         self.mirror_padding_fraction = mirror_padding_fraction
         self.extension_padding_time_start = extension_padding_time_start
         self.extension_padding_time_end = extension_padding_time_end
-        self.extension_padding_samples_start = extension_padding_time_start*fs
-        self.extension_padding_samples_end = extension_padding_time_end*fs
+        self.extension_padding_samples_start = int(extension_padding_time_start*fs)
+        self.extension_padding_samples_end = int(extension_padding_time_end*fs)
         self.total_segment_length_samples = (self.segment_length_samples
                                              + self.extension_padding_samples_start
                                              + self.extension_padding_samples_end)
@@ -125,7 +125,6 @@ class AnalysisSettings:
         self.pmu_id = pmu_id
         self.channel = channel
         self.phasor_component = phasor_component
-
 
         self.damping_ratio_weak_warning_threshold = damping_ratio_weak_warning_threshold
         self.damping_ratio_strong_warning_threshold = damping_ratio_strong_warning_threshold

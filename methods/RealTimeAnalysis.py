@@ -1,11 +1,14 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
 import csv
 import os
+import threading
+
 from methods.AnalysisSettings import AnalysisSettings
 from methods.SegmentAnalysis import SegmentAnalysis
 from synchrophasor.pdc import Pdc
 from synchrophasor.frame import DataFrame
-import matplotlib.pyplot as plt
 
 class RealTimeAnalysis:
 
@@ -72,6 +75,8 @@ class RealTimeAnalysis:
             raise ValueError(f"{self.settings.phasor_component} is not a valid phasor component. Must be 'magnitude'"
                              f"or 'angle'.")
 
+
+
     def run_analysis(self):
         self.pdc.start()  # Request connected PMU to start sending measurements
 
@@ -114,15 +119,14 @@ class RealTimeAnalysis:
                 plt.show()
 
 
-settings = AnalysisSettings(fs=50,
-                            segment_length_time=5,
-                            extension_padding_time_start=2,
-                            extension_padding_time_end=1,
+settings = AnalysisSettings(segment_length_time=3,
+                            extension_padding_time_start=.5,
+                            extension_padding_time_end=0,
                             channel="signal",
                             #ip="10.100.0.75",
                             #port=34702,
-                            device_id=45,
-                            pmu_id=1410
+                            pmu_id=1410,
+                            device_id=1410
                             )
 rta = RealTimeAnalysis(settings)
 rta.run_analysis()
