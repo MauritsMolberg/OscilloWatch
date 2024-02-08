@@ -21,11 +21,14 @@ class RealTimeAnalysis:
         #self.pdc.logger.setLevel("DEBUG")
         self.pdc.run()  # Connect to PMU
 
-        self.pdc.stop()
+        #self.pdc.stop()
         self.pmu_config = self.pdc.get_config()  # Get configuration from PMU
         #self.pmu_header = self.pdc.get_header()  # Get header from PMU
 
         if type(self.pmu_config._id_code) == int:
+            if self.pmu_config._id_code != self.settings.pmu_id:
+                raise ValueError(f"{self.settings.pmu_id} is not a valid PMU ID code.")
+            self.id_index = 0
             # Create list of phasor channel names, with spaces at the end of the strings removed
             phasor_channel_names = []
             for channel_name in self.pmu_config._channel_names[:self.pdc.pmu_cfg2._phasor_num]:
@@ -115,11 +118,11 @@ settings = AnalysisSettings(fs=50,
                             segment_length_time=5,
                             extension_padding_time_start=2,
                             extension_padding_time_end=1,
-                            channel="freq",
-                            ip="10.100.0.75",
-                            port=34702,
+                            channel="signal",
+                            #ip="10.100.0.75",
+                            #port=34702,
                             device_id=45,
-                            pmu_id=3000
+                            pmu_id=1410
                             )
 rta = RealTimeAnalysis(settings)
 rta.run_analysis()
