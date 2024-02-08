@@ -24,17 +24,17 @@ class RealTimeAnalysis:
         #self.pdc.logger.setLevel("DEBUG")
         self.pdc.run()  # Connect to PMU
 
-        #self.pdc.stop()
+        self.pdc.stop()
         self.pmu_config = self.pdc.get_config()  # Get configuration from PMU
         #self.pmu_header = self.pdc.get_header()  # Get header from PMU
 
-        if type(self.pmu_config._id_code) == int:
-            if self.pmu_config._id_code != self.settings.pmu_id:
+        if type(self.pmu_config.get_stream_id_code()) == int:
+            if self.pmu_config.get_stream_id_code() != self.settings.pmu_id:
                 raise ValueError(f"{self.settings.pmu_id} is not a valid PMU ID code.")
             self.id_index = 0
             # Create list of phasor channel names, with spaces at the end of the strings removed
             phasor_channel_names = []
-            for channel_name in self.pmu_config._channel_names[:self.pdc.pmu_cfg2._phasor_num]:
+            for channel_name in self.pmu_config.get_channel_names()[:self.pmu_config.get_phasor_num()]:
                 for i in range(len(channel_name) - 1, 0, -1):
                     if channel_name[i] == " ":
                         channel_name = channel_name[:i]
@@ -42,16 +42,16 @@ class RealTimeAnalysis:
                         phasor_channel_names.append(channel_name)
                         break
 
-        elif type(self.pmu_config._id_code) == list:
+        elif type(self.pmu_config.get_stream_id_code()) == list:
             # Find index of PMU ID, use to create list of phasor channel names from the PMU, with spaces at the end of
             # the strings removed
-            if not self.settings.pmu_id in self.pmu_config._id_code:
+            if self.settings.pmu_id not in self.pmu_config.get_stream_id_code():
                 raise ValueError(f"{self.settings.pmu_id} is not a valid PMU ID code.")
-            self.id_index = self.pmu_config._id_code.index(self.settings.pmu_id)
+            self.id_index = self.pmu_config.get_stream_id_code().index(self.settings.pmu_id)
 
             phasor_channel_names = []
-            for channel_name in (self.pmu_config._channel_names
-                                 [self.id_index][:self.pdc.pmu_cfg2._phasor_num[self.id_index]]):
+            for channel_name in (self.pmu_config.get_channel_names()
+                                 [self.id_index][:self.pdc.pmu_cfg2.get_phasor_num()[self.id_index]]):
                 for i in range(len(channel_name) - 1, 0, -1):
                     if channel_name[i] == " ":
                         channel_name = channel_name[:i]
@@ -75,11 +75,9 @@ class RealTimeAnalysis:
             raise ValueError(f"{self.settings.phasor_component} is not a valid phasor component. Must be 'magnitude'"
                              f"or 'angle'.")
 
+        self.settings.fs = self.pmu_config.get_data_rate()
 
-
-    def run_analysis(self):
-        self.pdc.start()  # Request connected PMU to start sending measurements
-
+    def receive_data_frames(self):
         df_count = 0
         while True:
             print(df_count)
@@ -95,13 +93,24 @@ class RealTimeAnalysis:
                     for meas in data:
                         self.df_buffer.append(meas.get_measurements())
             df_count += 1
-            if len(self.df_buffer) >= self.settings.total_segment_length_samples:  # Enough samples to analyze segment
-                # Create segment, remove correct amount of samples from start of buffer
+
+    def run_analysis(self):
+        self.pdc.start()  # Request connected PMU to start sending measurements
+
+        # Start continuously receiving data and adding to buffer in own thread, so no data is lost during the analysis.
+        receive_thread = threading.Thread(target=self.receive_data_frames)
+        receive_thread.start()
+
+        # Start main processing loop
+        while True:
+            # If buffer has enough samples to create segment:
+            if len(self.df_buffer) >= self.settings.total_segment_length_samples:
+                # Create segment of data frames, remove correct amount of samples from start of buffer
                 df_segment = self.df_buffer[:self.settings.total_segment_length_samples]
                 self.df_buffer = self.df_buffer[(self.settings.segment_length_samples
                                                 + self.settings.extension_padding_samples_end):]
 
-                # Create array of numerical values found from dataframe using dict keys and indices
+                # Create segment array with wanted numerical values found from dataframe using dict keys and indices
                 if self.settings.channel.lower() == "freq" or self.settings.channel.lower() == "frequency":
                     values_segment = np.array([df["measurements"][self.id_index]["frequency"] for df in df_segment])
                 else:
@@ -119,14 +128,28 @@ class RealTimeAnalysis:
                 plt.show()
 
 
-settings = AnalysisSettings(segment_length_time=3,
-                            extension_padding_time_start=.5,
-                            extension_padding_time_end=0,
-                            channel="signal",
-                            #ip="10.100.0.75",
-                            #port=34702,
-                            pmu_id=1410,
-                            device_id=1410
-                            )
-rta = RealTimeAnalysis(settings)
+settings_N44 = AnalysisSettings(segment_length_time=3,
+                                extension_padding_time_start=.5,
+                                extension_padding_time_end=0,
+                                channel="bus_3000",
+                                ip="10.100.0.75",
+                                port=34702,
+                                pmu_id=3000,
+                                device_id=45
+                                )
+
+settings_array = AnalysisSettings(segment_length_time=3,
+                                  extension_padding_time_start=.5,
+                                  extension_padding_time_end=0,
+                                  channel="signal",
+                                  )
+
+settings_simplePMU = AnalysisSettings(segment_length_time=3,
+                                      extension_padding_time_start=.5,
+                                      extension_padding_time_end=0,
+                                      channel="Phasor2.3",
+                                      pmu_id=1411
+                                      )
+
+rta = RealTimeAnalysis(settings_simplePMU)
 rta.run_analysis()

@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="PMU ID/Channel select implemented">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Converting all segment sample lengths to int">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -194,8 +193,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.RealTimeAnalysis" />
-        <item itemvalue="Python.send_array" />
         <item itemvalue="Python.simplePMU" />
+        <item itemvalue="Python.send_array" />
         <item itemvalue="Python.tinyPMU" />
         <item itemvalue="Python.tinyPDC" />
       </list>
@@ -371,7 +370,14 @@
       <option name="presentableId" value="LOCAL−00025" />
       <updated>1707393882529</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL−00026" summary="Converting all segment sample lengths to int">
+      <option name="closed" value="true" />
+      <created>1707399432714</created>
+      <option name="number" value="LOCAL−00026" />
+      <option name="presentableId" value="LOCAL−00026" />
+      <updated>1707399432714</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -406,20 +412,16 @@
     <MESSAGE value="Row removal from bottom and more" />
     <MESSAGE value="Basic real-time analysis implemented" />
     <MESSAGE value="PMU ID/Channel select implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="PMU ID/Channel select implemented" />
+    <MESSAGE value="Converting all segment sample lengths to int" />
+    <option name="LAST_COMMIT_MESSAGE" value="Converting all segment sample lengths to int" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/methods/RealTimeAnalysis.py</url>
-          <line>30</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/methods/RealTimeAnalysis.py</url>
-          <line>69</line>
-          <option name="timeStamp" value="45" />
+          <line>31</line>
+          <option name="timeStamp" value="53" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
