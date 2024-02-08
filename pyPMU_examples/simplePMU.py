@@ -7,7 +7,7 @@ if __name__ == '__main__':
 
     publish_frequency = 5
 
-    ip = socket.gethostbyname(socket.gethostname())
+    #ip = socket.gethostbyname(socket.gethostname())
     ip="localhost"
     port = 50000
 

@@ -1,3 +1,5 @@
+import socket
+
 import numpy as np
 from synchrophasor.frame import ConfigFrame2
 from synchrophasor.pmu_mod import Pmu

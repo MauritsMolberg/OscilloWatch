@@ -50,9 +50,12 @@ class AnalysisSettings:
                  segment_length_time=10,
 
                  # Real time analysis settings
-                 pmu_ip = "localhost",
-                 pmu_port = 50000,
-                 pdc_id =1410,
+                 ip ="localhost",
+                 port = 50000,
+                 device_id = 45,
+                 pmu_id = 3000,
+                 channel = "V_1",
+                 phasor_component = "magnitude",
 
                  # Warning settings
                  damping_ratio_weak_warning_threshold=0.15,
@@ -116,9 +119,13 @@ class AnalysisSettings:
         self.max_interp_fraction = max_interp_fraction
         self.start_amp_curve_at_peak = start_amp_curve_at_peak
 
-        self.pmu_ip = pmu_ip
-        self.pmu_port = pmu_port
-        self.pdc_id = pdc_id
+        self.ip = ip
+        self.port = port
+        self.device_id = device_id
+        self.pmu_id = pmu_id
+        self.channel = channel
+        self.phasor_component = phasor_component
+
 
         self.damping_ratio_weak_warning_threshold = damping_ratio_weak_warning_threshold
         self.damping_ratio_strong_warning_threshold = damping_ratio_strong_warning_threshold

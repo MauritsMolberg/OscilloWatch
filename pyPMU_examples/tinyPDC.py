@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     pdc.run()  # Connect to PMU
     
-    # pdc.stop()
+    #pdc.stop()
     config = pdc.get_config()  # Get configuration from PMU
     header = pdc.get_header()
 
