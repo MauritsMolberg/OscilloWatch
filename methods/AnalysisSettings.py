@@ -52,7 +52,7 @@ class AnalysisSettings:
                  # Real time analysis settings
                  ip ="localhost",
                  port = 50000,
-                 device_id = 45,
+                 sender_device_id = 45,
                  pmu_id = 3000,
                  channel = "V_1",
                  phasor_component = "magnitude",
@@ -61,12 +61,10 @@ class AnalysisSettings:
                  damping_ratio_weak_warning_threshold=0.15,
                  damping_ratio_strong_warning_threshold=0.05,
                  oscillation_timeout=2
-
                  ):
 
         self.fs = fs
         self.segment_length_time = segment_length_time
-        self.segment_length_samples = int(segment_length_time*fs)
         self.noise_reduction_moving_avg_window = noise_reduction_moving_avg_window
         self.print_segment_number = print_segment_number
         self.print_emd_time = print_emd_time
@@ -85,25 +83,10 @@ class AnalysisSettings:
         self.mirror_padding_fraction = mirror_padding_fraction
         self.extension_padding_time_start = extension_padding_time_start
         self.extension_padding_time_end = extension_padding_time_end
-        self.extension_padding_samples_start = int(extension_padding_time_start*fs)
-        self.extension_padding_samples_end = int(extension_padding_time_end*fs)
-        self.total_segment_length_samples = (self.segment_length_samples
-                                             + self.extension_padding_samples_start
-                                             + self.extension_padding_samples_end)
         self.remove_padding_after_emd = remove_padding_after_emd
         self.remove_padding_after_hht = remove_padding_after_hht
 
         self.hht_amplitude_threshold = hht_amplitude_threshold
-
-        if hht_frequency_resolution == "auto":
-            self.hht_frequency_resolution = 1/self.fs
-        else:
-            self.hht_frequency_resolution = hht_frequency_resolution
-
-        if hht_frequency_threshold == "auto":
-            self.hht_frequency_threshold = self.hht_frequency_resolution/2
-        else:
-            self.hht_frequency_threshold = hht_frequency_threshold
 
         self.hht_amplitude_moving_avg_window = hht_amplitude_moving_avg_window
         self.hht_frequency_moving_avg_window = hht_frequency_moving_avg_window
@@ -121,7 +104,7 @@ class AnalysisSettings:
 
         self.ip = ip
         self.port = port
-        self.device_id = device_id
+        self.sender_device_id = sender_device_id
         self.pmu_id = pmu_id
         self.channel = channel
         self.phasor_component = phasor_component
@@ -129,3 +112,28 @@ class AnalysisSettings:
         self.damping_ratio_weak_warning_threshold = damping_ratio_weak_warning_threshold
         self.damping_ratio_strong_warning_threshold = damping_ratio_strong_warning_threshold
         self.oscillation_timeout = oscillation_timeout
+
+        # Initialize variables that will be calculated in update_calc_values
+        self.segment_length_samples = 0
+        self.extension_padding_samples_start = 0
+        self.extension_padding_samples_end = 0
+        self.total_segment_length_samples = 0
+        self.hht_frequency_resolution = hht_frequency_resolution
+        self.hht_frequency_threshold = hht_frequency_threshold
+
+        self.update_calc_values()
+
+    def update_calc_values(self):
+        self.segment_length_samples = int(self.segment_length_time*self.fs)
+        self.extension_padding_samples_start = int(self.extension_padding_time_start*self.fs)
+        self.extension_padding_samples_end = int(self.extension_padding_time_end*self.fs)
+        self.total_segment_length_samples = (self.segment_length_samples
+                                             + self.extension_padding_samples_start
+                                             + self.extension_padding_samples_end)
+
+        if self.hht_frequency_resolution == "auto":
+            self.hht_frequency_resolution = 1/self.fs
+        if self.hht_frequency_threshold == "auto":
+            self.hht_frequency_threshold = self.hht_frequency_resolution/2
+
+

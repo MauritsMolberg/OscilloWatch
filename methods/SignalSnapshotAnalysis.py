@@ -11,6 +11,14 @@ class SignalSnapshotAnalysis:
     analysis would be performed on a real-time data stream.
     """
     def __init__(self, input_signal, settings: AnalysisSettings, results_file_path="results.csv"):
+        """
+        Constructor for the SignalSnapshotAnalysis class.
+
+        :param input_signal:
+        :type input_signal: list or numpy.ndarray
+        :param AnalysisSettings settings:
+        :param str results_file_path:
+        """
         self.settings = settings
         self.input_signal = input_signal
 

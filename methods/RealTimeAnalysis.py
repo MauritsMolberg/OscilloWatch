@@ -1,9 +1,9 @@
-import numpy as np
-import matplotlib.pyplot as plt
-
 import csv
 import os
 import threading
+
+import numpy as np
+import matplotlib.pyplot as plt
 
 from methods.AnalysisSettings import AnalysisSettings
 from methods.SegmentAnalysis import SegmentAnalysis
@@ -18,9 +18,9 @@ class RealTimeAnalysis:
 
         self.segment_analysis_list = []
 
-        print(f"Attempting to connect to {self.settings.ip}:{self.settings.port} (Device ID: {self.settings.pmu_id})")
+        print(f"Attempting to connect to {self.settings.ip}:{self.settings.port} (Device ID: {self.settings.sender_device_id})")
         # Initialize PDC
-        self.pdc = Pdc(pdc_id=self.settings.device_id, pmu_ip=self.settings.ip, pmu_port=self.settings.port)
+        self.pdc = Pdc(pdc_id=self.settings.sender_device_id, pmu_ip=self.settings.ip, pmu_port=self.settings.port)
         #self.pdc.logger.setLevel("DEBUG")
         self.pdc.run()  # Connect to PMU
 
@@ -28,10 +28,17 @@ class RealTimeAnalysis:
         self.pmu_config = self.pdc.get_config()  # Get configuration from PMU
         #self.pmu_header = self.pdc.get_header()  # Get header from PMU
 
-        if type(self.pmu_config.get_stream_id_code()) == int:
+        # Initialize indices before finding the correct values
+        self.id_index = 0
+        self.channel_index = 0
+        self.component_index = 0
+
+        self.find_indices()
+
+    def find_indices(self):
+        if isinstance(self.pmu_config.get_stream_id_code(), int):
             if self.pmu_config.get_stream_id_code() != self.settings.pmu_id:
                 raise ValueError(f"{self.settings.pmu_id} is not a valid PMU ID code.")
-            self.id_index = 0
             # Create list of phasor channel names, with spaces at the end of the strings removed
             phasor_channel_names = []
             for channel_name in self.pmu_config.get_channel_names()[:self.pmu_config.get_phasor_num()]:
@@ -41,14 +48,12 @@ class RealTimeAnalysis:
                     else:
                         phasor_channel_names.append(channel_name)
                         break
-
-        elif type(self.pmu_config.get_stream_id_code()) == list:
+        elif isinstance(self.pmu_config.get_stream_id_code(), list):
             # Find index of PMU ID, use to create list of phasor channel names from the PMU, with spaces at the end of
             # the strings removed
             if self.settings.pmu_id not in self.pmu_config.get_stream_id_code():
                 raise ValueError(f"{self.settings.pmu_id} is not a valid PMU ID code.")
             self.id_index = self.pmu_config.get_stream_id_code().index(self.settings.pmu_id)
-
             phasor_channel_names = []
             for channel_name in (self.pmu_config.get_channel_names()
                                  [self.id_index][:self.pdc.pmu_cfg2.get_phasor_num()[self.id_index]]):
@@ -61,9 +66,8 @@ class RealTimeAnalysis:
         else:
             raise TypeError("Invalid type of ID code in config frame. Must be int or list")
 
-        # Find correct indices for PMU and channel in data frame, based on info from config frame
         if self.settings.channel.lower() != "freq" and self.settings.channel.lower() != "frequency":
-            if not self.settings.channel in phasor_channel_names:
+            if self.settings.channel not in phasor_channel_names:
                 raise ValueError(f"{self.settings.channel} is not a valid channel name.")
             self.channel_index = phasor_channel_names.index(self.settings.channel)
 
@@ -76,6 +80,7 @@ class RealTimeAnalysis:
                              f"or 'angle'.")
 
         self.settings.fs = self.pmu_config.get_data_rate()
+        self.settings.update_calc_values()
 
     def receive_data_frames(self):
         df_count = 0
@@ -83,7 +88,7 @@ class RealTimeAnalysis:
             print(df_count)
             data = self.pdc.get()  # Keep receiving data
 
-            if type(data) == DataFrame:
+            if isinstance(data, DataFrame):
                 self.df_buffer.append(data.get_measurements())
             else:
                 if not data:
@@ -97,7 +102,8 @@ class RealTimeAnalysis:
     def run_analysis(self):
         self.pdc.start()  # Request connected PMU to start sending measurements
 
-        # Start continuously receiving data and adding to buffer in own thread, so no data is lost during the analysis.
+        # Start continuously receiving data and adding to buffer in own thread, so no data is lost if it is sent while
+        # the main loop is running.
         receive_thread = threading.Thread(target=self.receive_data_frames)
         receive_thread.start()
 
@@ -135,13 +141,13 @@ settings_N44 = AnalysisSettings(segment_length_time=3,
                                 ip="10.100.0.75",
                                 port=34702,
                                 pmu_id=3000,
-                                device_id=45
+                                sender_device_id=45
                                 )
 
 settings_array = AnalysisSettings(segment_length_time=3,
                                   extension_padding_time_start=.5,
                                   extension_padding_time_end=0,
-                                  channel="signal",
+                                  channel="signal"
                                   )
 
 settings_simplePMU = AnalysisSettings(segment_length_time=3,
@@ -153,3 +159,6 @@ settings_simplePMU = AnalysisSettings(segment_length_time=3,
 
 rta = RealTimeAnalysis(settings_simplePMU)
 rta.run_analysis()
+
+# Multi signal
+# Noise

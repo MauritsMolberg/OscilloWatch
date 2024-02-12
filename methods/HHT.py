@@ -8,7 +8,7 @@ from methods.EMD import EMD
 
 class HHT:
     """
-    Class for performing the Hilbert Huang Transform on a signal segment.
+    Class for performing the Hilbert-Huang Transform on a signal segment.
     """
 
     def __init__(self, input_signal, settings: AnalysisSettings):
@@ -43,6 +43,7 @@ class HHT:
 
         :param signal_list: Either a list of signals or a single signal, which the Hilbert spectrum is to be calculated
             for.
+        :type signal_list: list or numpy.ndarray
         :return: None
         """
         # Handling the case of signal_list being only one signal (puts it in a list).
@@ -190,7 +191,7 @@ class HHT:
         :return: None
         """
         spec_copy = np.copy(self.hilbert_spectrum)
-        # Set zeros to None (for clearer plot)
+        # Setting zeros to None (for clearer plot)
         for i in range(len(spec_copy)):
             for j in range(len(spec_copy[0])):
                 if not spec_copy[i][j]:
@@ -202,7 +203,8 @@ class HHT:
         ax.set_xlabel("Time [s]", fontsize=16)
         ax.set_ylabel("Frequency [Hz]", fontsize=16)
         c = ax.pcolormesh(xAxis_mesh, freq_axis_mesh, spec_copy, shading="auto")
-        fig.colorbar(c, ax=ax, fraction=.05)
+        cbar = fig.colorbar(c, ax=ax, fraction=.05)
+        cbar.set_label("Amplitude [pu]", fontsize=16, labelpad=8)
         plt.tight_layout()
         if show:
             plt.show()
@@ -215,9 +217,9 @@ def moving_average(signal, window_size=5):
     :param signal: Signal to be smoothed out.
     :type signal: numpy.ndarray or list
     :param window_size: Size of the moving window.
-    :type signal: int
+    :type window_size: int
     :return: Smoothed signal.
-    :rtype: numpy.ndarray or list
+    :rtype: numpy.ndarray
     :raises ValueError: If the window size is an even number.
     """
     if window_size % 2 == 0:

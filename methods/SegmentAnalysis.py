@@ -140,7 +140,7 @@ class SegmentAnalysis:
         interp_amp_curve = self.interpolate_signal(amp_curve, oscillation_info)
 
         # If too high interpolated fraction and refusing to store (interpolate_signal() returns None)
-        if not interp_amp_curve:
+        if interp_amp_curve is None:
             return
 
         # Curve fit to find approximate initial amplitude and decay rate
