@@ -34,7 +34,7 @@ def send_array(array, ip="localhost", port=50000):
                        50)  # Rate of phasor data transmission (this one is probably wrong, but irrelevant for testing)
 
     pmu.set_configuration(cfg)
-    pmu.set_header("I'm a PMU sending data from an array, using the send_array function.")
+    pmu.set_header("I'm a simulated PMU sending data from an array, using the send_array function.")
 
     pmu.run()
 
