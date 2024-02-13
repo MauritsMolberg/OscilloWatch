@@ -115,8 +115,8 @@ class SegmentAnalysis:
         Note: String that stores some info about the process, such as if the damping info is skipped
 
         :param numpy.ndarray amp_curve: Single or combined row from Hilbert spectrum that is being analyzed.
-        :param int n: Index of the bottom-most row in the frequency band that is being analyzed
-        :param int k: Number of rows that are included in this frequency band in addition to the bottom one.
+        :param int bottom_row: Index of the bottom row in the frequency band that is being analyzed.
+        :param int top_row: Index of the top row in the frequency band that is being analyzed.
         :return: None
         """
         non_zero_fraction = np.count_nonzero(amp_curve)/len(amp_curve)
@@ -273,7 +273,6 @@ class SegmentAnalysis:
         return combined_row
 
 
-
 def remove_short_consecutive_sequences(non_zero_indices, min_consecutive_length):
     """
     Removes consecutive sequences of integers from non_zero_indices parameter if they are shorter than the specified
@@ -315,6 +314,7 @@ def remove_short_consecutive_sequences(non_zero_indices, min_consecutive_length)
         updated_indices.extend(current_sequence)
 
     return np.array(updated_indices)
+
 
 def exponential_decay_model(t, A, k):
     """

@@ -48,6 +48,7 @@ class RealTimeAnalysis:
                     else:
                         phasor_channel_names.append(channel_name)
                         break
+
         elif isinstance(self.pmu_config.get_stream_id_code(), list):
             # Find index of PMU ID, use to create list of phasor channel names from the PMU, with spaces at the end of
             # the strings removed

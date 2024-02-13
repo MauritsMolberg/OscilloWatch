@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Cleanup, todo added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pmu_scripts/send_array.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/send_array.py" afterDir="false" />
     </list>
@@ -41,6 +41,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -84,7 +87,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.RealTimeAnalysis">
+  <component name="RunManager" selected="Python.test_signal_snapshot_analysis">
     <configuration name="RealTimeAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -197,9 +200,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_signal_snapshot_analysis" />
         <item itemvalue="Python.RealTimeAnalysis" />
         <item itemvalue="Python.send_array" />
-        <item itemvalue="Python.test_signal_snapshot_analysis" />
         <item itemvalue="Python.test_segment_analysis" />
         <item itemvalue="Python.data_from_csv" />
       </list>
@@ -403,7 +406,21 @@
       <option name="presentableId" value="LOCAL−00029" />
       <updated>1707830701295</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL−00030" summary="Cleanup, todo added">
+      <option name="closed" value="true" />
+      <created>1707831966227</created>
+      <option name="number" value="LOCAL−00030" />
+      <option name="presentableId" value="LOCAL−00030" />
+      <updated>1707831966227</updated>
+    </task>
+    <task id="LOCAL−00031" summary="Cleanup, todo added">
+      <option name="closed" value="true" />
+      <created>1707832056314</created>
+      <option name="number" value="LOCAL−00031" />
+      <option name="presentableId" value="LOCAL−00031" />
+      <updated>1707832056314</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

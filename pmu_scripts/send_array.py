@@ -15,7 +15,7 @@ def send_array(array, ip="localhost", port=50000):
     cfg = ConfigFrame2(1410,  # PMU_ID
                        1000000,  # TIME_BASE
                        1,  # Number of PMUs included in data frame
-                       "Random Station",  # Station name
+                       "Testing Station",  # Station name
                        1410,  # Data-stream ID(s)
                        (True, True, True, True),  # Data format - POLAR; PH - REAL; AN - REAL; FREQ - REAL;
                        1,  # Number of phasors

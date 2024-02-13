@@ -87,7 +87,7 @@ class SignalSnapshotAnalysis:
                     for data_dict in segment.oscillation_info_list:
                         row = [i + 1]
                         for header in headers:
-                            if type(data_dict[header]) == float or type(data_dict[header]) == np.float64:
+                            if isinstance(data_dict[header], float) or isinstance(data_dict[header], np.float64):
                                 row.append(f"{data_dict[header]:.{self.settings.csv_decimals}f}")
                             else:
                                 row.append(data_dict[header])
