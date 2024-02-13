@@ -12,7 +12,7 @@ from synchrophasor.frame import DataFrame
 
 class RealTimeAnalysis:
 
-    def __init__(self, settings : AnalysisSettings):
+    def __init__(self, settings: AnalysisSettings):
         self.settings = settings
         self.df_buffer = []
 
@@ -24,7 +24,7 @@ class RealTimeAnalysis:
         #self.pdc.logger.setLevel("DEBUG")
         self.pdc.run()  # Connect to PMU
 
-        self.pdc.stop()
+        #self.pdc.stop()
         self.pmu_config = self.pdc.get_config()  # Get configuration from PMU
         #self.pmu_header = self.pdc.get_header()  # Get header from PMU
 
@@ -145,9 +145,10 @@ settings_N44 = AnalysisSettings(segment_length_time=3,
                                 )
 
 settings_array = AnalysisSettings(segment_length_time=3,
-                                  extension_padding_time_start=.5,
-                                  extension_padding_time_end=0,
-                                  channel="signal"
+                                  extension_padding_time_start=2,
+                                  extension_padding_time_end=2,
+                                  channel="signal",
+                                  pmu_id=1410
                                   )
 
 settings_simplePMU = AnalysisSettings(segment_length_time=3,
@@ -157,7 +158,7 @@ settings_simplePMU = AnalysisSettings(segment_length_time=3,
                                       pmu_id=1411
                                       )
 
-rta = RealTimeAnalysis(settings_simplePMU)
+rta = RealTimeAnalysis(settings_array)
 rta.run_analysis()
 
 # Todo: CSV storage RT

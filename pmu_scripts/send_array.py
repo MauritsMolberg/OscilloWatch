@@ -31,7 +31,7 @@ def send_array(array, ip="localhost", port=50000):
                        [(0x0000, 0xffff)],  # Mask words for digital status words
                        50,  # Nominal frequency
                        1,  # Configuration change count
-                       30)  # Rate of phasor data transmission (this one is probably wrong, but irrelevant for testing)
+                       50)  # Rate of phasor data transmission (this one is probably wrong, but irrelevant for testing)
 
     pmu.set_configuration(cfg)
     pmu.set_header("I'm a PMU sending data from an array, using the send_array function.")

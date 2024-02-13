@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added test for reading data from CSV file">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Cleanup, todo added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/HHT.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/HHT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pmu_scripts/send_array.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/send_array.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +84,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.data_from_csv">
+  <component name="RunManager" selected="Python.RealTimeAnalysis">
     <configuration name="RealTimeAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -129,7 +129,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="simplePMU" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="send_array" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -138,11 +138,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pyPMU_examples" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pmu_scripts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pyPMU_examples/simplePMU.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pmu_scripts/send_array.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -151,7 +151,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_hht" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="test_segment_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -164,7 +164,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/test_hht.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -197,11 +197,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.data_from_csv" />
-        <item itemvalue="Python.test_hht" />
         <item itemvalue="Python.RealTimeAnalysis" />
-        <item itemvalue="Python.simplePMU" />
+        <item itemvalue="Python.send_array" />
         <item itemvalue="Python.test_signal_snapshot_analysis" />
+        <item itemvalue="Python.test_segment_analysis" />
+        <item itemvalue="Python.data_from_csv" />
       </list>
     </recent_temporary>
   </component>
@@ -396,7 +396,14 @@
       <option name="presentableId" value="LOCAL−00028" />
       <updated>1707748820513</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL−00029" summary="Cleanup, todo added">
+      <option name="closed" value="true" />
+      <created>1707830701294</created>
+      <option name="number" value="LOCAL−00029" />
+      <option name="presentableId" value="LOCAL−00029" />
+      <updated>1707830701295</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -434,7 +441,8 @@
     <MESSAGE value="Converting all segment sample lengths to int" />
     <MESSAGE value="Added threading for receiving and buffering data" />
     <MESSAGE value="Added test for reading data from CSV file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added test for reading data from CSV file" />
+    <MESSAGE value="Cleanup, todo added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup, todo added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

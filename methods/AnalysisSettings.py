@@ -12,6 +12,7 @@ class AnalysisSettings:
                  csv_decimals=5,
                  csv_delimiter=";",
                  max_csv_save_attempts=9,
+                 results_file_path="results.csv",
 
                  # EMD settings
                  emd_rec_tolerance=0.003,
@@ -70,9 +71,11 @@ class AnalysisSettings:
         self.print_emd_time = print_emd_time
         self.print_hht_time = print_hht_time
         self.print_segment_analysis_time = print_segment_analysis_time
+
         self.csv_decimals = csv_decimals
         self.csv_delimiter = csv_delimiter
         self.max_csv_save_attempts = max_csv_save_attempts
+        self.results_file_path = results_file_path
 
         self.emd_rec_tolerance = emd_rec_tolerance
         self.max_imfs = max_imfs
