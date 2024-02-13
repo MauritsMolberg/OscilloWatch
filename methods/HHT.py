@@ -43,7 +43,7 @@ class HHT:
 
         :param signal_list: Either a list of signals or a single signal, which the Hilbert spectrum is to be calculated
             for.
-        :type signal_list: list or numpy.ndarray
+        :type signal_list: list[list] or list[numpy.ndarray] or list[float] or numpy.ndarray[float]
         :return: None
         """
         # Handling the case of signal_list being only one signal (puts it in a list).
@@ -68,7 +68,8 @@ class HHT:
                 for portion in split_signal:
                     analytic_portion = hilbert(portion)
                     freq_portion = np.gradient(np.unwrap(np.angle(analytic_portion))) * self.settings.fs / (2*np.pi)
-                    freq_portion = moving_average(freq_portion, window_size=self.settings.hht_frequency_moving_avg_window)
+                    freq_portion = moving_average(freq_portion,
+                                                  window_size=self.settings.hht_frequency_moving_avg_window)
                     amplitude_portion = np.abs(analytic_portion)
                     # Join calculated freq. and amp. for the portions together again
                     analytic_signal = np.concatenate((analytic_signal, analytic_portion))
@@ -77,7 +78,8 @@ class HHT:
             else:
                 analytic_signal = hilbert(signal)
                 freq_signal = np.gradient(np.unwrap(np.angle(analytic_signal))) * self.settings.fs / (2*np.pi)
-                freq_signal = moving_average(freq_signal, window_size=self.settings.hht_frequency_moving_avg_window)
+                freq_signal = moving_average(freq_signal,
+                                             window_size=self.settings.hht_frequency_moving_avg_window)
                 amplitude_signal = np.abs(analytic_signal)
 
             #plt.figure()
@@ -102,7 +104,6 @@ class HHT:
 
             amplitude_signal = moving_average(amplitude_signal,
                                               window_size=self.settings.hht_amplitude_moving_avg_window)
-
 
             # Store inst. freq. and amplitude to lists
             self.freq_signal_list.append(freq_signal)

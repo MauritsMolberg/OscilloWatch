@@ -160,5 +160,5 @@ settings_simplePMU = AnalysisSettings(segment_length_time=3,
 rta = RealTimeAnalysis(settings_simplePMU)
 rta.run_analysis()
 
-# Multi signal
-# Noise
+# Todo: CSV storage RT
+# Todo: Pickle storage

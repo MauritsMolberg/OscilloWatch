@@ -37,12 +37,12 @@ class SignalSnapshotAnalysis:
 
         :return: None
         """
-        for seg_ind in range((len(self.input_signal)
-                              - self.settings.extension_padding_samples_start - self.settings.extension_padding_samples_end)
+        for seg_ind in range((len(self.input_signal) - self.settings.extension_padding_samples_start
+                              - self.settings.extension_padding_samples_end)
                              // self.settings.segment_length_samples):
             start_ind = seg_ind * self.settings.segment_length_samples
-            end_ind = (seg_ind+1)*self.settings.segment_length_samples\
-                      + self.settings.extension_padding_samples_start + self.settings.extension_padding_samples_end
+            end_ind = ((seg_ind+1)*self.settings.segment_length_samples
+                       + self.settings.extension_padding_samples_start + self.settings.extension_padding_samples_end)
             self.segment_list.append(self.input_signal[start_ind:end_ind])
 
         remaining_samples = len(self.input_signal) - end_ind
@@ -78,7 +78,8 @@ class SignalSnapshotAnalysis:
                     "CV",
                     "Note"
                    ]
-        # Adds _new to file name if permission denied (likely already open in Excel)
+
+        # Adds _new to file name if permission denied (when file is open in Excel, most likely)
         try:
             with open(self.results_file_path, 'w', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
@@ -93,7 +94,6 @@ class SignalSnapshotAnalysis:
                             else:
                                 row.append(data_dict[header])
                         csv_writer.writerow(row)
-
         except PermissionError:
             if self.file_save_attempt_count > 9:
                 print("Unable to save results to file.")
@@ -106,3 +106,5 @@ class SignalSnapshotAnalysis:
 
         print(f"Results successfully saved to {self.results_file_path}.")
         return
+
+# Todo: Incorporate frequency result changes

@@ -139,7 +139,7 @@ class SegmentAnalysis:
 
         interp_amp_curve = self.interpolate_signal(amp_curve, oscillation_info)
 
-        # If too high interpolated fraction and refusing to store (interpolate_signal() returns None)
+        # If interpolated fraction is too high and skip storing is enabled (interpolate_signal() returns None)
         if interp_amp_curve is None:
             return
 
@@ -163,7 +163,8 @@ class SegmentAnalysis:
         #plt.tight_layout()
 
         oscillation_info["CV"]\
-            = np.std(interp_amp_curve - exponential_decay_model(time_points, A, decay_rate))/np.mean(interp_amp_curve)
+            = (np.std(interp_amp_curve - exponential_decay_model(time_points, A, decay_rate)) /
+               np.mean(interp_amp_curve))
         if oscillation_info["CV"] > self.settings.max_coefficient_of_variation:
             if self.settings.skip_storing_uncertain_results:
                 return
@@ -325,3 +326,5 @@ def exponential_decay_model(t, A, k):
     :return:
     """
     return A * np.exp(-k * t)
+
+# Todo: Specific frequency
