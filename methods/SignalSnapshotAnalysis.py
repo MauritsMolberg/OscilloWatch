@@ -89,8 +89,14 @@ class SignalSnapshotAnalysis:
 
                 csv_writer.writerow(["Segment"] + headers)
                 for i, segment in enumerate(self.segment_analysis_list):
+                    first_mode_in_segment = True
                     for data_dict in segment.oscillation_info_list:
-                        row = [i + 1]
+                        if first_mode_in_segment:
+                            row = [i + 1]
+                            first_mode_in_segment = False
+                        else:
+                            row = [""]
+
                         for header in headers:
                             if isinstance(data_dict[header], float) or isinstance(data_dict[header], np.float64):
                                 row.append(f"{data_dict[header]:.{self.settings.csv_decimals}f}")

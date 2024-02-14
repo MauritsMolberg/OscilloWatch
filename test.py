@@ -27,7 +27,7 @@ with open("test.csv", 'a', newline='') as csv_file:
     row = [1,2,"heisann", 5, 8.422, datetime.datetime.now().strftime("%Y.%m.%d, %H:%M:%S.%f")]
     csv_writer.writerow(row)
 
-#print(datetime.datetime.now().strftime("%Y.%m.%d, %H:%M:%S.%f"))
+print(datetime.datetime.now())
 timestamp = time()
 dt_object = datetime.datetime.fromtimestamp(timestamp)
 print(dt_object)

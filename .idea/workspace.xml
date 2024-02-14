@@ -86,7 +86,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.test_signal_snapshot_analysis">
     <configuration name="RealTimeAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -199,10 +199,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_signal_snapshot_analysis" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.RealTimeAnalysis" />
         <item itemvalue="Python.send_array" />
-        <item itemvalue="Python.test_signal_snapshot_analysis" />
         <item itemvalue="Python.test_segment_analysis" />
       </list>
     </recent_temporary>
@@ -433,7 +433,14 @@
       <option name="presentableId" value="LOCAL−00033" />
       <updated>1707908833300</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL−00034" summary="Improved csv saving">
+      <option name="closed" value="true" />
+      <created>1707915107547</created>
+      <option name="number" value="LOCAL−00034" />
+      <option name="presentableId" value="LOCAL−00034" />
+      <updated>1707915107547</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
