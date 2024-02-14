@@ -59,7 +59,7 @@ class SignalSnapshotAnalysis:
             seg_analysis.damping_analysis()
             self.segment_analysis_list.append(seg_analysis)
 
-    def write_results_to_file(self):
+    def write_results_to_file(self, file_path="default"):
         headers = [
                     "Warning",
                     "Freq. start",
@@ -76,10 +76,13 @@ class SignalSnapshotAnalysis:
                     "CV",
                     "Note"
                    ]
-
+        if file_path == "default":
+            current_file_path = self.settings.results_file_path
+        else:
+            current_file_path = file_path
         # Adds _new to file name if permission denied (when file is open in Excel, most likely)
         try:
-            with open(self.settings.results_file_path, 'w', newline='') as csv_file:
+            with open(current_file_path, 'w', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
 
                 csv_writer.writerow(["Segment"] + headers)
@@ -93,18 +96,17 @@ class SignalSnapshotAnalysis:
                                 row.append(data_dict[header])
                         csv_writer.writerow(row)
         except PermissionError:
-            if self.file_save_attempt_count > 9:
+            self.file_save_attempt_count += 1
+            if self.file_save_attempt_count > 20:
                 print("Unable to save results to file.")
                 return
-            new_path = (os.path.splitext(self.settings.results_file_path)[0] + "_new"
-                        + os.path.splitext(self.settings.results_file_path)[1])
-            print(f"Permission denied for file {self.settings.results_file_path}."
-                  f"Trying to save to {new_path} instead.")
-            self.settings.results_file_path = new_path
-            self.file_save_attempt_count += 1
-            return self.write_results_to_file()
+            new_path = (os.path.splitext(self.settings.results_file_path)[0] + "_" + str(self.file_save_attempt_count)
+                        + ".csv")
+            print(f"Permission denied for file {current_file_path}. Trying to save to {new_path} instead.")
 
-        print(f"Results successfully saved to {self.settings.results_file_path}.")
+            return self.write_results_to_file(new_path)
+
+        print(f"Results successfully saved to {current_file_path}.")
         return
 
 # Todo: Incorporate frequency result changes

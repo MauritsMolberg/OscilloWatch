@@ -48,7 +48,9 @@ if __name__ == "__main__":
                                 print_segment_analysis_time=True,
                                 hht_split_signal_freq_change_toggle=True,
                                 max_imfs=4,
-                                hht_frequency_moving_avg_window=41)
+                                hht_frequency_moving_avg_window=41,
+                                results_file_path="rez.csv"
+                                )
 
     sig_an = SignalSnapshotAnalysis(input_signal, settings)
     sig_an.analyze_whole_signal()
