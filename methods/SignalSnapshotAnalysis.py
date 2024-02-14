@@ -76,11 +76,13 @@ class SignalSnapshotAnalysis:
                     "CV",
                     "Note"
                    ]
+
         if file_path == "default":
             current_file_path = self.settings.results_file_path
         else:
             current_file_path = file_path
-        # Adds _new to file name if permission denied (when file is open in Excel, most likely)
+
+        # Adds "_(number)" to file name if permission denied (when file is open in Excel, most likely)
         try:
             with open(current_file_path, 'w', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
