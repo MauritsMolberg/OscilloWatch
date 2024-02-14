@@ -46,7 +46,7 @@ settings = AnalysisSettings(
 
 sig_an = SignalSnapshotAnalysis(data, settings)
 sig_an.analyze_whole_signal()
-sig_an.write_results_to_file()
+sig_an.write_results_to_csv()
 
 for segment in sig_an.segment_analysis_list[26:31]:
     segment.hht.emd.plot_emd_results(show=False)

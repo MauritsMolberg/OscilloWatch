@@ -59,7 +59,7 @@ class SignalSnapshotAnalysis:
             seg_analysis.damping_analysis()
             self.segment_analysis_list.append(seg_analysis)
 
-    def write_results_to_file(self, file_path="default"):
+    def write_results_to_csv(self, file_path="default"):
         headers = [
                     "Warning",
                     "Freq. start",
@@ -112,7 +112,7 @@ class SignalSnapshotAnalysis:
                         + ".csv")
             print(f"Permission denied for file {current_file_path}. Trying to save to {new_path} instead.")
 
-            return self.write_results_to_file(new_path)
+            return self.write_results_to_csv(new_path)
 
         print(f"Results successfully saved to {current_file_path}.")
         return

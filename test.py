@@ -23,8 +23,8 @@ headers = [
 
 with open("test.csv", 'a', newline='') as csv_file:
     csv_writer = csv.writer(csv_file, delimiter=";")
-
-    row = [1,2,"heisann", 5, 8.422, datetime.datetime.now().strftime("%Y.%m.%d, %H:%M:%S.%f")]
+    timestamp = time()
+    row = [1,2,"heisann", 5, 8.422, datetime.datetime.fromtimestamp(timestamp)]
     csv_writer.writerow(row)
 
 print(datetime.datetime.now())

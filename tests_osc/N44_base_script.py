@@ -172,7 +172,7 @@ if __name__ == '__main__':
 
     sig_an = SignalSnapshotAnalysis(V1_new, settings)
     sig_an.analyze_whole_signal()
-    sig_an.write_results_to_file()
+    sig_an.write_results_to_csv()
 
     for segment in sig_an.segment_analysis_list:
         segment.hht.emd.plot_emd_results(show=False)

@@ -230,7 +230,7 @@ if __name__ == '__main__':
     #V1_new = moving_average(V1_new, 35)
     sig_an = SignalSnapshotAnalysis(G1_speed_new, settings)
     sig_an.analyze_whole_signal()
-    sig_an.write_results_to_file()
+    sig_an.write_results_to_csv()
 
     for segment in sig_an.segment_analysis_list:
         segment.hht.emd.plot_emd_results(show=False)

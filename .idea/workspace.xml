@@ -9,6 +9,10 @@
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/N44_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/N44_base_script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/data_from_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/k2a_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/k2a_base_script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/test_signal_snapshot_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test_signal_snapshot_analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +90,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_signal_snapshot_analysis">
+  <component name="RunManager" selected="Python.test">
     <configuration name="RealTimeAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -199,8 +203,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_signal_snapshot_analysis" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.test_signal_snapshot_analysis" />
         <item itemvalue="Python.RealTimeAnalysis" />
         <item itemvalue="Python.send_array" />
         <item itemvalue="Python.test_segment_analysis" />
@@ -440,7 +444,14 @@
       <option name="presentableId" value="LOCAL−00034" />
       <updated>1707915107547</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL−00035" summary="Improved csv saving">
+      <option name="closed" value="true" />
+      <created>1707915649606</created>
+      <option name="number" value="LOCAL−00035" />
+      <option name="presentableId" value="LOCAL−00035" />
+      <updated>1707915649606</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
