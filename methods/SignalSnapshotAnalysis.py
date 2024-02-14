@@ -91,6 +91,7 @@ class SignalSnapshotAnalysis:
                 for i, segment in enumerate(self.segment_analysis_list):
                     first_mode_in_segment = True
                     for data_dict in segment.oscillation_info_list:
+                        # Make sure each segment number appears only once, for better readability
                         if first_mode_in_segment:
                             row = [i + 1]
                             first_mode_in_segment = False
