@@ -6,12 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Improved csv saving">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pmu_scripts/send_array.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/send_array.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests_osc/N44_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/N44_base_script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests_osc/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/data_from_csv.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests_osc/k2a_base_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/k2a_base_script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests_osc/test_signal_snapshot_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test_signal_snapshot_analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,6 +65,7 @@
   &quot;keyToString&quot;: {
     &quot;Python.RealTimeAnalysis.executor&quot;: &quot;Run&quot;,
     &quot;Python.data_from_csv.executor&quot;: &quot;Run&quot;,
+    &quot;Python.k2a_base_script.executor&quot;: &quot;Run&quot;,
     &quot;Python.randomPMU.executor&quot;: &quot;Run&quot;,
     &quot;Python.send_array.executor&quot;: &quot;Run&quot;,
     &quot;Python.simplePMU.executor&quot;: &quot;Run&quot;,
@@ -90,7 +93,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.test_signal_snapshot_analysis">
     <configuration name="RealTimeAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -135,6 +138,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="simplePMU" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pyPMU_examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pyPMU_examples/simplePMU.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -149,28 +174,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_segment_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/test_segment_analysis.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -203,11 +206,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.test_signal_snapshot_analysis" />
         <item itemvalue="Python.RealTimeAnalysis" />
         <item itemvalue="Python.send_array" />
-        <item itemvalue="Python.test_segment_analysis" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.simplePMU" />
       </list>
     </recent_temporary>
   </component>
@@ -451,7 +454,21 @@
       <option name="presentableId" value="LOCAL−00035" />
       <updated>1707915649606</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL−00036" summary="Improved csv saving">
+      <option name="closed" value="true" />
+      <created>1707917466188</created>
+      <option name="number" value="LOCAL−00036" />
+      <option name="presentableId" value="LOCAL−00036" />
+      <updated>1707917466188</updated>
+    </task>
+    <task id="LOCAL−00037" summary="Improved csv saving">
+      <option name="closed" value="true" />
+      <created>1707917950666</created>
+      <option name="number" value="LOCAL−00037" />
+      <option name="presentableId" value="LOCAL−00037" />
+      <updated>1707917950667</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

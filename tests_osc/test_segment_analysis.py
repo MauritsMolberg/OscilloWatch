@@ -37,7 +37,7 @@ if __name__ == "__main__":
     seg_an.hht.emd.plot_emd_results(show=False, include_padding=True)
     seg_an.hht.plot_hilbert_spectrum(show=False)
 
-    for i in range(len(seg_an.oscillation_info_list)):
-        print(seg_an.oscillation_info_list[i], "\n")
+    for i in range(len(seg_an.mode_info_list)):
+        print(seg_an.mode_info_list[i], "\n")
 
     plt.show()

@@ -1,6 +1,7 @@
 import csv
 import os
 import threading
+import datetime
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,9 +17,12 @@ class RealTimeAnalysis:
         self.settings = settings
         self.df_buffer = []
 
-        self.segment_analysis_list = []
+        self.result_buffer = []
+        self.segment_number = 1
+        self.csv_open_attempts = 0
 
-        print(f"Attempting to connect to {self.settings.ip}:{self.settings.port} (Device ID: {self.settings.sender_device_id})")
+        print(f"Attempting to connect to {self.settings.ip}:{self.settings.port} (Device ID: "
+              f"{self.settings.sender_device_id})")
         # Initialize PDC
         self.pdc = Pdc(pdc_id=self.settings.sender_device_id, pmu_ip=self.settings.ip, pmu_port=self.settings.port)
         #self.pdc.logger.setLevel("DEBUG")
@@ -32,8 +36,10 @@ class RealTimeAnalysis:
         self.id_index = 0
         self.channel_index = 0
         self.component_index = 0
-
         self.find_indices()
+
+        if not self.settings.continue_existing_file:
+            self.init_csv()
 
     def find_indices(self):
         if isinstance(self.pmu_config.get_stream_id_code(), int):
@@ -77,7 +83,7 @@ class RealTimeAnalysis:
         elif self.settings.phasor_component.lower() == "angle":
             self.component_index = 1
         else:
-            raise ValueError(f"{self.settings.phasor_component} is not a valid phasor component. Must be 'magnitude'"
+            raise ValueError(f"{self.settings.phasor_component} is not a valid phasor component. Must be 'magnitude' "
                              f"or 'angle'.")
 
         self.settings.fs = self.pmu_config.get_data_rate()
@@ -86,7 +92,7 @@ class RealTimeAnalysis:
     def receive_data_frames(self):
         df_count = 0
         while True:
-            print(df_count)
+            #print(df_count)
             data = self.pdc.get()  # Keep receiving data
 
             if isinstance(data, DataFrame):
@@ -123,16 +129,79 @@ class RealTimeAnalysis:
                 else:
                     values_segment = np.array([df["measurements"][self.id_index]["phasors"][self.channel_index]
                                                [self.component_index] for df in df_segment])
+                timestamp = df_segment[self.settings.extension_padding_samples_start]["time"]  # Epoch time
+                timestamp_str = datetime.datetime.fromtimestamp(timestamp)
 
-                plt.figure()
-                plt.plot(values_segment)
+                #plt.figure()
+                #plt.plot(values_segment)
 
-                seg_an = SegmentAnalysis(values_segment, self.settings)
+                seg_an = SegmentAnalysis(values_segment, self.settings, timestamp_str)
                 seg_an.damping_analysis()
-                seg_an.hht.emd.plot_emd_results(show=False)
-                seg_an.hht.plot_hilbert_spectrum(show=False)
+                self.result_buffer.append(seg_an)
+                self.store_segment_result_to_csv()
+                #seg_an.hht.emd.plot_emd_results(show=False)
+                #seg_an.hht.plot_hilbert_spectrum(show=False)
 
-                plt.show()
+                #plt.show()
+
+    def init_csv(self, file_path="default"):
+        headers = list(self.settings.blank_mode_info_dict)
+
+        if file_path == "default":
+            current_file_path = self.settings.results_file_path
+        else:
+            current_file_path = file_path
+
+        # Adds "_(number)" to file name if permission denied (when file is open in Excel, most likely)
+        try:
+            with open(current_file_path, 'w', newline='') as csv_file:
+                csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
+                csv_writer.writerow(["Segment", "Timestamp"] + headers)
+                self.settings.results_file_path = current_file_path
+                print(f"Storing results to {current_file_path}.")
+        except PermissionError:
+            self.csv_open_attempts += 1
+            if self.csv_open_attempts > 20:
+                raise PermissionError("File opening attempts exceeded limit. Unable to store results to csv.")
+            new_path = (os.path.splitext(self.settings.results_file_path)[0] + "_" + str(self.csv_open_attempts)
+                        + ".csv")
+            print(f"Permission denied for file {current_file_path}. Trying to save to {new_path} instead.")
+
+            return self.init_csv(new_path)
+
+    def store_segment_result_to_csv(self):
+        headers = list(self.settings.blank_mode_info_dict)
+        try:
+            with open(self.settings.results_file_path, 'a', newline='') as csv_file:
+                csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
+                for segment in self.result_buffer:
+                    first_mode_in_segment = True
+                    for data_dict in segment.mode_info_list:
+                        # Make sure each segment number appears only once, for better readability
+                        if first_mode_in_segment:
+                            row = [self.segment_number, segment.timestamp]
+                            first_mode_in_segment = False
+                        else:
+                            row = ["", ""]
+
+                        for header in headers:
+                            if isinstance(data_dict[header], float) or isinstance(data_dict[header], np.float64):
+                                row.append(f"{data_dict[header]:.{self.settings.csv_decimals}f}")
+                            else:
+                                row.append(data_dict[header])
+                        csv_writer.writerow(row)
+                    print(f"Results for segment {self.segment_number} written to "
+                          f"{self.settings.results_file_path}.")
+                    self.segment_number += 1
+                    del self.result_buffer[0]
+        except PermissionError:
+            print(f"Permission denied for {self.settings.results_file_path}. Attempting to store again after the next "
+                  f"segment is analyzed.")
+
+    def store_segment_object_to_file(self):
+        pass
+
+
 
 
 settings_N44 = AnalysisSettings(segment_length_time=3,
@@ -162,5 +231,4 @@ settings_simplePMU = AnalysisSettings(segment_length_time=3,
 rta = RealTimeAnalysis(settings_array)
 rta.run_analysis()
 
-# Todo: CSV storage RT
 # Todo: Pickle storage

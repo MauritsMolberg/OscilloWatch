@@ -54,31 +54,16 @@ class SignalSnapshotAnalysis:
     def analyze_whole_signal(self):
         for i, segment in enumerate(self.segment_list):
             if self.settings.print_segment_number:
-                print(f"------------------------------\nSegment {i+1}:")
+                print(f"-------------------------------\nSegment {i+1}:")
             seg_analysis = SegmentAnalysis(segment, self.settings)
             seg_analysis.damping_analysis()
             self.segment_analysis_list.append(seg_analysis)
 
     def write_results_to_csv(self, file_path="default"):
-        headers = [
-                    "Warning",
-                    "Freq. start",
-                    "Freq. stop",
-                    "Start time",
-                    "End time",
-                    "NZF",
-                    "Init. amp.",
-                    "Final amp.",
-                    "Init. amp. est.",
-                    "Decay rate",
-                    "Damping ratio",
-                    "Interp. frac.",
-                    "CV",
-                    "Note"
-                   ]
+        headers = list(self.settings.blank_mode_info_dict)
 
         if file_path == "default":
-            current_file_path = self.settings.results_file_path
+            current_file_path = self.settings.results_file_path + ".csv"
         else:
             current_file_path = file_path
 
@@ -90,7 +75,7 @@ class SignalSnapshotAnalysis:
                 csv_writer.writerow(["Segment"] + headers)
                 for i, segment in enumerate(self.segment_analysis_list):
                     first_mode_in_segment = True
-                    for data_dict in segment.oscillation_info_list:
+                    for data_dict in segment.mode_info_list:
                         # Make sure each segment number appears only once, for better readability
                         if first_mode_in_segment:
                             row = [i + 1]
@@ -107,10 +92,9 @@ class SignalSnapshotAnalysis:
         except PermissionError:
             self.file_save_attempt_count += 1
             if self.file_save_attempt_count > 20:
-                print("Unable to save results to file.")
+                print("Unable to store results to csv.")
                 return
-            new_path = (os.path.splitext(self.settings.results_file_path)[0] + "_" + str(self.file_save_attempt_count)
-                        + ".csv")
+            new_path = self.settings.results_file_path + "_" + str(self.file_save_attempt_count) + ".csv"
             print(f"Permission denied for file {current_file_path}. Trying to save to {new_path} instead.")
 
             return self.write_results_to_csv(new_path)

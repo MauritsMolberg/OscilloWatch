@@ -57,7 +57,12 @@ if __name__ == "__main__":
     t = np.arange(start, end, 1/fs)
 
     def f(t):
-        return 3*np.sin(4*np.pi*t)
+        return (
+                10*np.exp(.15*t)*np.cos(2.4*np.pi*t)
+                #+ 16*np.exp(.1)*np.cos(np.pi*t)
+                + 8*np.exp(.1*t)*np.cos(5*np.pi*t)
+                + 20*np.exp(-.2*t)*np.cos(10*np.pi*t)
+                )
 
     input_signal1 = f(t)
 

@@ -30,4 +30,3 @@ with open("test.csv", 'a', newline='') as csv_file:
 print(datetime.datetime.now())
 timestamp = time()
 dt_object = datetime.datetime.fromtimestamp(timestamp)
-print(dt_object)

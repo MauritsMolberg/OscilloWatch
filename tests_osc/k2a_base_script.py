@@ -17,7 +17,7 @@ importlib.reload(dps)
 
 if __name__ == '__main__':
 
-    import dynpssimpy.ps_models.k2a_no_controls as model_data
+    import dynpssimpy.ps_models.k2a as model_data
     model = model_data.load()
 
     # Power system model

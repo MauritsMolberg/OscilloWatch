@@ -12,7 +12,7 @@ class SegmentAnalysis:
     interpreting the Hilbert spectrum.
     """
 
-    def __init__(self, input_signal, settings: AnalysisSettings):
+    def __init__(self, input_signal, settings: AnalysisSettings, timestamp=""):
         """
         Constructor for the SegmentAnalysis class. Initializes variables, but does not perform the actual analysis.
 
@@ -26,9 +26,11 @@ class SegmentAnalysis:
 
         self.hht = HHT(self.input_signal, self.settings)
 
-        self.oscillation_info_list = []
+        self.mode_info_list = []
 
-    def interpolate_signal(self, signal, damping_info):
+        self.timestamp = timestamp
+
+    def interpolate_signal(self, signal, mode_info_dict):
         """
         Fills in zero-values of a signal using cubic spline interpolation. Deletes sequences of non-zero values that are
         too short to be assumed to be meaningful. Disregards all zero-elements before and after the first and last non-
@@ -38,8 +40,8 @@ class SegmentAnalysis:
         :param signal: Amplitude curve containing zeros. Intended to be a single or combined row from a
             Hilbert spectrum containing the amplitude of a single oscillating mode.
         :type signal: numpy.ndarray
-        :param damping_info: Dict containing info about the oscillating mode that is to be analyzed.
-        :type damping_info: dict
+        :param mode_info_dict: Dict containing info about the oscillating mode that is to be analyzed.
+        :type mode_info_dict: dict
 
         :return: Copy of the portion of the input signal that starts at the first non-zero and ends at the last, with
             zero-values in-between non-zero values filled in.
@@ -60,19 +62,19 @@ class SegmentAnalysis:
         if self.settings.start_amp_curve_at_peak and first_max_index <= len(signal[start_index:end_index])/2:
             start_index = first_max_index
 
-        damping_info["Start time"] = start_index/self.settings.fs
-        damping_info["End time"] = end_index/self.settings.fs
+        mode_info_dict["Start time"] = start_index/self.settings.fs
+        mode_info_dict["End time"] = end_index/self.settings.fs
 
         # Ignore all zero values before the first and after the last non-zero value
         cropped_signal = signal[start_index:end_index]
 
         # Recalculate non_zero_indices based on the cropped signal
         non_zero_indices = np.nonzero(cropped_signal)[0]
-        damping_info["Interp. frac."] = 1 - len(non_zero_indices)/len(cropped_signal)
-        if damping_info["Interp. frac."] > self.settings.max_interp_fraction:
+        mode_info_dict["Interp. frac."] = 1 - len(non_zero_indices)/len(cropped_signal)
+        if mode_info_dict["Interp. frac."] > self.settings.max_interp_fraction:
             if self.settings.skip_storing_uncertain_results:
                 return None
-            damping_info["Note"] += "High interp. frac. "
+            mode_info_dict["Note"] += "High interp. frac. "
 
         # Get the corresponding non-zero values and their indices
         non_zero_values = [cropped_signal[i] for i in non_zero_indices]
@@ -120,24 +122,14 @@ class SegmentAnalysis:
         :return: None
         """
         non_zero_fraction = np.count_nonzero(amp_curve)/len(amp_curve)
-        oscillation_info = {
-            "Warning": "",
-            "Freq. start": self.hht.freq_axis[bottom_row],
-            "Freq. stop": self.hht.freq_axis[top_row],
-            "Start time": 0.0,  # Start and end time are set in the interpolate_signal function
-            "End time": 0.0,
-            "NZF": non_zero_fraction,
-            "Init. amp.": 0.0,
-            "Final amp.": 0.0,
-            "Init. amp. est.": 0.0,
-            "Decay rate": 0.0,
-            "Damping ratio": 0.0,
-            "Interp. frac.": 0.0,
-            "CV": 0.0,
-            "Note": ""
-        }
 
-        interp_amp_curve = self.interpolate_signal(amp_curve, oscillation_info)
+        mode_info_dict = self.settings.blank_mode_info_dict.copy()
+
+        mode_info_dict["Freq. start"] = self.hht.freq_axis[bottom_row]
+        mode_info_dict["Freq. stop"] = self.hht.freq_axis[top_row]
+        mode_info_dict["NZF"] = non_zero_fraction
+
+        interp_amp_curve = self.interpolate_signal(amp_curve, mode_info_dict)
 
         # If interpolated fraction is too high and skip storing is enabled (interpolate_signal() returns None)
         if interp_amp_curve is None:
@@ -149,8 +141,8 @@ class SegmentAnalysis:
         try:
             popt, _ = curve_fit(exponential_decay_model, time_points, interp_amp_curve, maxfev=1500)
         except RuntimeError:
-            oscillation_info["Note"] += "Skipped. Could not fit curve. "
-            self.oscillation_info_list.append(oscillation_info)
+            mode_info_dict["Note"] += "Skipped. Could not fit curve. "
+            self.mode_info_list.append(mode_info_dict)
             return
         A, decay_rate = popt[0], popt[1]
 
@@ -162,40 +154,40 @@ class SegmentAnalysis:
         #plt.legend()
         #plt.tight_layout()
 
-        oscillation_info["CV"]\
+        mode_info_dict["CV"]\
             = (np.std(interp_amp_curve - exponential_decay_model(time_points, A, decay_rate)) /
                np.mean(interp_amp_curve))
-        if oscillation_info["CV"] > self.settings.max_coefficient_of_variation:
+        if mode_info_dict["CV"] > self.settings.max_coefficient_of_variation:
             if self.settings.skip_storing_uncertain_results:
                 return
-            oscillation_info["Note"] += "High CV. "
+            mode_info_dict["Note"] += "High CV. "
 
-        oscillation_info["Init. amp."] = interp_amp_curve[0]
-        oscillation_info["Final amp."] = interp_amp_curve[-1]
-        oscillation_info["Init. amp. est."] = A
-        oscillation_info["Decay rate"] = decay_rate
+        mode_info_dict["Init. amp."] = interp_amp_curve[0]
+        mode_info_dict["Final amp."] = interp_amp_curve[-1]
+        mode_info_dict["Init. amp. est."] = A
+        mode_info_dict["Decay rate"] = decay_rate
 
         central_row_ind = (bottom_row + top_row)//2
-        oscillation_info["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2
+        mode_info_dict["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2
                                                                 + (2*np.pi*self.hht.freq_axis[central_row_ind])**2))
 
-        if oscillation_info["Damping ratio"] < 0:
-            if self.settings.segment_length_time - oscillation_info["End time"] <= self.settings.oscillation_timeout:
-                oscillation_info["Warning"] = "Negative"
+        if mode_info_dict["Damping ratio"] < 0:
+            if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
+                mode_info_dict["Warning"] = "Negative"
             else:
-                oscillation_info["Warning"] = "Ended early"
-        elif oscillation_info["Damping ratio"] <= self.settings.damping_ratio_strong_warning_threshold:
-            if self.settings.segment_length_time - oscillation_info["End time"] <= self.settings.oscillation_timeout:
-                oscillation_info["Warning"] = "Strong"
+                mode_info_dict["Warning"] = "Ended early"
+        elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_strong_warning_threshold:
+            if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
+                mode_info_dict["Warning"] = "Strong"
             else:
-                oscillation_info["Warning"] = "Ended early"
-        elif oscillation_info["Damping ratio"] <= self.settings.damping_ratio_weak_warning_threshold:
-            if self.settings.segment_length_time - oscillation_info["End time"] <= self.settings.oscillation_timeout:
-                oscillation_info["Warning"] = "Weak"
+                mode_info_dict["Warning"] = "Ended early"
+        elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_weak_warning_threshold:
+            if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
+                mode_info_dict["Warning"] = "Weak"
             else:
-                oscillation_info["Warning"] = "Ended early"
+                mode_info_dict["Warning"] = "Ended early"
 
-        self.oscillation_info_list.append(oscillation_info)
+        self.mode_info_list.append(mode_info_dict)
         return
 
 

@@ -9,10 +9,12 @@ class AnalysisSettings:
                  print_emd_time=False,
                  print_hht_time=False,
                  print_segment_analysis_time=False,
+                 
+                 # File storing settings
                  csv_decimals=5,
                  csv_delimiter=";",
-                 max_csv_save_attempts=9,
-                 results_file_path="results.csv",
+                 results_file_path="results",
+                 continue_existing_file=False,
 
                  # EMD settings
                  emd_rec_tolerance=0.003,
@@ -74,8 +76,8 @@ class AnalysisSettings:
 
         self.csv_decimals = csv_decimals
         self.csv_delimiter = csv_delimiter
-        self.max_csv_save_attempts = max_csv_save_attempts
         self.results_file_path = results_file_path
+        self.continue_existing_file = continue_existing_file
 
         self.emd_rec_tolerance = emd_rec_tolerance
         self.max_imfs = max_imfs
@@ -125,6 +127,23 @@ class AnalysisSettings:
         self.hht_frequency_threshold = hht_frequency_threshold
 
         self.update_calc_values()
+
+        self.blank_mode_info_dict = {  # Practical to have here, so the keys can be easily fetched from anywhere
+            "Warning": "",
+            "Freq. start": 0.0,
+            "Freq. stop": 0.0,
+            "Start time": 0.0,
+            "End time": 0.0,
+            "NZF": 0.0,
+            "Init. amp.": 0.0,
+            "Final amp.": 0.0,
+            "Init. amp. est.": 0.0,
+            "Decay rate": 0.0,
+            "Damping ratio": 0.0,
+            "Interp. frac.": 0.0,
+            "CV": 0.0,
+            "Note": ""
+        }
 
     def update_calc_values(self):
         self.segment_length_samples = int(self.segment_length_time*self.fs)
