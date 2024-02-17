@@ -16,7 +16,7 @@ def read_from_pkl(file_path="results.pkl"):
 
 
 if __name__ == "__main__":
-    seg_res_list = read_from_pkl("../methods/results.pkl")
+    seg_res_list = read_from_pkl("results.pkl")
     for segment in seg_res_list[:4]:
         segment.hht.emd.plot_emd_results(show=False)
         segment.hht.plot_hilbert_spectrum(show=False)

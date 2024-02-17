@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Implemented CSV storage for real-time analysis">
-      <change afterPath="$PROJECT_DIR$/tests_osc/read_from_pkl.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Implemented pickle storage for snapshot and real-time analysis">
+      <change afterPath="$PROJECT_DIR$/tests_osc/test_real_time_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickle_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/pickle_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pmu_scripts/send_array.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/send_array.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests_osc/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/data_from_csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests_osc/test_signal_snapshot_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/test_signal_snapshot_analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +89,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.read_from_pkl (1)">
+  <component name="RunManager" selected="Python.test_real_time_analysis">
     <configuration name="RealTimeAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -122,28 +113,6 @@
       <method v="2" />
     </configuration>
     <configuration name="read_from_pkl (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/read_from_pkl.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="read_from_pkl" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -231,20 +200,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_real_time_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/test_real_time_analysis.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.RealTimeAnalysis" />
       <item itemvalue="Python.send_array" />
       <item itemvalue="Python.test" />
-      <item itemvalue="Python.read_from_pkl" />
+      <item itemvalue="Python.test_real_time_analysis" />
       <item itemvalue="Python.read_from_pkl (1)" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.read_from_pkl (1)" />
+        <item itemvalue="Python.test_real_time_analysis" />
         <item itemvalue="Python.RealTimeAnalysis" />
         <item itemvalue="Python.send_array" />
+        <item itemvalue="Python.read_from_pkl (1)" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.read_from_pkl" />
       </list>
     </recent_temporary>
   </component>
@@ -509,7 +500,14 @@
       <option name="presentableId" value="LOCAL−00038" />
       <updated>1707995368237</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL−00039" summary="Implemented pickle storage for snapshot and real-time analysis">
+      <option name="closed" value="true" />
+      <created>1708168272570</created>
+      <option name="number" value="LOCAL−00039" />
+      <option name="presentableId" value="LOCAL−00039" />
+      <updated>1708168272570</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -524,7 +522,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="EMD working, but needs edge effect handling" />
     <MESSAGE value="Mirror padding for handling edge effects implemented" />
     <MESSAGE value="HHT started" />
     <MESSAGE value="HHT for single signal working, HHT on multiple IMFs needs fixing" />
@@ -549,7 +546,8 @@
     <MESSAGE value="Cleanup, todo added" />
     <MESSAGE value="Improved csv saving" />
     <MESSAGE value="Implemented CSV storage for real-time analysis" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented CSV storage for real-time analysis" />
+    <MESSAGE value="Implemented pickle storage for snapshot and real-time analysis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented pickle storage for snapshot and real-time analysis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

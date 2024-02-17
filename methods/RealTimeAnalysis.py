@@ -46,7 +46,7 @@ class RealTimeAnalysis:
 
         with open(self.settings.results_file_path + ".pkl", "wb") as file:
             # Clears existing pkl file or creates new:
-            print(f"{self.settings.results_file_path} will be used for storing segment result objects.")
+            print(f"{self.settings.results_file_path}.pkl will be used for storing segment result objects.")
 
 
     def find_indices(self):
