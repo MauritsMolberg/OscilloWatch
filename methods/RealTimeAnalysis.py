@@ -10,7 +10,6 @@ from synchrophasor.frame import DataFrame
 
 from methods.AnalysisSettings import AnalysisSettings
 from methods.SegmentAnalysis import SegmentAnalysis
-from tests_osc.read_from_pkl import read_from_pkl
 
 
 class RealTimeAnalysis:
@@ -45,8 +44,8 @@ class RealTimeAnalysis:
 
         self.init_csv()  # Clear existing csv file or create new
 
-        # Clear existing pkl file or create new:
         with open(self.settings.results_file_path + ".pkl", "wb") as file:
+            # Clears existing pkl file or creates new:
             print(f"{self.settings.results_file_path} will be used for storing segment result objects.")
 
 
@@ -218,35 +217,3 @@ class RealTimeAnalysis:
                     del self.result_buffer_pkl[0]
         except Exception as e:
             print(f"Exception during pkl storing: {e}. Attempting to store again after the next segment is analyzed.")
-
-
-
-
-
-settings_N44 = AnalysisSettings(segment_length_time=3,
-                                extension_padding_time_start=.5,
-                                extension_padding_time_end=0,
-                                channel="bus_3000",
-                                ip="10.100.0.75",
-                                port=34702,
-                                pmu_id=3000,
-                                sender_device_id=45
-                                )
-
-settings_array = AnalysisSettings(segment_length_time=10,
-                                  extension_padding_time_start=2,
-                                  extension_padding_time_end=2,
-                                  channel="signal",
-                                  pmu_id=1410
-                                  )
-
-settings_simplePMU = AnalysisSettings(segment_length_time=3,
-                                      extension_padding_time_start=.5,
-                                      extension_padding_time_end=0,
-                                      channel="Phasor2.3",
-                                      pmu_id=1411
-                                      )
-
-rta = RealTimeAnalysis(settings_array)
-rta.run_analysis()
-
