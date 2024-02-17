@@ -127,6 +127,8 @@ class SegmentAnalysis:
 
         mode_info_dict["Freq. start"] = self.hht.freq_axis[bottom_row]
         mode_info_dict["Freq. stop"] = self.hht.freq_axis[top_row]
+        mode_info_dict["Frequency"] = self.estimate_frequency(bottom_row, top_row)
+
         mode_info_dict["NZF"] = non_zero_fraction
 
         interp_amp_curve = self.interpolate_signal(amp_curve, mode_info_dict)
@@ -167,9 +169,7 @@ class SegmentAnalysis:
         mode_info_dict["Init. amp. est."] = A
         mode_info_dict["Decay rate"] = decay_rate
 
-        central_row_ind = (bottom_row + top_row)//2
-        mode_info_dict["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2
-                                                                + (2*np.pi*self.hht.freq_axis[central_row_ind])**2))
+        mode_info_dict["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2 + (2*np.pi*mode_info_dict["Frequency"])**2))
 
         if mode_info_dict["Damping ratio"] < 0:
             if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
@@ -190,6 +190,26 @@ class SegmentAnalysis:
         self.mode_info_list.append(mode_info_dict)
         return
 
+    def estimate_frequency(self, bottom_row, top_row):
+        """
+        Finds and returns the frequency most likely to be the true frequency of the detected mode, based on the number
+        of non-zero values.
+        :param int bottom_row: Index of the bottom row in the frequency band that is being analyzed.
+        :param int top_row: Index of the top row in the frequency band that is being analyzed.
+        :return: Value of estimated frequency of the mode.
+        :rtype: float
+        """
+        max_non_zero_count = 0
+        for row in range(bottom_row, top_row+1):
+            non_zero_count = np.count_nonzero(self.hht.hilbert_spectrum[row])
+            if non_zero_count > max_non_zero_count:  # New frequency estimate found
+                max_non_zero_count = non_zero_count
+                freq_est_row = row
+            elif non_zero_count == max_non_zero_count and max_non_zero_count != 0:  # Two equally likely frequencies
+                print(f"Equally likely {self.hht.freq_axis[freq_est_row]:.3f} and {self.hht.freq_axis[row]:.3f}")
+                freq_est_row = (row + freq_est_row)//2  # Take average frequency of the two estimates (using indexing)
+        return self.hht.freq_axis[freq_est_row]
+
     def damping_analysis(self):
         """
         Analyzes the damping of different components of the signal segment by performing HHT and using the developed
@@ -198,8 +218,6 @@ class SegmentAnalysis:
         """
         start_time = time()
         self.hht.full_hht()  # Calculate hilbert_spectrum and freq_axis
-        #self.hht.hilbert_spectrum = self.hht.hilbert_spectrum[::-1]
-        #self.hht.freq_axis = self.hht.freq_axis[::-1]
 
         # Main loop
         n = 0

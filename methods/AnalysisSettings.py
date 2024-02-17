@@ -128,16 +128,17 @@ class AnalysisSettings:
 
         self.blank_mode_info_dict = {  # Practical to have here, so the keys can be easily fetched from anywhere
             "Warning": "",
-            "Freq. start": 0.0,
-            "Freq. stop": 0.0,
-            "Start time": 0.0,
-            "End time": 0.0,
-            "NZF": 0.0,
+            "Frequency": 0.0,
+            "Damping ratio": 0.0,
             "Init. amp.": 0.0,
             "Final amp.": 0.0,
+            "Start time": 0.0,
+            "End time": 0.0,
+            "Freq. start": 0.0,
+            "Freq. stop": 0.0,
             "Init. amp. est.": 0.0,
             "Decay rate": 0.0,
-            "Damping ratio": 0.0,
+            "NZF": 0.0,
             "Interp. frac.": 0.0,
             "CV": 0.0,
             "Note": ""

@@ -48,7 +48,6 @@ class RealTimeAnalysis:
             # Clears existing pkl file or creates new:
             print(f"{self.settings.results_file_path}.pkl will be used for storing segment result objects.")
 
-
     def find_indices(self):
         if isinstance(self.pmu_config.get_stream_id_code(), int):
             if self.pmu_config.get_stream_id_code() != self.settings.pmu_id:
@@ -217,3 +216,6 @@ class RealTimeAnalysis:
                     del self.result_buffer_pkl[0]
         except Exception as e:
             print(f"Exception during pkl storing: {e}. Attempting to store again after the next segment is analyzed.")
+
+# Todo: Match pkl and csv filenames
+# Todo: Print segment numbers

@@ -114,3 +114,5 @@ class SignalSnapshotAnalysis:
 
 
 # Todo: Incorporate frequency result changes
+# Todo: Start segment count at 0
+# Todo: Match pkl and csv filenames
