@@ -14,7 +14,6 @@ class AnalysisSettings:
                  csv_decimals=5,
                  csv_delimiter=";",
                  results_file_path="results",
-                 continue_existing_file=False,
 
                  # EMD settings
                  emd_rec_tolerance=0.003,
@@ -77,7 +76,6 @@ class AnalysisSettings:
         self.csv_decimals = csv_decimals
         self.csv_delimiter = csv_delimiter
         self.results_file_path = results_file_path
-        self.continue_existing_file = continue_existing_file
 
         self.emd_rec_tolerance = emd_rec_tolerance
         self.max_imfs = max_imfs

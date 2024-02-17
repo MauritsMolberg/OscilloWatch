@@ -51,7 +51,7 @@ def send_array(array, ip="localhost", port=50000):
 
 
 if __name__ == "__main__":
-    start = 0
+    start = -30
     end = 100
     fs = 50
     t = np.arange(start, end, 1/fs)

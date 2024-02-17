@@ -190,7 +190,6 @@ class SegmentAnalysis:
         self.mode_info_list.append(mode_info_dict)
         return
 
-
     def damping_analysis(self):
         """
         Analyzes the damping of different components of the signal segment by performing HHT and using the developed

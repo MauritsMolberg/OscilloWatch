@@ -31,10 +31,10 @@ if __name__ == "__main__":
     #input_signal = np.load("k2a_with_controls_1s_fault_V.npy")
     #t = np.arange(0, len(input_signal)/fs, 1/fs)
 
-    fig, ax = plt.subplots()
-    ax.plot(t, input_signal)
-    ax.set_title("Input signal")
-    plt.tight_layout()
+    # fig, ax = plt.subplots()
+    # ax.plot(t, input_signal)
+    # ax.set_title("Input signal")
+    # plt.tight_layout()
 
     settings = AnalysisSettings(
                                 fs=fs,
@@ -56,10 +56,11 @@ if __name__ == "__main__":
     sig_an = SignalSnapshotAnalysis(input_signal, settings)
     sig_an.analyze_whole_signal()
     sig_an.write_results_to_csv()
+    sig_an.write_result_objects_to_pkl()
 
-    for segment in sig_an.segment_analysis_list:
-        segment.hht.emd.plot_emd_results(show=False)
-        segment.hht.plot_hilbert_spectrum(show=False)
+    # for segment in sig_an.segment_analysis_list:
+    #     segment.hht.emd.plot_emd_results(show=False)
+    #     segment.hht.plot_hilbert_spectrum(show=False)
 
     #imf1 = sig_an.segment_analysis_list[1].hht.emd.imf_list[0]
 

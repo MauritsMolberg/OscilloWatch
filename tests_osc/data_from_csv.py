@@ -6,7 +6,7 @@ from methods.SignalSnapshotAnalysis import SignalSnapshotAnalysis
 from methods.AnalysisSettings import AnalysisSettings
 
 
-def read_csv_column(file_path, column_index):
+def csv_column_to_list(file_path, column_index):
     values = []
     with open(file_path, 'r') as csv_file:
         csv_reader = csv.reader(csv_file)
@@ -20,7 +20,7 @@ def read_csv_column(file_path, column_index):
 file_path = "180924-osc-frekvens og vinkel.csv"
 column_index = 1
 
-data = read_csv_column(file_path, column_index)
+data = csv_column_to_list(file_path, column_index)
 t = np.linspace(0, len(data)/50/60, len(data))
 plt.figure()
 plt.plot(t, data)
@@ -47,9 +47,10 @@ settings = AnalysisSettings(
 sig_an = SignalSnapshotAnalysis(data, settings)
 sig_an.analyze_whole_signal()
 sig_an.write_results_to_csv()
+sig_an.write_result_objects_to_pkl()
 
-for segment in sig_an.segment_analysis_list[26:31]:
-    segment.hht.emd.plot_emd_results(show=False)
-    segment.hht.plot_hilbert_spectrum(show=False)
-
-plt.show()
+# for segment in sig_an.segment_analysis_list[26:31]:
+#     segment.hht.emd.plot_emd_results(show=False)
+#     segment.hht.plot_hilbert_spectrum(show=False)
+#
+# plt.show()

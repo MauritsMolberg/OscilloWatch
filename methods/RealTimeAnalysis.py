@@ -1,24 +1,29 @@
 import csv
-import os
+import pickle
 import threading
 import datetime
 
 import numpy as np
 import matplotlib.pyplot as plt
+from synchrophasor.pdc import Pdc
+from synchrophasor.frame import DataFrame
 
 from methods.AnalysisSettings import AnalysisSettings
 from methods.SegmentAnalysis import SegmentAnalysis
-from synchrophasor.pdc import Pdc
-from synchrophasor.frame import DataFrame
+from tests_osc.read_from_pkl import read_from_pkl
+
 
 class RealTimeAnalysis:
 
     def __init__(self, settings: AnalysisSettings):
         self.settings = settings
         self.df_buffer = []
+        self.segment_number_csv = 0
+        self.segment_number_pkl = 0
 
-        self.result_buffer = []
-        self.segment_number = 1
+        self.result_buffer_csv = []
+        self.result_buffer_pkl = []
+        self.csv_path_full = self.settings.results_file_path + ".csv"
         self.csv_open_attempts = 0
 
         print(f"Attempting to connect to {self.settings.ip}:{self.settings.port} (Device ID: "
@@ -38,8 +43,12 @@ class RealTimeAnalysis:
         self.component_index = 0
         self.find_indices()
 
-        if not self.settings.continue_existing_file:
-            self.init_csv()
+        self.init_csv()  # Clear existing csv file or create new
+
+        # Clear existing pkl file or create new:
+        with open(self.settings.results_file_path + ".pkl", "wb") as file:
+            print(f"{self.settings.results_file_path} will be used for storing segment result objects.")
+
 
     def find_indices(self):
         if isinstance(self.pmu_config.get_stream_id_code(), int):
@@ -137,8 +146,10 @@ class RealTimeAnalysis:
 
                 seg_an = SegmentAnalysis(values_segment, self.settings, timestamp_str)
                 seg_an.damping_analysis()
-                self.result_buffer.append(seg_an)
-                self.store_segment_result_to_csv()
+                self.result_buffer_csv.append(seg_an)
+                self.result_buffer_pkl.append(seg_an)
+                self.add_segment_result_to_csv()
+                self.add_segment_result_to_pkl()
                 #seg_an.hht.emd.plot_emd_results(show=False)
                 #seg_an.hht.plot_hilbert_spectrum(show=False)
 
@@ -148,7 +159,7 @@ class RealTimeAnalysis:
         headers = list(self.settings.blank_mode_info_dict)
 
         if file_path == "default":
-            current_file_path = self.settings.results_file_path
+            current_file_path = self.csv_path_full
         else:
             current_file_path = file_path
 
@@ -157,29 +168,29 @@ class RealTimeAnalysis:
             with open(current_file_path, 'w', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
                 csv_writer.writerow(["Segment", "Timestamp"] + headers)
-                self.settings.results_file_path = current_file_path
-                print(f"Storing results to {current_file_path}.")
+                self.csv_path_full = current_file_path
+                print(f"{current_file_path} will be used for storing numerical results.")
         except PermissionError:
             self.csv_open_attempts += 1
             if self.csv_open_attempts > 20:
-                raise PermissionError("File opening attempts exceeded limit. Unable to store results to csv.")
-            new_path = (os.path.splitext(self.settings.results_file_path)[0] + "_" + str(self.csv_open_attempts)
-                        + ".csv")
+                print("File opening attempts exceeded limit. Unable to save results to csv.")
+                return
+            new_path = self.settings.results_file_path + "_" + str(self.csv_open_attempts) + ".csv"
             print(f"Permission denied for file {current_file_path}. Trying to save to {new_path} instead.")
 
             return self.init_csv(new_path)
 
-    def store_segment_result_to_csv(self):
+    def add_segment_result_to_csv(self):
         headers = list(self.settings.blank_mode_info_dict)
         try:
-            with open(self.settings.results_file_path, 'a', newline='') as csv_file:
+            with open(self.csv_path_full, 'a', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
-                for segment in self.result_buffer:
+                while self.result_buffer_csv:
                     first_mode_in_segment = True
-                    for data_dict in segment.mode_info_list:
+                    for data_dict in self.result_buffer_csv[0].mode_info_list:
                         # Make sure each segment number appears only once, for better readability
                         if first_mode_in_segment:
-                            row = [self.segment_number, segment.timestamp]
+                            row = [self.segment_number_csv, self.result_buffer_csv[0].timestamp]
                             first_mode_in_segment = False
                         else:
                             row = ["", ""]
@@ -190,16 +201,24 @@ class RealTimeAnalysis:
                             else:
                                 row.append(data_dict[header])
                         csv_writer.writerow(row)
-                    print(f"Results for segment {self.segment_number} written to "
-                          f"{self.settings.results_file_path}.")
-                    self.segment_number += 1
-                    del self.result_buffer[0]
-        except PermissionError:
-            print(f"Permission denied for {self.settings.results_file_path}. Attempting to store again after the next "
-                  f"segment is analyzed.")
+                    print(f"Results for segment {self.segment_number_csv} added to {self.csv_path_full}.")
+                    self.segment_number_csv += 1
+                    del self.result_buffer_csv[0]
+        except Exception as e:
+            print(f"Exception during csv storing: {e}. Attempting to store again after the next segment is analyzed.")
 
-    def store_segment_object_to_file(self):
-        pass
+    def add_segment_result_to_pkl(self):
+        try:
+            with open(self.settings.results_file_path + ".pkl", 'ab') as file:
+                while self.result_buffer_pkl:
+                    pickle.dump(self.result_buffer_pkl[0], file)
+                    print(f"Results for segment {self.segment_number_pkl} added to "
+                          f"{self.settings.results_file_path}.pkl.")
+                    self.segment_number_pkl += 1
+                    del self.result_buffer_pkl[0]
+        except Exception as e:
+            print(f"Exception during pkl storing: {e}. Attempting to store again after the next segment is analyzed.")
+
 
 
 
@@ -214,7 +233,7 @@ settings_N44 = AnalysisSettings(segment_length_time=3,
                                 sender_device_id=45
                                 )
 
-settings_array = AnalysisSettings(segment_length_time=3,
+settings_array = AnalysisSettings(segment_length_time=10,
                                   extension_padding_time_start=2,
                                   extension_padding_time_end=2,
                                   channel="signal",
@@ -231,4 +250,3 @@ settings_simplePMU = AnalysisSettings(segment_length_time=3,
 rta = RealTimeAnalysis(settings_array)
 rta.run_analysis()
 
-# Todo: Pickle storage

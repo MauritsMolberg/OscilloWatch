@@ -1,3 +1,5 @@
+import pickle
+
 import numpy as np
 import csv
 import os
@@ -89,6 +91,7 @@ class SignalSnapshotAnalysis:
                             else:
                                 row.append(data_dict[header])
                         csv_writer.writerow(row)
+                print(f"Results successfully saved to {current_file_path}.")
         except PermissionError:
             self.file_save_attempt_count += 1
             if self.file_save_attempt_count > 20:
@@ -99,7 +102,15 @@ class SignalSnapshotAnalysis:
 
             return self.write_results_to_csv(new_path)
 
-        print(f"Results successfully saved to {current_file_path}.")
-        return
+    def write_result_objects_to_pkl(self):
+        try:
+            with open(self.settings.results_file_path + ".pkl", "wb") as file:
+                for segment_analysis_obj in self.segment_analysis_list:
+                    pickle.dump(segment_analysis_obj, file)
+                print(f"Result objects written to {self.settings.results_file_path}.pkl.")
+        except Exception as e:
+            print(f"Results were not saved to {self.settings.results_file_path}.pkl, as the following exception "
+                  f"occurred when writing results to pkl file: {e}.")
+
 
 # Todo: Incorporate frequency result changes
