@@ -4,9 +4,76 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Implemented pickle storage for snapshot and real-time analysis">
-      <change afterPath="$PROJECT_DIR$/tests_osc/test_real_time_analysis.py" afterDir="false" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added frequency estimation">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/avr.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/blocks.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/gen.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/gov.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/lines.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/loads.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/pll.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/pss.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/shunts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/trafos.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/vsc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/dynamic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/modal_analysis.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/plotting.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/assignment_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/ieee39.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/ieee39_all_ctrl.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/ieee68.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a(1).py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a_base_case_with_AVRs_and_GOVs.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a_no_controls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a_val.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/n44_no_controls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/n44_with_controls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/sm_ib.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/sm_ib_kundur.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/sm_load.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/solvers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dynpssimpy/utility_functions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/dyn_sim/assignment_base_script.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/dyn_sim/line_outage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/dyn_sim/short_circuit.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/modal_analysis/plot_eigs.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/modal_analysis/plot_eigs_assignment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/notebooks/k2a-simple_dyn_sim.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/notebooks/modal_analysis.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/user_models/pll.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/user_models/user_lib/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/user_models/user_lib/avr.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/user_models/user_lib/geh.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/user_models/user_lib/pll.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/user_models/user_lib/vsc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/user_models/vsc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/ieee39/plots.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/ieee39/powerfactory_model.pfd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/ieee39/powerfactory_res.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a-R-X_l/plots.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a-R-X_l/powerfactory_model.pfd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a-R-X_l/powerfactory_res.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a/plots.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a/powerfactory_model.pfd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a/powerfactory_res.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/plots_ieee39.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/plots_k2a.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/test_validate.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/test_validate_quick.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_validation/validation_functions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests_osc/read_from_pkl.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/read_from_pkl.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,33 +120,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.RealTimeAnalysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.data_from_csv.executor&quot;: &quot;Run&quot;,
-    &quot;Python.k2a_base_script.executor&quot;: &quot;Run&quot;,
-    &quot;Python.pickle_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.randomPMU.executor&quot;: &quot;Run&quot;,
-    &quot;Python.read_from_pkl (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.read_from_pkl.executor&quot;: &quot;Run&quot;,
-    &quot;Python.read_from_pkl_2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.send_array.executor&quot;: &quot;Run&quot;,
-    &quot;Python.simplePMU.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_hht.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_segment_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_signal_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_signal_snapshot_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tinyPDC.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tinyPMU.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/mauri/OneDrive - NTNU/Random scripts&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.RealTimeAnalysis.executor": "Run",
+    "Python.data_from_csv.executor": "Run",
+    "Python.k2a_base_script.executor": "Run",
+    "Python.pickle_test.executor": "Run",
+    "Python.randomPMU.executor": "Run",
+    "Python.read_from_pkl (1).executor": "Run",
+    "Python.read_from_pkl.executor": "Run",
+    "Python.read_from_pkl_2.executor": "Run",
+    "Python.send_array.executor": "Run",
+    "Python.simplePMU.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.test_hht.executor": "Run",
+    "Python.test_real_time_analysis.executor": "Run",
+    "Python.test_segment_analysis.executor": "Run",
+    "Python.test_signal_analysis.executor": "Run",
+    "Python.test_signal_snapshot_analysis.executor": "Run",
+    "Python.tinyPDC.executor": "Run",
+    "Python.tinyPMU.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/mauri/OneDrive - NTNU/Random scripts",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
@@ -89,8 +157,8 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_real_time_analysis">
-    <configuration name="RealTimeAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.test_signal_snapshot_analysis">
+    <configuration name="data_from_csv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -99,11 +167,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/methods" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/methods/RealTimeAnalysis.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/data_from_csv.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -178,28 +246,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="test_real_time_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -222,20 +268,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_signal_snapshot_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/test_signal_snapshot_analysis.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python.RealTimeAnalysis" />
       <item itemvalue="Python.send_array" />
-      <item itemvalue="Python.test" />
       <item itemvalue="Python.test_real_time_analysis" />
+      <item itemvalue="Python.data_from_csv" />
       <item itemvalue="Python.read_from_pkl (1)" />
+      <item itemvalue="Python.test_signal_snapshot_analysis" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_signal_snapshot_analysis" />
         <item itemvalue="Python.test_real_time_analysis" />
-        <item itemvalue="Python.RealTimeAnalysis" />
         <item itemvalue="Python.send_array" />
         <item itemvalue="Python.read_from_pkl (1)" />
-        <item itemvalue="Python.test" />
+        <item itemvalue="Python.data_from_csv" />
       </list>
     </recent_temporary>
   </component>
@@ -507,7 +575,28 @@
       <option name="presentableId" value="LOCAL−00039" />
       <updated>1708168272570</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL−00040" summary="Implemented pickle storage for snapshot and real-time analysis">
+      <option name="closed" value="true" />
+      <created>1708169229789</created>
+      <option name="number" value="LOCAL−00040" />
+      <option name="presentableId" value="LOCAL−00040" />
+      <updated>1708169229789</updated>
+    </task>
+    <task id="LOCAL−00041" summary="Implemented pickle storage for snapshot and real-time analysis">
+      <option name="closed" value="true" />
+      <created>1708169454617</created>
+      <option name="number" value="LOCAL−00041" />
+      <option name="presentableId" value="LOCAL−00041" />
+      <updated>1708169454617</updated>
+    </task>
+    <task id="LOCAL−00042" summary="Added frequency estimation">
+      <option name="closed" value="true" />
+      <created>1708173697480</created>
+      <option name="number" value="LOCAL−00042" />
+      <option name="presentableId" value="LOCAL−00042" />
+      <updated>1708173697480</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -522,7 +611,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Mirror padding for handling edge effects implemented" />
     <MESSAGE value="HHT started" />
     <MESSAGE value="HHT for single signal working, HHT on multiple IMFs needs fixing" />
     <MESSAGE value="Probably possibly working HHT maybe?" />
@@ -547,7 +635,8 @@
     <MESSAGE value="Improved csv saving" />
     <MESSAGE value="Implemented CSV storage for real-time analysis" />
     <MESSAGE value="Implemented pickle storage for snapshot and real-time analysis" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented pickle storage for snapshot and real-time analysis" />
+    <MESSAGE value="Added frequency estimation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added frequency estimation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

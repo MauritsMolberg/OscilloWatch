@@ -13,7 +13,7 @@ class AnalysisSettings:
                  # File storing settings
                  csv_decimals=5,
                  csv_delimiter=";",
-                 results_file_path="results",
+                 results_file_path="../results/results",
 
                  # EMD settings
                  emd_rec_tolerance=0.003,

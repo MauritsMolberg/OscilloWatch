@@ -22,7 +22,7 @@ class RealTimeAnalysis:
 
         self.result_buffer_csv = []
         self.result_buffer_pkl = []
-        self.csv_path_full = self.settings.results_file_path + ".csv"
+        self.results_path_updated = self.settings.results_file_path
         self.csv_open_attempts = 0
 
         print(f"Attempting to connect to {self.settings.ip}:{self.settings.port} (Device ID: "
@@ -43,10 +43,9 @@ class RealTimeAnalysis:
         self.find_indices()
 
         self.init_csv()  # Clear existing csv file or create new
-
         with open(self.settings.results_file_path + ".pkl", "wb") as file:
             # Clears existing pkl file or creates new:
-            print(f"{self.settings.results_file_path}.pkl will be used for storing segment result objects.")
+            print(f"{self.results_path_updated}.pkl will be used for storing segment result objects.")
 
     def find_indices(self):
         if isinstance(self.pmu_config.get_stream_id_code(), int):
@@ -153,35 +152,30 @@ class RealTimeAnalysis:
 
                 #plt.show()
 
-    def init_csv(self, file_path="default"):
+    def init_csv(self):
         headers = list(self.settings.blank_mode_info_dict)
-
-        if file_path == "default":
-            current_file_path = self.csv_path_full
-        else:
-            current_file_path = file_path
 
         # Adds "_(number)" to file name if permission denied (when file is open in Excel, most likely)
         try:
-            with open(current_file_path, 'w', newline='') as csv_file:
+            with open(self.results_path_updated + ".csv", 'w', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
                 csv_writer.writerow(["Segment", "Timestamp"] + headers)
-                self.csv_path_full = current_file_path
-                print(f"{current_file_path} will be used for storing numerical results.")
+                print(f"{self.results_path_updated}.csv will be used for storing numerical results.")
         except PermissionError:
             self.csv_open_attempts += 1
             if self.csv_open_attempts > 20:
                 print("File opening attempts exceeded limit. Unable to save results to csv.")
                 return
-            new_path = self.settings.results_file_path + "_" + str(self.csv_open_attempts) + ".csv"
-            print(f"Permission denied for file {current_file_path}. Trying to save to {new_path} instead.")
+            new_path = self.settings.results_file_path + "_" + str(self.csv_open_attempts)
+            print(f"Permission denied for file {self.results_path_updated}.csv. Trying to save to {new_path}.csv instead.")
+            self.results_path_updated = new_path
 
-            return self.init_csv(new_path)
+            return self.init_csv()
 
     def add_segment_result_to_csv(self):
         headers = list(self.settings.blank_mode_info_dict)
         try:
-            with open(self.csv_path_full, 'a', newline='') as csv_file:
+            with open(self.results_path_updated + ".csv", 'a', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
                 while self.result_buffer_csv:
                     first_mode_in_segment = True
@@ -199,7 +193,7 @@ class RealTimeAnalysis:
                             else:
                                 row.append(data_dict[header])
                         csv_writer.writerow(row)
-                    print(f"Results for segment {self.segment_number_csv} added to {self.csv_path_full}.")
+                    print(f"Results for segment {self.segment_number_csv} added to {self.results_path_updated}.csv.")
                     self.segment_number_csv += 1
                     del self.result_buffer_csv[0]
         except Exception as e:
@@ -207,15 +201,13 @@ class RealTimeAnalysis:
 
     def add_segment_result_to_pkl(self):
         try:
-            with open(self.settings.results_file_path + ".pkl", 'ab') as file:
+            with open(self.results_path_updated + ".pkl", 'ab') as file:
                 while self.result_buffer_pkl:
                     pickle.dump(self.result_buffer_pkl[0], file)
-                    print(f"Results for segment {self.segment_number_pkl} added to "
-                          f"{self.settings.results_file_path}.pkl.")
+                    print(f"Results for segment {self.segment_number_pkl} added to {self.results_path_updated}.pkl.")
                     self.segment_number_pkl += 1
                     del self.result_buffer_pkl[0]
         except Exception as e:
             print(f"Exception during pkl storing: {e}. Attempting to store again after the next segment is analyzed.")
 
-# Todo: Match pkl and csv filenames
 # Todo: Print segment numbers

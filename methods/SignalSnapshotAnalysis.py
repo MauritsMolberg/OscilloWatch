@@ -28,6 +28,7 @@ class SignalSnapshotAnalysis:
 
         self.segment_analysis_list = []
 
+        self.results_path_updated = self.settings.results_file_path
         self.file_save_attempt_count = 0
 
     def split_signal(self):
@@ -61,17 +62,12 @@ class SignalSnapshotAnalysis:
             seg_analysis.damping_analysis()
             self.segment_analysis_list.append(seg_analysis)
 
-    def write_results_to_csv(self, file_path="default"):
+    def write_results_to_csv(self):
         headers = list(self.settings.blank_mode_info_dict)
-
-        if file_path == "default":
-            current_file_path = self.settings.results_file_path + ".csv"
-        else:
-            current_file_path = file_path
 
         # Adds "_(number)" to file name if permission denied (when file is open in Excel, most likely)
         try:
-            with open(current_file_path, 'w', newline='') as csv_file:
+            with open(self.results_path_updated + ".csv", 'w', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
 
                 csv_writer.writerow(["Segment"] + headers)
@@ -91,28 +87,24 @@ class SignalSnapshotAnalysis:
                             else:
                                 row.append(data_dict[header])
                         csv_writer.writerow(row)
-                print(f"Results successfully saved to {current_file_path}.")
+                print(f"Results successfully saved to {self.results_path_updated}.csv.")
         except PermissionError:
             self.file_save_attempt_count += 1
             if self.file_save_attempt_count > 20:
                 print("Unable to store results to csv.")
                 return
-            new_path = self.settings.results_file_path + "_" + str(self.file_save_attempt_count) + ".csv"
-            print(f"Permission denied for file {current_file_path}. Trying to save to {new_path} instead.")
+            new_path = self.settings.results_file_path + "_" + str(self.file_save_attempt_count)
+            print(f"Permission denied for file {self.results_path_updated}.csv. Trying to save to {new_path}.csv instead.")
+            self.results_path_updated = new_path
 
-            return self.write_results_to_csv(new_path)
+            return self.write_results_to_csv()
 
     def write_result_objects_to_pkl(self):
         try:
-            with open(self.settings.results_file_path + ".pkl", "wb") as file:
+            with open(self.results_path_updated + ".pkl", "wb") as file:
                 for segment_analysis_obj in self.segment_analysis_list:
                     pickle.dump(segment_analysis_obj, file)
-                print(f"Result objects written to {self.settings.results_file_path}.pkl.")
+                print(f"Result objects successfully written to {self.results_path_updated}.pkl.")
         except Exception as e:
-            print(f"Results were not saved to {self.settings.results_file_path}.pkl, as the following exception "
+            print(f"Results were not saved to {self.results_path_updated}.pkl, as the following exception "
                   f"occurred when writing results to pkl file: {e}.")
-
-
-# Todo: Incorporate frequency result changes
-# Todo: Start segment count at 0
-# Todo: Match pkl and csv filenames

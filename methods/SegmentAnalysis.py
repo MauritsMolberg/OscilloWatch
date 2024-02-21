@@ -20,6 +20,7 @@ class SegmentAnalysis:
         :type input_signal: numpy.ndarray or list
         :param settings: Object containing the settings for the different algorithms used in the signal analysis.
         :type settings: AnalysisSettings
+        :param str timestamp: Timestamp in datetime string format.
         """
         self.input_signal = input_signal
         self.settings = settings
@@ -335,5 +336,3 @@ def exponential_decay_model(t, A, k):
     :return:
     """
     return A * np.exp(-k * t)
-
-# Todo: Specific frequency
