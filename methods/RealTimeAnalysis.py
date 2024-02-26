@@ -29,6 +29,7 @@ class RealTimeAnalysis:
         """
         self.settings = settings
         self.df_buffer = []
+        self.segment_number = 0
         self.segment_number_csv = 0
         self.segment_number_pkl = 0
 
@@ -150,6 +151,8 @@ class RealTimeAnalysis:
         while True:
             # If buffer has enough samples to create segment:
             if len(self.df_buffer) >= self.settings.total_segment_length_samples:
+                if self.settings.print_segment_number:
+                    print(f"-------------------------------\nSegment {self.segment_number}:")
                 # Create segment of data frames, remove correct amount of samples from start of buffer
                 df_segment = self.df_buffer[:self.settings.total_segment_length_samples]  # Segment of data frames.
                 # Remove correct number of data frames from beginning of segment
@@ -167,8 +170,7 @@ class RealTimeAnalysis:
 
                 #plt.figure()
                 #plt.plot(values_segment)
-                end_time = time.time()
-                print([end_time-df["time"] for df in df_segment])
+
                 # Run segment analysis
                 seg_an = SegmentAnalysis(values_segment, self.settings, timestamp_datetime)
                 seg_an.damping_analysis()
@@ -180,6 +182,8 @@ class RealTimeAnalysis:
                 #seg_an.hht.plot_hilbert_spectrum(show=False)
 
                 #plt.show()
+
+                self.segment_number += 1
 
     def init_csv(self):
         """

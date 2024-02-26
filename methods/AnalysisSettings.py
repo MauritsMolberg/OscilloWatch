@@ -4,7 +4,7 @@ class AnalysisSettings:
 
                  # General settings
                  fs=50,
-                 print_segment_number=False,
+                 print_segment_number=True,
                  print_emd_time=False,
                  print_hht_time=False,
                  print_segment_analysis_time=False,
@@ -51,7 +51,7 @@ class AnalysisSettings:
                  segment_length_time=10,
 
                  # Real time analysis settings
-                 ip ="localhost",
+                 ip="localhost",
                  port=50000,
                  sender_device_id=45,
                  pmu_id=3000,

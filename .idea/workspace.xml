@@ -4,22 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added frequency estimation">
-      <change afterPath="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" afterDir="false" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Cleanup and documentation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/read_from_pkl.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/read_from_pkl.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/test_real_time_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/real_time_analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/test_signal_snapshot_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/signal_snapshot_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/HHT.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/HHT.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pmu_scripts/send_array.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/send_array.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyPMU_examples/simplePMU.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/simplePMU.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +82,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/mauri/OneDrive - NTNU/NTNU/Fordypningsprosjekt/OscillationDetection/pmu_scripts",
-    "settings.editor.selected.configurable": "vcs.Git"
+    "settings.editor.selected.configurable": "project.propVCSSupport.Confirmation"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -526,7 +514,14 @@
       <option name="presentableId" value="LOCAL−00042" />
       <updated>1708173697480</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL−00043" summary="Cleanup and documentation">
+      <option name="closed" value="true" />
+      <created>1708956545325</created>
+      <option name="number" value="LOCAL−00043" />
+      <option name="presentableId" value="LOCAL−00043" />
+      <updated>1708956545325</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -541,7 +536,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="HHT started" />
     <MESSAGE value="HHT for single signal working, HHT on multiple IMFs needs fixing" />
     <MESSAGE value="Probably possibly working HHT maybe?" />
     <MESSAGE value="Mirror padding improved + keep padding between EMD and Hilb. spec. calculation" />
@@ -566,7 +560,8 @@
     <MESSAGE value="Implemented CSV storage for real-time analysis" />
     <MESSAGE value="Implemented pickle storage for snapshot and real-time analysis" />
     <MESSAGE value="Added frequency estimation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added frequency estimation" />
+    <MESSAGE value="Cleanup and documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup and documentation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
