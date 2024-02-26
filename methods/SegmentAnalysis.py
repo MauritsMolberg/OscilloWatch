@@ -16,11 +16,10 @@ class SegmentAnalysis:
         """
         Constructor for the SegmentAnalysis class. Initializes variables, but does not perform the actual analysis.
 
-        :param input_signal: Signal segment to be analyzed.
-        :type input_signal: numpy.ndarray or list
-        :param settings: Object containing the settings for the different algorithms used in the signal analysis.
-        :type settings: AnalysisSettings
-        :param str timestamp: Timestamp in datetime string format.
+        :param numpy.ndarray | list input_signal: Signal segment to be analyzed.
+        :param AnalysisSettings settings: Object containing the settings for the different algorithms used in the signal
+         analysis.
+        :param datetime.datetime timestamp: Timestamp in datetime format.
         """
         self.input_signal = input_signal
         self.settings = settings
@@ -38,11 +37,9 @@ class SegmentAnalysis:
         zero element. Updates info about where this sequence starts and ends in the dict damping_info, which is a
         parameter. Intended to be used on a row in a Hilbert spectrum.
 
-        :param signal: Amplitude curve containing zeros. Intended to be a single or combined row from a
+        :param numpy.ndarray signal: Amplitude curve containing zeros. Intended to be a single or combined row from a
             Hilbert spectrum containing the amplitude of a single oscillating mode.
-        :type signal: numpy.ndarray
-        :param mode_info_dict: Dict containing info about the oscillating mode that is to be analyzed.
-        :type mode_info_dict: dict
+        :param dict mode_info_dict: Dict containing info about the oscillating mode that is to be analyzed.
 
         :return: Copy of the portion of the input signal that starts at the first non-zero and ends at the last, with
             zero-values in-between non-zero values filled in.
@@ -194,7 +191,8 @@ class SegmentAnalysis:
     def estimate_frequency(self, bottom_row, top_row):
         """
         Finds and returns the frequency most likely to be the true frequency of the detected mode, based on the number
-        of non-zero values.
+        of non-zero values in Hilbert Spectrum rows.
+
         :param int bottom_row: Index of the bottom row in the frequency band that is being analyzed.
         :param int top_row: Index of the top row in the frequency band that is being analyzed.
         :return: Value of estimated frequency of the mode.
@@ -207,7 +205,7 @@ class SegmentAnalysis:
                 max_non_zero_count = non_zero_count
                 freq_est_row = row
             elif non_zero_count == max_non_zero_count and max_non_zero_count != 0:  # Two equally likely frequencies
-                print(f"Equally likely {self.hht.freq_axis[freq_est_row]:.3f} and {self.hht.freq_axis[row]:.3f}")
+                #print(f"Equally likely {self.hht.freq_axis[freq_est_row]:.3f} and {self.hht.freq_axis[row]:.3f}")
                 freq_est_row = (row + freq_est_row)//2  # Take average frequency of the two estimates (using indexing)
         return self.hht.freq_axis[freq_est_row]
 
@@ -215,6 +213,7 @@ class SegmentAnalysis:
         """
         Analyzes the damping of different components of the signal segment by performing HHT and using the developed
         algorithm to analyze the Hilbert spectrum.
+
         :return: None
         """
         start_time = time()

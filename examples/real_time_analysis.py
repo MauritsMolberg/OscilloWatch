@@ -12,15 +12,15 @@ settings_N44 = AnalysisSettings(segment_length_time=3,
                                 )
 
 settings_array = AnalysisSettings(segment_length_time=10,
-                                  extension_padding_time_start=2,
-                                  extension_padding_time_end=2,
+                                  extension_padding_time_start=0,
+                                  extension_padding_time_end=0,
                                   channel="signal",
                                   pmu_id=1410
                                   )
 
-settings_simplePMU = AnalysisSettings(segment_length_time=3,
-                                      extension_padding_time_start=.5,
-                                      extension_padding_time_end=0,
+settings_simplePMU = AnalysisSettings(segment_length_time=10,
+                                      extension_padding_time_start=2,
+                                      extension_padding_time_end=.5,
                                       channel="Phasor2.3",
                                       pmu_id=1411
                                       )

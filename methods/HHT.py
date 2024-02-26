@@ -18,7 +18,7 @@ class HHT:
         :param input_signal: Signal to be decomposed.
         :type input_signal: numpy.ndarray or list
         :param settings: Object containing the settings for the HHT algorithm, and the other methods that will be used
-            in the signal analysis
+         in the signal analysis
         :type settings: AnalysisSettings
         """
         self.settings = settings

@@ -2,6 +2,7 @@ import csv
 import pickle
 import threading
 import datetime
+import time
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,8 +14,19 @@ from methods.SegmentAnalysis import SegmentAnalysis
 
 
 class RealTimeAnalysis:
+    """
+    Class for analyzing data from a PMU sent with the IEEE C37.118 protocol in real-time.
+    """
 
     def __init__(self, settings: AnalysisSettings):
+        """
+        Constructor for the RealTimeAnalysis class. Initializes variables and attempts to connect to the PMU specified
+        in settings. If successful, requests config frame and uses it to locate the wanted phasor data in the data
+        frames. The sampling rate, fs, in settings is updated.
+
+        :param AnalysisSettings settings: Object containing the settings for the different algorithms used in the signal
+         analysis.
+        """
         self.settings = settings
         self.df_buffer = []
         self.segment_number_csv = 0
@@ -32,7 +44,7 @@ class RealTimeAnalysis:
         #self.pdc.logger.setLevel("DEBUG")
         self.pdc.run()  # Connect to PMU
 
-        #self.pdc.stop()
+        self.pdc.stop()  # Required for properly connecting to certain devices. Try commenting out if you get errors.
         self.pmu_config = self.pdc.get_config()  # Get configuration from PMU
         #self.pmu_header = self.pdc.get_header()  # Get header from PMU
 
@@ -42,13 +54,21 @@ class RealTimeAnalysis:
         self.component_index = 0
         self.find_indices()
 
+        self.settings.fs = self.pmu_config.get_data_rate()
+        self.settings.update_calc_values()
+
         self.init_csv()  # Clear existing csv file or create new
-        with open(self.settings.results_file_path + ".pkl", "wb") as file:
+        with open(self.results_path_updated + ".pkl", "wb") as file:
             # Clears existing pkl file or creates new:
             print(f"{self.results_path_updated}.pkl will be used for storing segment result objects.")
 
     def find_indices(self):
-        if isinstance(self.pmu_config.get_stream_id_code(), int):
+        """
+        Finds and sets the PMU and phasor indices where the wanted phasor data is located in the lists in the data
+        frames.
+        :return: None
+        """
+        if isinstance(self.pmu_config.get_stream_id_code(), int):  # Only one PMU, not list
             if self.pmu_config.get_stream_id_code() != self.settings.pmu_id:
                 raise ValueError(f"{self.settings.pmu_id} is not a valid PMU ID code.")
             # Create list of phasor channel names, with spaces at the end of the strings removed
@@ -92,10 +112,11 @@ class RealTimeAnalysis:
             raise ValueError(f"{self.settings.phasor_component} is not a valid phasor component. Must be 'magnitude' "
                              f"or 'angle'.")
 
-        self.settings.fs = self.pmu_config.get_data_rate()
-        self.settings.update_calc_values()
-
     def receive_data_frames(self):
+        """
+        Infinite loop that receives data frames from the connected PMU and puts them in buffer.
+        :return: None
+        """
         df_count = 0
         while True:
             #print(df_count)
@@ -113,10 +134,15 @@ class RealTimeAnalysis:
             df_count += 1
 
     def run_analysis(self):
+        """
+        Starts analyzing the real-time PMU data. Requests the PMU to start sending, creates own thread for receiving
+        data infinitely, and starts main processing loop. Goes on infinitely.
+        :return: None
+        """
         self.pdc.start()  # Request connected PMU to start sending measurements
 
-        # Start continuously receiving data and adding to buffer in own thread, so no data is lost if it is sent while
-        # the main loop is running.
+        # Start continuously receiving data and adding to buffer in own thread, so data sent while the main loop is
+        # running is not lost.
         receive_thread = threading.Thread(target=self.receive_data_frames)
         receive_thread.start()
 
@@ -125,23 +151,26 @@ class RealTimeAnalysis:
             # If buffer has enough samples to create segment:
             if len(self.df_buffer) >= self.settings.total_segment_length_samples:
                 # Create segment of data frames, remove correct amount of samples from start of buffer
-                df_segment = self.df_buffer[:self.settings.total_segment_length_samples]
+                df_segment = self.df_buffer[:self.settings.total_segment_length_samples]  # Segment of data frames.
+                # Remove correct number of data frames from beginning of segment
                 self.df_buffer = self.df_buffer[(self.settings.segment_length_samples
                                                 + self.settings.extension_padding_samples_end):]
 
-                # Create segment array with wanted numerical values found from dataframe using dict keys and indices
+                # Create segment array with wanted numerical values found from data frame using dict keys and indices
                 if self.settings.channel.lower() == "freq" or self.settings.channel.lower() == "frequency":
                     values_segment = np.array([df["measurements"][self.id_index]["frequency"] for df in df_segment])
                 else:
                     values_segment = np.array([df["measurements"][self.id_index]["phasors"][self.channel_index]
                                                [self.component_index] for df in df_segment])
                 timestamp = df_segment[self.settings.extension_padding_samples_start]["time"]  # Epoch time
-                timestamp_str = datetime.datetime.fromtimestamp(timestamp)
+                timestamp_datetime = datetime.datetime.fromtimestamp(timestamp)
 
                 #plt.figure()
                 #plt.plot(values_segment)
-
-                seg_an = SegmentAnalysis(values_segment, self.settings, timestamp_str)
+                end_time = time.time()
+                print([end_time-df["time"] for df in df_segment])
+                # Run segment analysis
+                seg_an = SegmentAnalysis(values_segment, self.settings, timestamp_datetime)
                 seg_an.damping_analysis()
                 self.result_buffer_csv.append(seg_an)
                 self.result_buffer_pkl.append(seg_an)
@@ -153,6 +182,11 @@ class RealTimeAnalysis:
                 #plt.show()
 
     def init_csv(self):
+        """
+        Creates new CSV file or clears existing one, adding the header row at the top, to make it ready for storing
+        results.
+        :return: None
+        """
         headers = list(self.settings.blank_mode_info_dict)
 
         # Adds "_(number)" to file name if permission denied (when file is open in Excel, most likely)
@@ -173,6 +207,13 @@ class RealTimeAnalysis:
             return self.init_csv()
 
     def add_segment_result_to_csv(self):
+        """
+        Writes the estimated characteristics of each detected mode in the segment to the CSV file, as well as for all
+        previous segments whose results have not been saved yet. If an exception occurs (likely permission error
+        because the file is open in Excel), the results are kept in a buffer, and a new attempt to write is made the
+        next time this function is called (after next segment is analyzed).
+        :return: None
+        """
         headers = list(self.settings.blank_mode_info_dict)
         try:
             with open(self.results_path_updated + ".csv", 'a', newline='') as csv_file:
@@ -200,6 +241,13 @@ class RealTimeAnalysis:
             print(f"Exception during csv storing: {e}. Attempting to store again after the next segment is analyzed.")
 
     def add_segment_result_to_pkl(self):
+        """
+        Writes the SegmentAnalysis object of the current segment to PKL file, as well as for all previous segments
+        whose results have not been saved yet. If an exception occurs (likely permission error because the file is open
+        in Excel), the results are kept in a buffer, and a new attempt to write is made the  next time this function is
+        called (after next segment is analyzed).
+        :return: None
+        """
         try:
             with open(self.results_path_updated + ".pkl", 'ab') as file:
                 while self.result_buffer_pkl:
@@ -210,4 +258,5 @@ class RealTimeAnalysis:
         except Exception as e:
             print(f"Exception during pkl storing: {e}. Attempting to store again after the next segment is analyzed.")
 
+# Todo: Print notice on fs change
 # Todo: Print segment numbers

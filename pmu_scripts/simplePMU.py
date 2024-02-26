@@ -8,7 +8,7 @@ if __name__ == '__main__':
     publish_frequency = 5
 
     #ip = socket.gethostbyname(socket.gethostname())
-    ip="localhost"
+    ip = "localhost"
     port = 50000
 
     station_names = ['PMU1', 'PMU2', 'PMU3']

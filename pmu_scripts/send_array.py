@@ -2,11 +2,17 @@ import socket
 
 import numpy as np
 from synchrophasor.frame import ConfigFrame2
-from synchrophasor.pmu_mod import Pmu
+from synchrophasor.pmu_mod import Pmu  # Remove "_mod" if using the official, upstream synchrophasor repository
+
 
 def send_array(array, ip="localhost", port=50000):
     """
     Sends individual values from an array one at a time in real-time as a PMU, using the IEEE C37.118 protocol.
+
+    :param numpy.ndarray array: Array that is to be sent.
+    :param str ip: IP address of the sender, i.e. the machine this function is called from.
+    :param int port: Port number to send from.
+    :return: None
     """
 
     pmu = Pmu(ip=ip, port=port)

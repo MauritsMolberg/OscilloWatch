@@ -16,11 +16,11 @@ def read_from_pkl(file_path="results.pkl"):
 
 
 if __name__ == "__main__":
-    seg_res_list = read_from_pkl("results.pkl")
-    for segment in seg_res_list[24:29]:
-        segment.hht.emd.plot_emd_results(show=False)
-        segment.hht.plot_hilbert_spectrum(show=False)
+    seg_res_list = read_from_pkl("../results/results.pkl")
+    for segment in seg_res_list[1:5]:
         plt.figure()
         plt.plot(segment.input_signal)
+        segment.hht.emd.plot_emd_results(show=False)
+        segment.hht.plot_hilbert_spectrum(show=False)
 
     plt.show()

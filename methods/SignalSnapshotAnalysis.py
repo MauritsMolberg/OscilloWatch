@@ -14,11 +14,11 @@ class SignalSnapshotAnalysis:
     """
     def __init__(self, input_signal, settings: AnalysisSettings):
         """
-        Constructor for the SignalSnapshotAnalysis class.
+        Constructor for the SignalSnapshotAnalysis class. Initializes variables and splits signal into segments.
 
-        :param input_signal:
-        :type input_signal: list or numpy.ndarray
-        :param AnalysisSettings settings:
+        :param list | numpy.ndarray input_signal: Input signal that is to be split into segments and analyzed.
+        :param AnalysisSettings settings: Object containing the settings for the different algorithms used in the signal
+         analysis.
         """
         self.settings = settings
         self.input_signal = input_signal
@@ -55,14 +55,22 @@ class SignalSnapshotAnalysis:
                 print(f"({self.settings.extension_padding_time_end} of which were used as padding for last segment.)")
 
     def analyze_whole_signal(self):
+        """
+        Runs segment analysis on all the segments and stores the SegmentAnalysis objects in a list.
+        :return: None
+        """
         for i, segment in enumerate(self.segment_list):
             if self.settings.print_segment_number:
-                print(f"-------------------------------\nSegment {i+1}:")
+                print(f"-------------------------------\nSegment {i}:")
             seg_analysis = SegmentAnalysis(segment, self.settings)
             seg_analysis.damping_analysis()
             self.segment_analysis_list.append(seg_analysis)
 
     def write_results_to_csv(self):
+        """
+        Writes the estimated characteristics for all modes in all segments to CSV file.
+        :return: None
+        """
         headers = list(self.settings.blank_mode_info_dict)
 
         # Adds "_(number)" to file name if permission denied (when file is open in Excel, most likely)
@@ -76,7 +84,7 @@ class SignalSnapshotAnalysis:
                     for data_dict in segment.mode_info_list:
                         # Make sure each segment number appears only once, for better readability
                         if first_mode_in_segment:
-                            row = [i + 1]
+                            row = [i]
                             first_mode_in_segment = False
                         else:
                             row = [""]
@@ -100,6 +108,10 @@ class SignalSnapshotAnalysis:
             return self.write_results_to_csv()
 
     def write_result_objects_to_pkl(self):
+        """
+        Writes all SegmentAnalysis objects to PKL file.
+        :return: None
+        """
         try:
             with open(self.results_path_updated + ".pkl", "wb") as file:
                 for segment_analysis_obj in self.segment_analysis_list:

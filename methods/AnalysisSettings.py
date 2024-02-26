@@ -4,7 +4,6 @@ class AnalysisSettings:
 
                  # General settings
                  fs=50,
-                 noise_reduction_moving_avg_window=1,
                  print_segment_number=False,
                  print_emd_time=False,
                  print_hht_time=False,
@@ -53,11 +52,11 @@ class AnalysisSettings:
 
                  # Real time analysis settings
                  ip ="localhost",
-                 port = 50000,
-                 sender_device_id = 45,
-                 pmu_id = 3000,
-                 channel = "V_1",
-                 phasor_component = "magnitude",
+                 port=50000,
+                 sender_device_id=45,
+                 pmu_id=3000,
+                 channel="V_1",
+                 phasor_component="magnitude",
 
                  # Warning settings
                  damping_ratio_weak_warning_threshold=0.15,
@@ -67,7 +66,6 @@ class AnalysisSettings:
 
         self.fs = fs
         self.segment_length_time = segment_length_time
-        self.noise_reduction_moving_avg_window = noise_reduction_moving_avg_window
         self.print_segment_number = print_segment_number
         self.print_emd_time = print_emd_time
         self.print_hht_time = print_hht_time

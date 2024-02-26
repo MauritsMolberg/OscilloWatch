@@ -5,75 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added frequency estimation">
+      <change afterPath="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/avr.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/blocks.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/gen.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/gov.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/lines.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/loads.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/pll.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/pss.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/shunts.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/trafos.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dyn_models/vsc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/dynamic.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/modal_analysis.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/plotting.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/assignment_model.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/ieee39.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/ieee39_all_ctrl.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/ieee68.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a(1).py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a_base_case_with_AVRs_and_GOVs.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a_no_controls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/k2a_val.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/n44_no_controls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/n44_with_controls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/sm_ib.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/sm_ib_kundur.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/ps_models/sm_load.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/solvers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynpssimpy/utility_functions.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/dyn_sim/assignment_base_script.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/dyn_sim/line_outage.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/dyn_sim/short_circuit.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/modal_analysis/plot_eigs.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/modal_analysis/plot_eigs_assignment.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/notebooks/k2a-simple_dyn_sim.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/notebooks/modal_analysis.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/user_models/pll.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/user_models/user_lib/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/user_models/user_lib/avr.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/user_models/user_lib/geh.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/user_models/user_lib/pll.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/user_models/user_lib/vsc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/user_models/vsc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/read_from_pkl.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/read_from_pkl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test_real_time_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/real_time_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test_signal_snapshot_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/signal_snapshot_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/HHT.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/HHT.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/ieee39/plots.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/ieee39/powerfactory_model.pfd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/ieee39/powerfactory_res.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a-R-X_l/plots.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a-R-X_l/powerfactory_model.pfd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a-R-X_l/powerfactory_res.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a/plots.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a/powerfactory_model.pfd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/k2a/powerfactory_res.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/plots_ieee39.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/plots_k2a.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/test_validate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/test_validate_quick.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_validation/validation_functions.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests_osc/read_from_pkl.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests_osc/read_from_pkl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pmu_scripts/send_array.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/send_array.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyPMU_examples/simplePMU.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/simplePMU.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +76,10 @@
     "Python.read_from_pkl (1).executor": "Run",
     "Python.read_from_pkl.executor": "Run",
     "Python.read_from_pkl_2.executor": "Run",
+    "Python.real_time_analysis.executor": "Run",
     "Python.send_array.executor": "Run",
+    "Python.send_array_simplePMU.executor": "Run",
+    "Python.signal_snapshot_analysis.executor": "Run",
     "Python.simplePMU.executor": "Run",
     "Python.test.executor": "Run",
     "Python.test_hht.executor": "Run",
@@ -144,20 +93,23 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/mauri/OneDrive - NTNU/Random scripts",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "last_opened_file_path": "C:/Users/mauri/OneDrive - NTNU/NTNU/Fordypningsprosjekt/OscillationDetection/pmu_scripts",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\pmu_scripts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\pmu_scripts" />
+      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_signal_snapshot_analysis">
+  <component name="RunManager" selected="Python.real_time_analysis">
     <configuration name="data_from_csv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -167,11 +119,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/data_from_csv.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/data_from_csv.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -180,7 +132,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="read_from_pkl (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="randomPMU" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -189,11 +141,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pmu_scripts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/read_from_pkl.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pmu_scripts/randomPMU.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -211,11 +163,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc\read_from_pkl.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/read_from_pkl.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -224,7 +176,29 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="send_array" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="real_time_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/real_time_analysis.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="send_array_simplePMU" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -237,51 +211,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pmu_scripts/send_array.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_real_time_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/test_real_time_analysis.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_signal_snapshot_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests_osc" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests_osc/test_signal_snapshot_analysis.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -291,19 +221,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.send_array" />
-      <item itemvalue="Python.test_real_time_analysis" />
+      <item itemvalue="Python.randomPMU" />
+      <item itemvalue="Python.read_from_pkl" />
+      <item itemvalue="Python.real_time_analysis" />
+      <item itemvalue="Python.send_array_simplePMU" />
       <item itemvalue="Python.data_from_csv" />
-      <item itemvalue="Python.read_from_pkl (1)" />
-      <item itemvalue="Python.test_signal_snapshot_analysis" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_signal_snapshot_analysis" />
-        <item itemvalue="Python.test_real_time_analysis" />
-        <item itemvalue="Python.send_array" />
-        <item itemvalue="Python.read_from_pkl (1)" />
+        <item itemvalue="Python.real_time_analysis" />
+        <item itemvalue="Python.send_array_simplePMU" />
         <item itemvalue="Python.data_from_csv" />
+        <item itemvalue="Python.read_from_pkl" />
+        <item itemvalue="Python.randomPMU" />
       </list>
     </recent_temporary>
   </component>
