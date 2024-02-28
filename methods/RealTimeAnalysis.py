@@ -55,8 +55,10 @@ class RealTimeAnalysis:
         self.component_index = 0
         self.find_indices()
 
-        self.settings.fs = self.pmu_config.get_data_rate()
-        self.settings.update_calc_values()
+        if self.settings.fs != self.pmu_config.get_data_rate():
+            print(f"Sampling frequency updated from {self.settings.fs} Hz to {self.pmu_config.get_data_rate()} Hz.")
+            self.settings.fs = self.pmu_config.get_data_rate()
+            self.settings.update_calc_values()
 
         self.init_csv()  # Clear existing csv file or create new
         with open(self.results_path_updated + ".pkl", "wb") as file:
@@ -261,6 +263,3 @@ class RealTimeAnalysis:
                     del self.result_buffer_pkl[0]
         except Exception as e:
             print(f"Exception during pkl storing: {e}. Attempting to store again after the next segment is analyzed.")
-
-# Todo: Print notice on fs change
-# Todo: Print segment numbers

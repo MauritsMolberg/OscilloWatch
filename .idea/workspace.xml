@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Cleanup and documentation">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added segment number printing for real-time analysis">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -521,7 +520,14 @@
       <option name="presentableId" value="LOCAL−00043" />
       <updated>1708956545325</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL−00044" summary="Added segment number printing for real-time analysis">
+      <option name="closed" value="true" />
+      <created>1708957551345</created>
+      <option name="number" value="LOCAL−00044" />
+      <option name="presentableId" value="LOCAL−00044" />
+      <updated>1708957551345</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -536,7 +542,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="HHT for single signal working, HHT on multiple IMFs needs fixing" />
     <MESSAGE value="Probably possibly working HHT maybe?" />
     <MESSAGE value="Mirror padding improved + keep padding between EMD and Hilb. spec. calculation" />
     <MESSAGE value="Added amplitude tolerance for Hilbert spectrum" />
@@ -561,7 +566,8 @@
     <MESSAGE value="Implemented pickle storage for snapshot and real-time analysis" />
     <MESSAGE value="Added frequency estimation" />
     <MESSAGE value="Cleanup and documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleanup and documentation" />
+    <MESSAGE value="Added segment number printing for real-time analysis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added segment number printing for real-time analysis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
