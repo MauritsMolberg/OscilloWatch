@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added TOPS-RT example files for testing">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/real_time_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/real_time_analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tops-rt_examples/multiprocessing/pmu.py" beforeDir="false" afterPath="$PROJECT_DIR$/tops-rt_examples/multiprocessing/pmu.py" afterDir="false" />
-    </list>
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Fixed bug where single-character channel names could not be found" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -552,7 +547,14 @@
       <option name="presentableId" value="LOCAL−00047" />
       <updated>1709127447440</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL−00048" summary="Fixed bug where single-character channel names could not be found">
+      <option name="closed" value="true" />
+      <created>1709200190585</created>
+      <option name="number" value="LOCAL−00048" />
+      <option name="presentableId" value="LOCAL−00048" />
+      <updated>1709200190585</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -567,7 +569,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added amplitude tolerance for Hilbert spectrum" />
     <MESSAGE value="Added sampling frequency handling" />
     <MESSAGE value="Added frequency spike removal and moving average for frequency curve" />
     <MESSAGE value="Added automatic signal splitting at abrupt frequency changes" />
@@ -592,7 +593,8 @@
     <MESSAGE value="Added segment number printing for real-time analysis" />
     <MESSAGE value="Print notice when sampling frequency is updated to match config frame" />
     <MESSAGE value="Added TOPS-RT example files for testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added TOPS-RT example files for testing" />
+    <MESSAGE value="Fixed bug where single-character channel names could not be found" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug where single-character channel names could not be found" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
