@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Print notice when sampling frequency is updated to match config frame">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added TOPS-RT example files for testing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/real_time_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/real_time_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tops-rt_examples/multiprocessing/pmu.py" beforeDir="false" afterPath="$PROJECT_DIR$/tops-rt_examples/multiprocessing/pmu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,9 +58,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.RealTimeAnalysis.executor": "Run",
+    "Python.custom_plot.executor": "Run",
     "Python.data_from_csv.executor": "Run",
     "Python.k2a_base_script.executor": "Run",
     "Python.pickle_test.executor": "Run",
+    "Python.pmu.executor": "Run",
     "Python.randomPMU.executor": "Run",
     "Python.read_from_pkl (1).executor": "Run",
     "Python.read_from_pkl.executor": "Run",
@@ -88,14 +93,36 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\pmu_scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tops-rt_examples" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\pmu_scripts" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods" />
-      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\dynpssimpy\ps_models" />
     </key>
   </component>
   <component name="RunManager" selected="Python.real_time_analysis">
+    <configuration name="custom_plot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tops-rt_examples/plotting" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tops-rt_examples/plotting/custom_plot.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="data_from_csv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -118,7 +145,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="randomPMU" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="pmu" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -127,33 +154,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pmu_scripts" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tops-rt_examples/multiprocessing" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pmu_scripts/randomPMU.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="read_from_pkl" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/read_from_pkl.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tops-rt_examples/multiprocessing/pmu.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -207,8 +212,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.randomPMU" />
-      <item itemvalue="Python.read_from_pkl" />
+      <item itemvalue="Python.custom_plot" />
+      <item itemvalue="Python.pmu" />
       <item itemvalue="Python.real_time_analysis" />
       <item itemvalue="Python.send_array_simplePMU" />
       <item itemvalue="Python.data_from_csv" />
@@ -216,10 +221,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.real_time_analysis" />
+        <item itemvalue="Python.pmu" />
+        <item itemvalue="Python.custom_plot" />
         <item itemvalue="Python.send_array_simplePMU" />
         <item itemvalue="Python.data_from_csv" />
-        <item itemvalue="Python.read_from_pkl" />
-        <item itemvalue="Python.randomPMU" />
       </list>
     </recent_temporary>
   </component>
@@ -533,7 +538,21 @@
       <option name="presentableId" value="LOCAL−00045" />
       <updated>1709117727459</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL−00046" summary="Added TOPS-RT example files for testing">
+      <option name="closed" value="true" />
+      <created>1709127424343</created>
+      <option name="number" value="LOCAL−00046" />
+      <option name="presentableId" value="LOCAL−00046" />
+      <updated>1709127424343</updated>
+    </task>
+    <task id="LOCAL−00047" summary="Added TOPS-RT example files for testing">
+      <option name="closed" value="true" />
+      <created>1709127447440</created>
+      <option name="number" value="LOCAL−00047" />
+      <option name="presentableId" value="LOCAL−00047" />
+      <updated>1709127447440</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -548,7 +567,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Mirror padding improved + keep padding between EMD and Hilb. spec. calculation" />
     <MESSAGE value="Added amplitude tolerance for Hilbert spectrum" />
     <MESSAGE value="Added sampling frequency handling" />
     <MESSAGE value="Added frequency spike removal and moving average for frequency curve" />
@@ -573,7 +591,8 @@
     <MESSAGE value="Cleanup and documentation" />
     <MESSAGE value="Added segment number printing for real-time analysis" />
     <MESSAGE value="Print notice when sampling frequency is updated to match config frame" />
-    <option name="LAST_COMMIT_MESSAGE" value="Print notice when sampling frequency is updated to match config frame" />
+    <MESSAGE value="Added TOPS-RT example files for testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added TOPS-RT example files for testing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

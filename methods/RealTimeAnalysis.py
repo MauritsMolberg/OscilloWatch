@@ -93,7 +93,7 @@ class RealTimeAnalysis:
             phasor_channel_names = []
             for channel_name in (self.pmu_config.get_channel_names()
                                  [self.id_index][:self.pdc.pmu_cfg2.get_phasor_num()[self.id_index]]):
-                for i in range(len(channel_name) - 1, 0, -1):
+                for i in range(len(channel_name) - 1, -1, -1):
                     if channel_name[i] == " ":
                         channel_name = channel_name[:i]
                     else:

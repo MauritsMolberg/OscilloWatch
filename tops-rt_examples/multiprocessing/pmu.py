@@ -12,7 +12,8 @@ from topsrt.pmu import PMUPublisher
 
 def main_pmu(qm_kwargs):
     import socket
-    ip = socket.gethostbyname(socket.gethostname())  # Get local ip automatically
+    #ip = socket.gethostbyname(socket.gethostname())  # Get local ip automatically
+    ip = "localhost"
     port = 50000
 
     manager = QueueManager(**qm_kwargs)
@@ -80,6 +81,7 @@ if __name__ == '__main__':
     import socket
     hostname = socket.gethostname()
     ip = socket.gethostbyname(hostname)
+    ip = "localhost"
     qm_kwargs = dict(address=(ip, 40000), authkey=b'abracadabra')
 
     p_server = mp.Process(target=main_server, args=(qm_kwargs,))

@@ -25,5 +25,13 @@ settings_simplePMU = AnalysisSettings(segment_length_time=10,
                                       pmu_id=1411
                                       )
 
-rta = RealTimeAnalysis(settings_array)
+settings_topsrt = AnalysisSettings(segment_length_time=10,
+                                   extension_padding_time_start=2,
+                                   extension_padding_time_end=.5,
+                                   channel="V",
+                                   pmu_id=1,
+                                   sender_device_id=1
+                                   )
+
+rta = RealTimeAnalysis(settings_topsrt)
 rta.run_analysis()
