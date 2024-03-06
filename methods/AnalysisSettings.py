@@ -50,7 +50,7 @@ class AnalysisSettings:
                  # Segment analysis settings
                  segment_length_time=10,
 
-                 # Real time analysis settings
+                 # Real-time analysis settings
                  ip="localhost",
                  port=50000,
                  sender_device_id=45,
@@ -61,7 +61,8 @@ class AnalysisSettings:
                  # Warning settings
                  damping_ratio_weak_warning_threshold=0.15,
                  damping_ratio_strong_warning_threshold=0.05,
-                 oscillation_timeout=2
+                 oscillation_timeout=2,
+                 segment_memory_freq_threshold=0.1
                  ):
 
         self.fs = fs
@@ -113,6 +114,7 @@ class AnalysisSettings:
         self.damping_ratio_weak_warning_threshold = damping_ratio_weak_warning_threshold
         self.damping_ratio_strong_warning_threshold = damping_ratio_strong_warning_threshold
         self.oscillation_timeout = oscillation_timeout
+        self.segment_memory_freq_threshold = segment_memory_freq_threshold
 
         # Initialize variables that will be calculated in update_calc_values
         self.segment_length_samples = 0
@@ -125,6 +127,8 @@ class AnalysisSettings:
         self.update_calc_values()
 
         self.blank_mode_info_dict = {  # Practical to have here, so the keys can be easily fetched from anywhere
+            "Mode status": "",
+            "Damping evaluation": "",
             "Warning": "",
             "Frequency": 0.0,
             "Damping ratio": 0.0,

@@ -1,5 +1,6 @@
 import pickle
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def read_from_pkl(file_path="results.pkl"):
@@ -16,8 +17,8 @@ def read_from_pkl(file_path="results.pkl"):
 
 
 if __name__ == "__main__":
-    seg_res_list = read_from_pkl("../results/results.pkl")
-    for segment in seg_res_list[1:5]:
+    seg_res_list = read_from_pkl("../results/results_3.pkl")
+    for segment in seg_res_list[33:39]:
         plt.figure()
         plt.plot(segment.input_signal)
         segment.hht.emd.plot_emd_results(show=False)

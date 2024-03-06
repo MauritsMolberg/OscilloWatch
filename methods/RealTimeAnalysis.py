@@ -144,12 +144,13 @@ class RealTimeAnalysis:
         """
         self.pdc.start()  # Request connected PMU to start sending measurements
 
-        # Start continuously receiving data and adding to buffer in own thread, so data sent while the main loop is
-        # running is not lost.
+        # Start continuously receiving data and adding to buffer in own thread, to ensure data sent while the main loop
+        # is running is not lost.
         receive_thread = threading.Thread(target=self.receive_data_frames)
         receive_thread.start()
 
         # Start main processing loop
+        previous_segment = None
         while True:
             # If buffer has enough samples to create segment:
             if len(self.df_buffer) >= self.settings.total_segment_length_samples:
@@ -174,8 +175,13 @@ class RealTimeAnalysis:
                 #plt.plot(values_segment)
 
                 # Run segment analysis
-                seg_an = SegmentAnalysis(values_segment, self.settings, timestamp_datetime)
+                seg_an = SegmentAnalysis(values_segment, self.settings, previous_segment,
+                                         timestamp_datetime)
                 seg_an.damping_analysis()
+
+                seg_an.previous_segment = None  # To save storage space when storing in PKL file
+                previous_segment = seg_an
+
                 self.result_buffer_csv.append(seg_an)
                 self.result_buffer_pkl.append(seg_an)
                 self.add_segment_result_to_csv()

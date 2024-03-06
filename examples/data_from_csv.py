@@ -32,14 +32,15 @@ if __name__ == "__main__":
 
     file_path = "../example_pmu_data/180924-osc-frekvens og vinkel.csv"
     column_index = 1
+    fs = 50
 
     data = csv_column_to_list(file_path, column_index)
-    t = np.linspace(0, len(data)/50/60, len(data))
-    plt.figure()
-    plt.plot(t, data)
-    plt.xlabel("Time [min]")
-    plt.ylabel("Frequency [Hz]")
-    plt.plot(t, data)
+    t = np.linspace(0, len(data)/fs/60, len(data))
+    # plt.figure()
+    # plt.plot(t, data)
+    # plt.xlabel("Time [min]")
+    # plt.ylabel("Frequency [Hz]")
+    # plt.plot(t, data)
 
     settings = AnalysisSettings(
                                 fs=50,

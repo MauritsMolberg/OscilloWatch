@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
 
     start = -10
-    end = 32
+    end = 180
     fs = 50
 
     t = np.arange(start, end, 1/fs)

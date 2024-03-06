@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Fixed bug where single-character channel names could not be found" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Attempt at fully removing dynpsssimpy">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/read_from_pkl.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/read_from_pkl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/real_time_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/real_time_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/signal_snapshot_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/signal_snapshot_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,6 +66,7 @@
     "Python.custom_plot.executor": "Run",
     "Python.data_from_csv.executor": "Run",
     "Python.k2a_base_script.executor": "Run",
+    "Python.phasor_plot.executor": "Run",
     "Python.pickle_test.executor": "Run",
     "Python.pmu.executor": "Run",
     "Python.randomPMU.executor": "Run",
@@ -95,29 +106,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.real_time_analysis">
-    <configuration name="custom_plot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tops-rt_examples/plotting" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tops-rt_examples/plotting/custom_plot.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.read_from_pkl">
     <configuration name="data_from_csv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -140,7 +129,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="pmu" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="read_from_pkl" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -149,11 +138,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tops-rt_examples/multiprocessing" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tops-rt_examples/multiprocessing/pmu.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/read_from_pkl.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -206,20 +195,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="signal_snapshot_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/signal_snapshot_analysis.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python.custom_plot" />
-      <item itemvalue="Python.pmu" />
+      <item itemvalue="Python.read_from_pkl" />
+      <item itemvalue="Python.signal_snapshot_analysis" />
       <item itemvalue="Python.real_time_analysis" />
       <item itemvalue="Python.send_array_simplePMU" />
       <item itemvalue="Python.data_from_csv" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.real_time_analysis" />
-        <item itemvalue="Python.pmu" />
-        <item itemvalue="Python.custom_plot" />
-        <item itemvalue="Python.send_array_simplePMU" />
+        <item itemvalue="Python.read_from_pkl" />
         <item itemvalue="Python.data_from_csv" />
+        <item itemvalue="Python.signal_snapshot_analysis" />
+        <item itemvalue="Python.real_time_analysis" />
+        <item itemvalue="Python.send_array_simplePMU" />
       </list>
     </recent_temporary>
   </component>
@@ -554,7 +565,14 @@
       <option name="presentableId" value="LOCAL−00048" />
       <updated>1709200190585</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL−00049" summary="Attempt at fully removing dynpsssimpy">
+      <option name="closed" value="true" />
+      <created>1709201447410</created>
+      <option name="number" value="LOCAL−00049" />
+      <option name="presentableId" value="LOCAL−00049" />
+      <updated>1709201447411</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -569,7 +587,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added sampling frequency handling" />
     <MESSAGE value="Added frequency spike removal and moving average for frequency curve" />
     <MESSAGE value="Added automatic signal splitting at abrupt frequency changes" />
     <MESSAGE value="Made object-oriented" />
@@ -594,7 +611,8 @@
     <MESSAGE value="Print notice when sampling frequency is updated to match config frame" />
     <MESSAGE value="Added TOPS-RT example files for testing" />
     <MESSAGE value="Fixed bug where single-character channel names could not be found" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug where single-character channel names could not be found" />
+    <MESSAGE value="Attempt at fully removing dynpsssimpy" />
+    <option name="LAST_COMMIT_MESSAGE" value="Attempt at fully removing dynpsssimpy" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

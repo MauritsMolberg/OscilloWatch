@@ -59,11 +59,16 @@ class SignalSnapshotAnalysis:
         Runs segment analysis on all the segments and stores the SegmentAnalysis objects in a list.
         :return: None
         """
+        previous_segment = None
         for i, segment in enumerate(self.segment_list):
             if self.settings.print_segment_number:
                 print(f"-------------------------------\nSegment {i}:")
-            seg_analysis = SegmentAnalysis(segment, self.settings)
+            seg_analysis = SegmentAnalysis(segment, self.settings, previous_segment=previous_segment)
             seg_analysis.damping_analysis()
+
+            seg_analysis.previous_segment = None  # To save storage space when storing in PKL file
+            previous_segment = seg_analysis
+
             self.segment_analysis_list.append(seg_analysis)
 
     def write_results_to_csv(self):

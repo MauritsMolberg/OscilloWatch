@@ -33,5 +33,5 @@ settings_topsrt = AnalysisSettings(segment_length_time=10,
                                    sender_device_id=1
                                    )
 
-rta = RealTimeAnalysis(settings_topsrt)
+rta = RealTimeAnalysis(settings_array)
 rta.run_analysis()
