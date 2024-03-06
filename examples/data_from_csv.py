@@ -1,4 +1,5 @@
 import csv
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -31,11 +32,11 @@ def csv_column_to_list(file_path, column_index, delimiter=","):
 if __name__ == "__main__":
 
     file_path = "../example_pmu_data/180924-osc-frekvens og vinkel.csv"
-    column_index = 1
-    fs = 50
+    column_index = 3
+    fs = 10
 
     data = csv_column_to_list(file_path, column_index)
-    t = np.linspace(0, len(data)/fs/60, len(data))
+    # t = np.linspace(0, len(data)/fs/60, len(data))
     # plt.figure()
     # plt.plot(t, data)
     # plt.xlabel("Time [min]")
@@ -43,7 +44,7 @@ if __name__ == "__main__":
     # plt.plot(t, data)
 
     settings = AnalysisSettings(
-                                fs=50,
+                                fs=fs,
                                 segment_length_time=10,
                                 extension_padding_time_start=10,
                                 extension_padding_time_end=2,

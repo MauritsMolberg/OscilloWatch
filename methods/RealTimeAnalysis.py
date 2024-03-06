@@ -47,13 +47,17 @@ class RealTimeAnalysis:
 
         self.pdc.stop()  # Required for properly connecting to certain devices. Try commenting out if you get errors.
         self.pmu_config = self.pdc.get_config()  # Get configuration from PMU
-        #self.pmu_header = self.pdc.get_header()  # Get header from PMU
+        try:
+            self.pmu_header = self.pdc.get_header()  # Get header from PMU
+            print(f"Header:\n{self.pmu_header.get_header()[1:]}")
+        except Exception as e:
+            print(f"Unable to obtain header. Exception: {e}.")
 
         # Initialize indices before finding the correct values
         self.id_index = 0
         self.channel_index = 0
         self.component_index = 0
-        self.find_indices()
+        self.find_channel_indices()
 
         if self.settings.fs != self.pmu_config.get_data_rate():
             print(f"Sampling frequency updated from {self.settings.fs} Hz to {self.pmu_config.get_data_rate()} Hz.")
@@ -65,7 +69,7 @@ class RealTimeAnalysis:
             # Clears existing pkl file or creates new:
             print(f"{self.results_path_updated}.pkl will be used for storing segment result objects.")
 
-    def find_indices(self):
+    def find_channel_indices(self):
         """
         Finds and sets the PMU and phasor indices where the wanted phasor data is located in the lists in the data
         frames.
@@ -136,10 +140,10 @@ class RealTimeAnalysis:
                         self.df_buffer.append(meas.get_measurements())
             df_count += 1
 
-    def run_analysis(self):
+    def start(self):
         """
         Starts analyzing the real-time PMU data. Requests the PMU to start sending, creates own thread for receiving
-        data infinitely, and starts main processing loop. Goes on infinitely.
+        data indefinitely, and starts main processing loop.
         :return: None
         """
         self.pdc.start()  # Request connected PMU to start sending measurements

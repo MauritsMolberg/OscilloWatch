@@ -34,4 +34,4 @@ settings_topsrt = AnalysisSettings(segment_length_time=10,
                                    )
 
 rta = RealTimeAnalysis(settings_array)
-rta.run_analysis()
+rta.start()
