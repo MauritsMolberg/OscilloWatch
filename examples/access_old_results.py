@@ -5,9 +5,8 @@ from methods.read_from_pkl import read_from_pkl
 
 
 if __name__ == "__main__":
-    seg_res_list = read_from_pkl("../results/.utfall P NO-SE.pkl", 0,4)
-
-    for segment in seg_res_list:
+    seg_res_list = read_from_pkl("../results/.utfall P NO-SE.pkl")
+    for segment in seg_res_list[:4]:
         plt.figure()
         plt.plot(segment.input_signal)
         segment.hht.emd.plot_emd_results(show=False)

@@ -4,9 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Cleanup, restructuring">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Minor cleanup of RealTimeAnalysis">
+      <change afterPath="$PROJECT_DIR$/csv_multiple_pmus.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/methods/csv_column_to_list.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/read_from_pkl.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/read_from_pkl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/read_from_pkl.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/read_from_pkl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/spectrum_plot_cheat.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/spectrum_plot_cheat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test_emd.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tests/test_emd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test_hht.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tests/test_hht.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test_segment_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tests/test_segment_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/EMD.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/EMD.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -371,6 +383,20 @@
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
     </task>
+    <task id="LOCAL−00024" summary="PMU ID/Channel select implemented">
+      <option name="closed" value="true" />
+      <created>1707392425973</created>
+      <option name="number" value="LOCAL−00024" />
+      <option name="presentableId" value="LOCAL−00024" />
+      <updated>1707392425974</updated>
+    </task>
+    <task id="LOCAL−00025" summary="PMU ID/Channel select implemented">
+      <option name="closed" value="true" />
+      <created>1707393882529</created>
+      <option name="number" value="LOCAL−00025" />
+      <option name="presentableId" value="LOCAL−00025" />
+      <updated>1707393882529</updated>
+    </task>
     <task id="LOCAL−00026" summary="Converting all segment sample lengths to int">
       <option name="closed" value="true" />
       <created>1707399432714</created>
@@ -553,21 +579,7 @@
       <option name="presentableId" value="LOCAL−00051" />
       <updated>1709728722315</updated>
     </task>
-    <task id="LOCAL−00052" summary="Added option to include edges as peaks in EMD">
-      <option name="closed" value="true" />
-      <created>1710757567356</created>
-      <option name="number" value="LOCAL−00052" />
-      <option name="presentableId" value="LOCAL−00052" />
-      <updated>1710757567356</updated>
-    </task>
-    <task id="LOCAL−00053" summary="Cleanup, restructuring">
-      <option name="closed" value="true" />
-      <created>1710757597639</created>
-      <option name="number" value="LOCAL−00053" />
-      <option name="presentableId" value="LOCAL−00053" />
-      <updated>1710757597639</updated>
-    </task>
-    <option name="localTasksCounter" value="54" />
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -582,6 +594,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Made object-oriented" />
+    <MESSAGE value="Added damping analysis" />
     <MESSAGE value="Reorganized, added documentation for functions" />
     <MESSAGE value="Signal Analysis started" />
     <MESSAGE value="Added option to keep/not keep mirror padding for EMD" />
@@ -605,9 +619,7 @@
     <MESSAGE value="Attempt at fully removing dynpsssimpy" />
     <MESSAGE value="Improved warning system with memory" />
     <MESSAGE value="Minor cleanup of RealTimeAnalysis" />
-    <MESSAGE value="Added option to include edges as peaks in EMD" />
-    <MESSAGE value="Cleanup, restructuring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleanup, restructuring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor cleanup of RealTimeAnalysis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
