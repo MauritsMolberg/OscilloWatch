@@ -9,10 +9,12 @@ if __name__ == "__main__":
     np.random.seed(0)
     def f(t):
         #return 6*np.exp(.2*t)*np.cos(3*np.pi*t) + 15*np.exp(-.1*t)*np.cos(np.pi*t)
-        return (10*np.exp(.2*t)*np.cos(2.4*np.pi*t)
+        return (
+                10*np.exp(.2*t)*np.cos(2.4*np.pi*t)
                 #+ 8*np.exp(-.1*t)*np.cos(np.pi*t)
                 #+ 3*np.exp(.3*t)*np.cos(5*np.pi*t)
-                + 20*np.exp(-.2*t)*np.cos(10*np.pi*t))
+                #+ 20*np.exp(-.2*t)*np.cos(10*np.pi*t)
+                )
 
 
     def g(t):
@@ -34,7 +36,7 @@ if __name__ == "__main__":
 
     seg_an = SegmentAnalysis(input_signal1, settings)
     seg_an.damping_analysis()
-    seg_an.hht.emd.plot_emd_results(show=False, include_padding=True)
+    seg_an.hht.emd.plot_emd_results(show=False)
     seg_an.hht.plot_hilbert_spectrum(show=False)
 
     for i in range(len(seg_an.mode_info_list)):

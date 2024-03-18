@@ -15,7 +15,7 @@ class SegmentAnalysis:
     interpreting the Hilbert spectrum.
     """
 
-    def __init__(self, input_signal, settings: AnalysisSettings, previous_segment, timestamp=""):
+    def __init__(self, input_signal, settings: AnalysisSettings, previous_segment=None, timestamp=""):
         """
         Constructor for the SegmentAnalysis class. Initializes variables, but does not perform the actual analysis.
 

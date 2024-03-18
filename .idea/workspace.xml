@@ -4,12 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Improved warning system with memory">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Minor cleanup of RealTimeAnalysis">
+      <change afterPath="$PROJECT_DIR$/csv_multiple_pmus.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/methods/csv_column_to_list.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/read_from_pkl.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/read_from_pkl.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/real_time_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/real_time_analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/read_from_pkl.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/read_from_pkl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/spectrum_plot_cheat.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/spectrum_plot_cheat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test_emd.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tests/test_emd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test_hht.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tests/test_hht.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test_segment_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tests/test_segment_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/EMD.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/EMD.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,54 +65,56 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.RealTimeAnalysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.custom_plot.executor&quot;: &quot;Run&quot;,
-    &quot;Python.data_from_csv.executor&quot;: &quot;Run&quot;,
-    &quot;Python.k2a_base_script.executor&quot;: &quot;Run&quot;,
-    &quot;Python.phasor_plot.executor&quot;: &quot;Run&quot;,
-    &quot;Python.pickle_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.pmu.executor&quot;: &quot;Run&quot;,
-    &quot;Python.randomPMU.executor&quot;: &quot;Run&quot;,
-    &quot;Python.read_from_pkl (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.read_from_pkl.executor&quot;: &quot;Run&quot;,
-    &quot;Python.read_from_pkl_2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.real_time_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.send_array.executor&quot;: &quot;Run&quot;,
-    &quot;Python.send_array_simplePMU.executor&quot;: &quot;Run&quot;,
-    &quot;Python.signal_snapshot_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.simplePMU.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_hht.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_real_time_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_segment_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_signal_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_signal_snapshot_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tinyPDC.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tinyPMU.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/mauri/OneDrive - NTNU/NTNU/Semester 9 (H23)/Methods and algorithms&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Confirmation&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.RealTimeAnalysis.executor": "Run",
+    "Python.access_old_results.executor": "Run",
+    "Python.csv_multiple_pmus.executor": "Run",
+    "Python.custom_plot.executor": "Run",
+    "Python.data_from_csv.executor": "Run",
+    "Python.k2a_base_script.executor": "Run",
+    "Python.phasor_plot.executor": "Run",
+    "Python.pickle_test.executor": "Run",
+    "Python.pmu.executor": "Run",
+    "Python.randomPMU.executor": "Run",
+    "Python.read_from_pkl (1).executor": "Run",
+    "Python.read_from_pkl.executor": "Run",
+    "Python.read_from_pkl_2.executor": "Run",
+    "Python.real_time_analysis.executor": "Run",
+    "Python.send_array.executor": "Run",
+    "Python.send_array_simplePMU.executor": "Run",
+    "Python.signal_snapshot_analysis.executor": "Run",
+    "Python.simplePMU.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.test_hht.executor": "Run",
+    "Python.test_real_time_analysis.executor": "Run",
+    "Python.test_segment_analysis.executor": "Run",
+    "Python.test_signal_analysis.executor": "Run",
+    "Python.test_signal_snapshot_analysis.executor": "Run",
+    "Python.tinyPDC.executor": "Run",
+    "Python.tinyPMU.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/mauri/OneDrive - NTNU/NTNU/Semester 9 (H23)/Methods and algorithms",
+    "settings.editor.selected.configurable": "project.propVCSSupport.Confirmation"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\pmu_scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\examples\tests" />
+      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tops-rt_examples" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\pmu_scripts" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
-      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection" />
-      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.read_from_pkl">
-    <configuration name="data_from_csv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.access_old_results">
+    <configuration name="access_old_results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -116,7 +127,51 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/data_from_csv.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/access_old_results.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="csv_column_to_list" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods\csv_column_to_list.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="csv_multiple_pmus" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/csv_multiple_pmus.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -138,51 +193,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/read_from_pkl.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="real_time_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/real_time_analysis.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="send_array_simplePMU" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pmu_scripts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods\read_from_pkl.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -214,18 +225,18 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.access_old_results" />
+      <item itemvalue="Python.csv_multiple_pmus" />
       <item itemvalue="Python.read_from_pkl" />
       <item itemvalue="Python.signal_snapshot_analysis" />
-      <item itemvalue="Python.real_time_analysis" />
-      <item itemvalue="Python.send_array_simplePMU" />
-      <item itemvalue="Python.data_from_csv" />
+      <item itemvalue="Python.csv_column_to_list" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.access_old_results" />
         <item itemvalue="Python.read_from_pkl" />
-        <item itemvalue="Python.data_from_csv" />
-        <item itemvalue="Python.real_time_analysis" />
-        <item itemvalue="Python.send_array_simplePMU" />
+        <item itemvalue="Python.csv_column_to_list" />
+        <item itemvalue="Python.csv_multiple_pmus" />
         <item itemvalue="Python.signal_snapshot_analysis" />
       </list>
     </recent_temporary>
@@ -371,13 +382,6 @@
       <option name="number" value="LOCAL−00021" />
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
-    </task>
-    <task id="LOCAL−00023" summary="Basic real-time analysis implemented">
-      <option name="closed" value="true" />
-      <created>1706702493081</created>
-      <option name="number" value="LOCAL−00023" />
-      <option name="presentableId" value="LOCAL−00023" />
-      <updated>1706702493081</updated>
     </task>
     <task id="LOCAL−00024" summary="PMU ID/Channel select implemented">
       <option name="closed" value="true" />
@@ -568,7 +572,14 @@
       <option name="presentableId" value="LOCAL−00050" />
       <updated>1709726134775</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL−00051" summary="Minor cleanup of RealTimeAnalysis">
+      <option name="closed" value="true" />
+      <created>1709728722315</created>
+      <option name="number" value="LOCAL−00051" />
+      <option name="presentableId" value="LOCAL−00051" />
+      <updated>1709728722315</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -583,7 +594,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added automatic signal splitting at abrupt frequency changes" />
     <MESSAGE value="Made object-oriented" />
     <MESSAGE value="Added damping analysis" />
     <MESSAGE value="Reorganized, added documentation for functions" />
@@ -608,7 +618,8 @@
     <MESSAGE value="Fixed bug where single-character channel names could not be found" />
     <MESSAGE value="Attempt at fully removing dynpsssimpy" />
     <MESSAGE value="Improved warning system with memory" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved warning system with memory" />
+    <MESSAGE value="Minor cleanup of RealTimeAnalysis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor cleanup of RealTimeAnalysis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
