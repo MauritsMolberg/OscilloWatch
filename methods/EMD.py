@@ -52,6 +52,12 @@ class EMD:
         if len(upper_peaks) < self.settings.emd_min_peaks or len(lower_peaks) < self.settings.emd_min_peaks:
             return None, None
 
+        if self.settings.emd_add_edges_to_peaks:
+            upper_peaks = np.insert(upper_peaks, 0, 0)
+            upper_peaks = np.append(upper_peaks, len(signal) - 1)
+            lower_peaks = np.insert(lower_peaks, 0, 0)
+            lower_peaks = np.append(lower_peaks, len(signal) - 1)
+
         xAxis = np.arange(len(signal))
         interp_upper = CubicSpline(upper_peaks, signal[upper_peaks])
         interp_lower = CubicSpline(lower_peaks, signal[lower_peaks])
