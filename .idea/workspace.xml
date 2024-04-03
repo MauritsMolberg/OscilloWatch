@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Minor cleanup of RealTimeAnalysis">
-      <change beforePath="$PROJECT_DIR$/methods/read_from_pkl.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/read_from_pkl.py" afterDir="false" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Include start and end index in read_from_pkl">
+      <change afterPath="$PROJECT_DIR$/methods/plot_mode_amplitude.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/access_old_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +66,7 @@
     &quot;Python.k2a_base_script.executor&quot;: &quot;Run&quot;,
     &quot;Python.phasor_plot.executor&quot;: &quot;Run&quot;,
     &quot;Python.pickle_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.plot_mode_amplitude.executor&quot;: &quot;Run&quot;,
     &quot;Python.pmu.executor&quot;: &quot;Run&quot;,
     &quot;Python.randomPMU.executor&quot;: &quot;Run&quot;,
     &quot;Python.read_from_pkl (1).executor&quot;: &quot;Run&quot;,
@@ -145,7 +150,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="csv_multiple_pmus" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="data_from_csv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -154,11 +159,33 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/csv_multiple_pmus.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/data_from_csv.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plot_mode_amplitude" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscillationDetection" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/methods" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/methods/plot_mode_amplitude.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -189,42 +216,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="signal_snapshot_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscillationDetection" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/signal_snapshot_analysis.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.access_old_results" />
       <item itemvalue="Python.csv_column_to_list" />
-      <item itemvalue="Python.csv_multiple_pmus" />
+      <item itemvalue="Python.data_from_csv" />
+      <item itemvalue="Python.plot_mode_amplitude" />
       <item itemvalue="Python.read_from_pkl" />
-      <item itemvalue="Python.signal_snapshot_analysis" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.access_old_results" />
         <item itemvalue="Python.read_from_pkl" />
+        <item itemvalue="Python.plot_mode_amplitude" />
+        <item itemvalue="Python.data_from_csv" />
         <item itemvalue="Python.csv_column_to_list" />
-        <item itemvalue="Python.csv_multiple_pmus" />
-        <item itemvalue="Python.signal_snapshot_analysis" />
       </list>
     </recent_temporary>
   </component>
@@ -369,13 +374,6 @@
       <option name="number" value="LOCAL−00021" />
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
-    </task>
-    <task id="LOCAL−00024" summary="PMU ID/Channel select implemented">
-      <option name="closed" value="true" />
-      <created>1707392425973</created>
-      <option name="number" value="LOCAL−00024" />
-      <option name="presentableId" value="LOCAL−00024" />
-      <updated>1707392425974</updated>
     </task>
     <task id="LOCAL−00025" summary="PMU ID/Channel select implemented">
       <option name="closed" value="true" />
@@ -566,8 +564,26 @@
       <option name="presentableId" value="LOCAL−00051" />
       <updated>1709728722315</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL−00052" summary="Include start and end index in read_from_pkl">
+      <option name="closed" value="true" />
+      <created>1710763971197</created>
+      <option name="number" value="LOCAL−00052" />
+      <option name="presentableId" value="LOCAL−00052" />
+      <updated>1710763971197</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -581,7 +597,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Made object-oriented" />
     <MESSAGE value="Added damping analysis" />
     <MESSAGE value="Reorganized, added documentation for functions" />
     <MESSAGE value="Signal Analysis started" />
@@ -606,7 +621,8 @@
     <MESSAGE value="Attempt at fully removing dynpsssimpy" />
     <MESSAGE value="Improved warning system with memory" />
     <MESSAGE value="Minor cleanup of RealTimeAnalysis" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor cleanup of RealTimeAnalysis" />
+    <MESSAGE value="Include start and end index in read_from_pkl" />
+    <option name="LAST_COMMIT_MESSAGE" value="Include start and end index in read_from_pkl" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

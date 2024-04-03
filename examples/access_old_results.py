@@ -5,7 +5,7 @@ from methods.read_from_pkl import read_from_pkl
 
 
 if __name__ == "__main__":
-    seg_res_list = read_from_pkl("../results/.utfall P NO-SE.pkl", 0,4)
+    seg_res_list = read_from_pkl("../results/fortun.pkl", 27, 29)
 
     for segment in seg_res_list:
         plt.figure()
@@ -14,3 +14,4 @@ if __name__ == "__main__":
         segment.hht.plot_hilbert_spectrum(show=False)
 
     plt.show()
+    

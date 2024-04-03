@@ -63,7 +63,7 @@ class AnalysisSettings:
                  damping_ratio_weak_warning_threshold=0.15,
                  damping_ratio_strong_warning_threshold=0.05,
                  oscillation_timeout=2,
-                 segment_memory_freq_threshold=0.2
+                 segment_memory_freq_threshold=0.1
                  ):
 
         self.fs = fs

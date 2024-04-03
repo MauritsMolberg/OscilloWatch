@@ -20,7 +20,7 @@ if __name__ == "__main__":
     plt.xlabel("Time [s]")
     plt.ylabel("Frequency [Hz]")
     plt.plot(t, data)
-    plt.show()
+    #plt.show()
 
     settings = AnalysisSettings(
                                 fs=fs,
