@@ -83,16 +83,18 @@ class SignalSnapshotAnalysis:
             with open(self.results_path_updated + ".csv", 'w', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
 
-                csv_writer.writerow(["Segment"] + headers)
-                for i, segment in enumerate(self.segment_analysis_list):
+                csv_writer.writerow(["Segment", "Timestamp [s]"] + headers)
+                for segment_number, segment in enumerate(self.segment_analysis_list):
                     first_mode_in_segment = True
                     for data_dict in segment.mode_info_list:
                         # Make sure each segment number appears only once, for better readability
                         if first_mode_in_segment:
-                            row = [i]
+                            timestamp = (self.settings.extension_padding_time_start
+                                         + segment_number * self.settings.segment_length_time)
+                            row = [segment_number, timestamp]
                             first_mode_in_segment = False
                         else:
-                            row = [""]
+                            row = ["", ""]
 
                         for header in headers:
                             if isinstance(data_dict[header], float) or isinstance(data_dict[header], np.float64):

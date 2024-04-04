@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Include start and end index in read_from_pkl">
-      <change afterPath="$PROJECT_DIR$/methods/plot_mode_amplitude.py" afterDir="false" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added simple method for plotting amplitude evolution of a mode">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/access_old_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/plot_mode_amplitude.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/plot_mode_amplitude.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +88,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/mauri/OneDrive - NTNU/NTNU/Semester 9 (H23)/Methods and algorithms&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/mauri/OneDrive - NTNU/NTNU/Fordypningsprosjekt/test_project&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Confirmation&quot;
   }
 }</component>
@@ -105,7 +104,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.access_old_results">
+  <component name="RunManager" selected="Python.plot_mode_amplitude">
     <configuration name="access_old_results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -217,18 +216,18 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.access_old_results" />
-      <item itemvalue="Python.csv_column_to_list" />
       <item itemvalue="Python.data_from_csv" />
       <item itemvalue="Python.plot_mode_amplitude" />
+      <item itemvalue="Python.access_old_results" />
       <item itemvalue="Python.read_from_pkl" />
+      <item itemvalue="Python.csv_column_to_list" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.access_old_results" />
-        <item itemvalue="Python.read_from_pkl" />
         <item itemvalue="Python.plot_mode_amplitude" />
         <item itemvalue="Python.data_from_csv" />
+        <item itemvalue="Python.access_old_results" />
+        <item itemvalue="Python.read_from_pkl" />
         <item itemvalue="Python.csv_column_to_list" />
       </list>
     </recent_temporary>
@@ -374,13 +373,6 @@
       <option name="number" value="LOCAL−00021" />
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
-    </task>
-    <task id="LOCAL−00025" summary="PMU ID/Channel select implemented">
-      <option name="closed" value="true" />
-      <created>1707393882529</created>
-      <option name="number" value="LOCAL−00025" />
-      <option name="presentableId" value="LOCAL−00025" />
-      <updated>1707393882529</updated>
     </task>
     <task id="LOCAL−00026" summary="Converting all segment sample lengths to int">
       <option name="closed" value="true" />
@@ -571,7 +563,14 @@
       <option name="presentableId" value="LOCAL−00052" />
       <updated>1710763971197</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL−00053" summary="Added simple method for plotting amplitude evolution of a mode">
+      <option name="closed" value="true" />
+      <created>1712136412239</created>
+      <option name="number" value="LOCAL−00053" />
+      <option name="presentableId" value="LOCAL−00053" />
+      <updated>1712136412240</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -597,7 +596,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added damping analysis" />
     <MESSAGE value="Reorganized, added documentation for functions" />
     <MESSAGE value="Signal Analysis started" />
     <MESSAGE value="Added option to keep/not keep mirror padding for EMD" />
@@ -622,7 +620,8 @@
     <MESSAGE value="Improved warning system with memory" />
     <MESSAGE value="Minor cleanup of RealTimeAnalysis" />
     <MESSAGE value="Include start and end index in read_from_pkl" />
-    <option name="LAST_COMMIT_MESSAGE" value="Include start and end index in read_from_pkl" />
+    <MESSAGE value="Added simple method for plotting amplitude evolution of a mode" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added simple method for plotting amplitude evolution of a mode" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
