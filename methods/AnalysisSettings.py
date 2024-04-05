@@ -8,6 +8,7 @@ class AnalysisSettings:
                  print_emd_time=False,
                  print_hht_time=False,
                  print_segment_analysis_time=False,
+                 print_warnings=False,
                  
                  # File storing settings
                  csv_decimals=5,
@@ -72,6 +73,7 @@ class AnalysisSettings:
         self.print_emd_time = print_emd_time
         self.print_hht_time = print_hht_time
         self.print_segment_analysis_time = print_segment_analysis_time
+        self.print_warnings = print_warnings
 
         self.csv_decimals = csv_decimals
         self.csv_delimiter = csv_delimiter

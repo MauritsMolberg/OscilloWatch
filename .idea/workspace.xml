@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added simple method for plotting amplitude evolution of a mode">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added better notes in CSV for high CV and interp. frac.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv_multiple_pmus.py" beforeDir="false" afterPath="$PROJECT_DIR$/csv_multiple_pmus.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/access_old_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/plot_mode_amplitude.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/plot_mode_amplitude.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +106,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.plot_mode_amplitude">
+  <component name="RunManager" selected="Python.access_old_results">
     <configuration name="access_old_results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
@@ -127,7 +129,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="csv_column_to_list" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="csv_multiple_pmus" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscillationDetection" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -136,11 +138,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods\csv_column_to_list.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/csv_multiple_pmus.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -216,19 +218,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.csv_multiple_pmus" />
       <item itemvalue="Python.data_from_csv" />
       <item itemvalue="Python.plot_mode_amplitude" />
       <item itemvalue="Python.access_old_results" />
       <item itemvalue="Python.read_from_pkl" />
-      <item itemvalue="Python.csv_column_to_list" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.access_old_results" />
+        <item itemvalue="Python.csv_multiple_pmus" />
         <item itemvalue="Python.plot_mode_amplitude" />
         <item itemvalue="Python.data_from_csv" />
-        <item itemvalue="Python.access_old_results" />
         <item itemvalue="Python.read_from_pkl" />
-        <item itemvalue="Python.csv_column_to_list" />
       </list>
     </recent_temporary>
   </component>
@@ -373,20 +375,6 @@
       <option name="number" value="LOCAL−00021" />
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
-    </task>
-    <task id="LOCAL−00026" summary="Converting all segment sample lengths to int">
-      <option name="closed" value="true" />
-      <created>1707399432714</created>
-      <option name="number" value="LOCAL−00026" />
-      <option name="presentableId" value="LOCAL−00026" />
-      <updated>1707399432714</updated>
-    </task>
-    <task id="LOCAL−00027" summary="Added threading for receiving and buffering data">
-      <option name="closed" value="true" />
-      <created>1707401716550</created>
-      <option name="number" value="LOCAL−00027" />
-      <option name="presentableId" value="LOCAL−00027" />
-      <updated>1707401716550</updated>
     </task>
     <task id="LOCAL−00028" summary="Added test for reading data from CSV file">
       <option name="closed" value="true" />
@@ -570,7 +558,21 @@
       <option name="presentableId" value="LOCAL−00053" />
       <updated>1712136412240</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL−00054" summary="Added timestamps to CSV for snapshot analysis">
+      <option name="closed" value="true" />
+      <created>1712236909773</created>
+      <option name="number" value="LOCAL−00054" />
+      <option name="presentableId" value="LOCAL−00054" />
+      <updated>1712236909773</updated>
+    </task>
+    <task id="LOCAL−00055" summary="Added better notes in CSV for high CV and interp. frac.">
+      <option name="closed" value="true" />
+      <created>1712310820796</created>
+      <option name="number" value="LOCAL−00055" />
+      <option name="presentableId" value="LOCAL−00055" />
+      <updated>1712310820796</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -596,8 +598,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reorganized, added documentation for functions" />
-    <MESSAGE value="Signal Analysis started" />
     <MESSAGE value="Added option to keep/not keep mirror padding for EMD" />
     <MESSAGE value="Segment splitting and storing results to file implemented" />
     <MESSAGE value="Row removal from bottom and more" />
@@ -621,7 +621,9 @@
     <MESSAGE value="Minor cleanup of RealTimeAnalysis" />
     <MESSAGE value="Include start and end index in read_from_pkl" />
     <MESSAGE value="Added simple method for plotting amplitude evolution of a mode" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added simple method for plotting amplitude evolution of a mode" />
+    <MESSAGE value="Added timestamps to CSV for snapshot analysis" />
+    <MESSAGE value="Added better notes in CSV for high CV and interp. frac." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added better notes in CSV for high CV and interp. frac." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

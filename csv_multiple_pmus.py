@@ -38,7 +38,7 @@ if __name__ == "__main__":
                                 hht_frequency_moving_avg_window=41,
                                 hht_split_signal_freq_change_toggle=True,
                                 max_imfs=5,
-                                skip_storing_uncertain_results=False,
+                                skip_storing_uncertain_modes=False,
                                 hht_amplitude_threshold=0.001,
                                 results_file_path="results/fortun"
                                 )
@@ -72,7 +72,7 @@ if __name__ == "__main__":
         hht_frequency_moving_avg_window=41,
         hht_split_signal_freq_change_toggle=True,
         max_imfs=5,
-        skip_storing_uncertain_results=False,
+        skip_storing_uncertain_modes=False,
         hht_amplitude_threshold=0.001,
         results_file_path="results/hasle"
     )
@@ -176,7 +176,7 @@ if __name__ == "__main__":
         hht_frequency_moving_avg_window=41,
         hht_split_signal_freq_change_toggle=True,
         max_imfs=5,
-        skip_storing_uncertain_results=False,
+        skip_storing_uncertain_modes=False,
         hht_amplitude_threshold=0.001,
         results_file_path="results/skaidi"
     )
@@ -209,7 +209,7 @@ if __name__ == "__main__":
         hht_frequency_moving_avg_window=41,
         hht_split_signal_freq_change_toggle=True,
         max_imfs=5,
-        skip_storing_uncertain_results=False,
+        skip_storing_uncertain_modes=False,
         hht_amplitude_threshold=0.001,
         results_file_path="results/varangerbotn"
     )

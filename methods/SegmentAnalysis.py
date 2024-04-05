@@ -76,7 +76,7 @@ class SegmentAnalysis:
         non_zero_indices = np.nonzero(cropped_signal)[0]
         mode_info_dict["Interp. frac."] = 1 - len(non_zero_indices)/len(cropped_signal)
         if mode_info_dict["Interp. frac."] > self.settings.max_interp_fraction:
-            if self.settings.skip_storing_uncertain_results:
+            if self.settings.skip_storing_uncertain_modes:
                 return None
             mode_info_dict["Note"] += "Uncertain mode (high interp. frac.). "
 
@@ -226,6 +226,8 @@ class SegmentAnalysis:
             if sustained_osc_flag:
                 if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
                     mode_info_dict["Warning"] += "Critical"
+                    if self.settings.print_warnings:
+                        print(f"Critical warning for {mode['Frequency']:.2f} Hz mode.")
                 else:
                     mode_info_dict["Warning"] += "No warning, ended early"
         elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_strong_warning_threshold:
@@ -233,6 +235,8 @@ class SegmentAnalysis:
             if sustained_osc_flag:
                 if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
                     mode_info_dict["Warning"] += "Strong"
+                    if self.settings.print_warnings:
+                        print(f"Strong warning for {mode['Frequency']:.2f} Hz mode.")
                 else:
                     mode_info_dict["Warning"] += "No warning, ended early"
         elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_weak_warning_threshold:
@@ -240,6 +244,8 @@ class SegmentAnalysis:
             if sustained_osc_flag:
                 if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
                     mode_info_dict["Warning"] += "Weak"
+                    if self.settings.print_warnings:
+                        print(f"Weak warning for {mode['Frequency']:.2f} Hz mode.")
                 else:
                     mode_info_dict["Warning"] += "No warning, ended early"
         else:
