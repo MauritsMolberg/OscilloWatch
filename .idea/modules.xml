@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/OscillationDetection.iml" filepath="$PROJECT_DIR$/.idea/OscillationDetection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/OscilloWatch.iml" filepath="$PROJECT_DIR$/.idea/OscilloWatch.iml" />
     </modules>
   </component>
 </project>
