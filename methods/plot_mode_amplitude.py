@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
     tAxis_amp = np.linspace(0,
                             (seg_lst[0].settings.extension_padding_time_start
-                         + seg_lst[0].settings.segment_length_time * len(seg_lst)),
+                             + seg_lst[0].settings.segment_length_time * len(seg_lst)),
                             len(amplitude_curve))
     full_signal = csv_column_to_list("../example_pmu_data/utfall Olkiluoto.csv", 6, delimiter=";")
     tAxis = np.arange(0, len(full_signal)/seg_lst[0].settings.fs, 1/seg_lst[0].settings.fs)

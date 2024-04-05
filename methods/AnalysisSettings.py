@@ -40,7 +40,7 @@ class AnalysisSettings:
                  hht_split_signal_freq_change_nperseg=100,
 
                  # Result format settings
-                 skip_storing_uncertain_results=False,
+                 skip_storing_uncertain_modes=False,
                  minimum_total_non_zero_fraction=0.1,
                  minimum_consecutive_non_zero_length=5,
                  minimum_non_zero_improvement=3,
@@ -98,7 +98,7 @@ class AnalysisSettings:
         self.hht_split_signal_freq_change_threshold = hht_split_signal_freq_change_threshold
         self.hht_split_signal_freq_change_nperseg = hht_split_signal_freq_change_nperseg
 
-        self.skip_storing_uncertain_results = skip_storing_uncertain_results
+        self.skip_storing_uncertain_modes = skip_storing_uncertain_modes
         self.minimum_total_non_zero_fraction = minimum_total_non_zero_fraction
         self.minimum_consecutive_non_zero_length = minimum_consecutive_non_zero_length
         self.minimum_non_zero_improvement = minimum_non_zero_improvement
