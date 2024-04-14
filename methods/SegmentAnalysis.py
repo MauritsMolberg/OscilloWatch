@@ -203,12 +203,13 @@ class SegmentAnalysis:
                 freq_est_row_ind = (row_ind + freq_est_row_ind)//2  # Take average frequency of the two estimates
         return self.hht.freq_axis[freq_est_row_ind]
 
-    def mode_warning(self, mode_info_dict):
+    def mode_warning_evaluation(self, mode_info_dict):
         """
-        Adds warning to the mode info dict, based on the estimated parameters, previous segment, and settings set by
-        user.
+        Checks if mode should get warning and adds the correct warning message to mode_info_dict if so.
+        :param mode_info_dict: Dict with estimated characteristics of the mode.
         :return: None
         """
+        # Check if mode is new or sustained
         sustained_osc_flag = False
         if self.previous_segment is not None:
             for mode in self.previous_segment.mode_info_list:

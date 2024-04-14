@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added option to print warnings">
-      <change beforePath="$PROJECT_DIR$/.idea/OscillationDetection.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OscilloWatch.iml" afterDir="false" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Renamed to OscilloWatch">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -372,13 +372,6 @@
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
     </task>
-    <task id="LOCAL−00029" summary="Cleanup, todo added">
-      <option name="closed" value="true" />
-      <created>1707830701294</created>
-      <option name="number" value="LOCAL−00029" />
-      <option name="presentableId" value="LOCAL−00029" />
-      <updated>1707830701295</updated>
-    </task>
     <task id="LOCAL−00030" summary="Cleanup, todo added">
       <option name="closed" value="true" />
       <created>1707831966227</created>
@@ -568,7 +561,14 @@
       <option name="presentableId" value="LOCAL−00056" />
       <updated>1712319957400</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL−00057" summary="Renamed to OscilloWatch">
+      <option name="closed" value="true" />
+      <created>1712323931404</created>
+      <option name="number" value="LOCAL−00057" />
+      <option name="presentableId" value="LOCAL−00057" />
+      <updated>1712323931405</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -594,7 +594,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Segment splitting and storing results to file implemented" />
     <MESSAGE value="Row removal from bottom and more" />
     <MESSAGE value="Basic real-time analysis implemented" />
     <MESSAGE value="PMU ID/Channel select implemented" />
@@ -619,7 +618,8 @@
     <MESSAGE value="Added timestamps to CSV for snapshot analysis" />
     <MESSAGE value="Added better notes in CSV for high CV and interp. frac." />
     <MESSAGE value="Added option to print warnings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added option to print warnings" />
+    <MESSAGE value="Renamed to OscilloWatch" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed to OscilloWatch" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
