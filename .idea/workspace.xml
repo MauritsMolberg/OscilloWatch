@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Renamed to OscilloWatch">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
-    </list>
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Updated docstring and name for mode_warning_evaluation()" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,7 +99,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.access_old_results">
+  <component name="RunManager" selected="Python.data_from_csv">
     <configuration name="access_old_results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscilloWatch" />
       <option name="ENV_FILES" value="" />
@@ -222,10 +219,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.data_from_csv" />
+        <item itemvalue="Python.plot_mode_amplitude" />
         <item itemvalue="Python.access_old_results" />
         <item itemvalue="Python.csv_multiple_pmus" />
-        <item itemvalue="Python.plot_mode_amplitude" />
-        <item itemvalue="Python.data_from_csv" />
         <item itemvalue="Python.read_from_pkl" />
       </list>
     </recent_temporary>
@@ -371,13 +368,6 @@
       <option name="number" value="LOCAL−00021" />
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
-    </task>
-    <task id="LOCAL−00030" summary="Cleanup, todo added">
-      <option name="closed" value="true" />
-      <created>1707831966227</created>
-      <option name="number" value="LOCAL−00030" />
-      <option name="presentableId" value="LOCAL−00030" />
-      <updated>1707831966227</updated>
     </task>
     <task id="LOCAL−00031" summary="Cleanup, todo added">
       <option name="closed" value="true" />
@@ -568,7 +558,14 @@
       <option name="presentableId" value="LOCAL−00057" />
       <updated>1712323931405</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL−00058" summary="Updated docstring and name for mode_warning_evaluation()">
+      <option name="closed" value="true" />
+      <created>1713100352792</created>
+      <option name="number" value="LOCAL−00058" />
+      <option name="presentableId" value="LOCAL−00058" />
+      <updated>1713100352793</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -594,7 +591,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Row removal from bottom and more" />
     <MESSAGE value="Basic real-time analysis implemented" />
     <MESSAGE value="PMU ID/Channel select implemented" />
     <MESSAGE value="Converting all segment sample lengths to int" />
@@ -619,7 +615,8 @@
     <MESSAGE value="Added better notes in CSV for high CV and interp. frac." />
     <MESSAGE value="Added option to print warnings" />
     <MESSAGE value="Renamed to OscilloWatch" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed to OscilloWatch" />
+    <MESSAGE value="Updated docstring and name for mode_warning_evaluation()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated docstring and name for mode_warning_evaluation()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -176,7 +176,7 @@ class SegmentAnalysis:
 
         mode_info_dict["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2 + (2*np.pi*mode_info_dict["Frequency"])**2))
 
-        self.mode_warning(mode_info_dict)  # Updates dict
+        self.mode_warning_evaluation(mode_info_dict)  # Updates dict
 
         self.mode_info_list.append(mode_info_dict)
         return
