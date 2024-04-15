@@ -19,8 +19,8 @@ if __name__ == "__main__":
         return (
                 10*np.exp(.15*t)*np.cos(2.4*np.pi*t)
                 #+ 16*np.exp(.1)*np.cos(np.pi*t)
-                #+ 8*np.exp(.1*t)*np.cos(5*np.pi*t)
-                #+ 20*np.exp(-.2*t)*np.cos(10*np.pi*t)
+                + 8*np.exp(.1*t)*np.cos(5*np.pi*t)
+                + 20*np.exp(-.2*t)*np.cos(10*np.pi*t)
                 )
 
     #array = f(t)
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     while True:
         time.sleep(1/fs)
         if pmu.pmu.clients:
-            pmu.publish(phasor_data=[(k/fs, 0)])
+            pmu.publish(phasor_data=[(f(k/fs), 0)])
             #array_copy = np.delete(array_copy, 0)
             k += 1
 

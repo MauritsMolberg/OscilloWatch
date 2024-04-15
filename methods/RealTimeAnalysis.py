@@ -204,7 +204,10 @@ class RealTimeAnalysis:
         results.
         :return: None
         """
-        headers = list(self.settings.blank_mode_info_dict)
+        if self.settings.include_advanced_results:
+            headers = list(self.settings.blank_mode_info_dict)
+        else:
+            headers = list(self.settings.blank_mode_info_dict_simple)
 
         # Adds "_(number)" to file name if permission denied (when file is open in Excel, most likely)
         try:
@@ -231,7 +234,11 @@ class RealTimeAnalysis:
         next time this function is called (after next segment is analyzed).
         :return: None
         """
-        headers = list(self.settings.blank_mode_info_dict)
+        if self.settings.include_advanced_results:
+            headers = list(self.settings.blank_mode_info_dict)
+        else:
+            headers = list(self.settings.blank_mode_info_dict_simple)
+
         try:
             with open(self.results_path_updated + ".csv", 'a', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)

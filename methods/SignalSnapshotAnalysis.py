@@ -76,7 +76,10 @@ class SignalSnapshotAnalysis:
         Writes the estimated characteristics for all modes in all segments to CSV file.
         :return: None
         """
-        headers = list(self.settings.blank_mode_info_dict)
+        if self.settings.include_advanced_results:
+            headers = list(self.settings.blank_mode_info_dict)
+        else:
+            headers = list(self.settings.blank_mode_info_dict_simple)
 
         # Adds "_(number)" to file name if permission denied (when file is open in Excel, most likely)
         try:

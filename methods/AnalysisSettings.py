@@ -47,6 +47,9 @@ class AnalysisSettings:
                  minimum_non_zero_improvement=3,
                  max_coefficient_of_variation=0.4,
                  max_interp_fraction=0.4,
+                 include_advanced_results=False,
+
+                 # Mode characterization settings
                  start_amp_curve_at_peak=True,
 
                  # Segment analysis settings
@@ -107,6 +110,7 @@ class AnalysisSettings:
         self.max_coefficient_of_variation = max_coefficient_of_variation
         self.max_interp_fraction = max_interp_fraction
         self.start_amp_curve_at_peak = start_amp_curve_at_peak
+        self.include_advanced_results = include_advanced_results
 
         self.ip = ip
         self.port = port
@@ -147,6 +151,19 @@ class AnalysisSettings:
             "NZF": 0.0,
             "Interp. frac.": 0.0,
             "CV": 0.0,
+            "Note": ""
+        }
+
+        self.blank_mode_info_dict_simple = {
+            "Mode status": "",
+            "Damping evaluation": "",
+            "Warning": "",
+            "Frequency": 0.0,
+            "Damping ratio": 0.0,
+            "Init. amp.": 0.0,
+            "Final amp.": 0.0,
+            "Start time": 0.0,
+            "End time": 0.0,
             "Note": ""
         }
 

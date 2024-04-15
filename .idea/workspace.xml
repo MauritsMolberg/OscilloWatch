@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Fixed bug that removed too much from buffer after creating segment in real-time">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Changed font size in EMD plot">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/access_old_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/EMD.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/EMD.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +107,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.real_time_analysis">
+  <component name="RunManager" selected="Python.data_from_csv">
     <configuration name="access_old_results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscilloWatch" />
       <option name="ENV_FILES" value="" />
@@ -225,11 +227,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.data_from_csv" />
+        <item itemvalue="Python.access_old_results" />
         <item itemvalue="Python.real_time_analysis" />
         <item itemvalue="Python.send_array_simplePMU" />
-        <item itemvalue="Python.access_old_results" />
         <item itemvalue="Python.plot_mode_amplitude" />
-        <item itemvalue="Python.data_from_csv" />
       </list>
     </recent_temporary>
   </component>
@@ -374,20 +376,6 @@
       <option name="number" value="LOCAL−00021" />
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
-    </task>
-    <task id="LOCAL−00033" summary="Improved csv saving">
-      <option name="closed" value="true" />
-      <created>1707908833300</created>
-      <option name="number" value="LOCAL−00033" />
-      <option name="presentableId" value="LOCAL−00033" />
-      <updated>1707908833300</updated>
-    </task>
-    <task id="LOCAL−00034" summary="Improved csv saving">
-      <option name="closed" value="true" />
-      <created>1707915107547</created>
-      <option name="number" value="LOCAL−00034" />
-      <option name="presentableId" value="LOCAL−00034" />
-      <updated>1707915107547</updated>
     </task>
     <task id="LOCAL−00035" summary="Improved csv saving">
       <option name="closed" value="true" />
@@ -571,7 +559,21 @@
       <option name="presentableId" value="LOCAL−00060" />
       <updated>1713181827679</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL−00061" summary="Commented out plotting function for testing in RealTimeAnalysis">
+      <option name="closed" value="true" />
+      <created>1713183306706</created>
+      <option name="number" value="LOCAL−00061" />
+      <option name="presentableId" value="LOCAL−00061" />
+      <updated>1713183306706</updated>
+    </task>
+    <task id="LOCAL−00062" summary="Changed font size in EMD plot">
+      <option name="closed" value="true" />
+      <created>1713183392284</created>
+      <option name="number" value="LOCAL−00062" />
+      <option name="presentableId" value="LOCAL−00062" />
+      <updated>1713183392284</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -597,8 +599,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Converting all segment sample lengths to int" />
-    <MESSAGE value="Added threading for receiving and buffering data" />
     <MESSAGE value="Added test for reading data from CSV file" />
     <MESSAGE value="Cleanup, todo added" />
     <MESSAGE value="Improved csv saving" />
@@ -622,7 +622,9 @@
     <MESSAGE value="Updated docstring and name for mode_warning_evaluation()" />
     <MESSAGE value="Fixed warning function call after renaming" />
     <MESSAGE value="Fixed bug that removed too much from buffer after creating segment in real-time" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug that removed too much from buffer after creating segment in real-time" />
+    <MESSAGE value="Commented out plotting function for testing in RealTimeAnalysis" />
+    <MESSAGE value="Changed font size in EMD plot" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed font size in EMD plot" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

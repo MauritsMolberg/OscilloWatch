@@ -9,9 +9,9 @@ from methods.csv_column_to_list import csv_column_to_list
 # Analyze PMU data from a CSV file
 if __name__ == "__main__":
 
-    file_path = "../example_pmu_data/utfall Olkiluoto.csv"
-    column_index = 6
-    fs = 25
+    file_path = "../example_pmu_data/Real PMU signals 5min.CSV"
+    column_index = 1
+    fs = 50
 
     data = csv_column_to_list(file_path, column_index, delimiter=";")
     t = np.linspace(0, len(data)/fs, len(data))
@@ -32,11 +32,10 @@ if __name__ == "__main__":
                                 print_segment_number=True,
                                 print_emd_sifting_details=False,
                                 hht_frequency_moving_avg_window=41,
-                                hht_split_signal_freq_change_toggle=True,
                                 max_imfs=5,
                                 skip_storing_uncertain_modes=False,
-                                hht_amplitude_threshold=0.001,
-                                results_file_path="../results/.utfall P NO-SE"
+                                hht_amplitude_threshold=0.05,
+                                results_file_path="../results/Real PMU data NTNU/NTNU_V"
                                 )
 
     snap_an = SignalSnapshotAnalysis(data, settings)
