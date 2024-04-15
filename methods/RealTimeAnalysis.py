@@ -98,6 +98,7 @@ class RealTimeAnalysis:
             phasor_channel_names = []
             for channel_name in (self.pmu_config.get_channel_names()
                                  [self.id_index][:self.pdc.pmu_cfg2.get_phasor_num()[self.id_index]]):
+                # Remove spaces at the end of the channel name
                 for i in range(len(channel_name) - 1, -1, -1):
                     if channel_name[i] == " ":
                         channel_name = channel_name[:i]
@@ -175,8 +176,8 @@ class RealTimeAnalysis:
                 timestamp = df_segment[self.settings.extension_padding_samples_start]["time"]  # Epoch time
                 timestamp_datetime = datetime.datetime.fromtimestamp(timestamp)
 
-                plt.figure()
-                plt.plot(values_segment)
+                #plt.figure()
+                #plt.plot(values_segment)
 
                 # Run segment analysis
                 seg_an = SegmentAnalysis(values_segment, self.settings, previous_segment,
@@ -193,7 +194,7 @@ class RealTimeAnalysis:
                 #seg_an.hht.emd.plot_emd_results(show=False)
                 #seg_an.hht.plot_hilbert_spectrum(show=False)
 
-                plt.show()
+                #plt.show()
 
                 self.segment_number += 1
 

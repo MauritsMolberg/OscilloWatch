@@ -5,7 +5,7 @@ from methods.read_from_pkl import read_from_pkl
 
 
 if __name__ == "__main__":
-    seg_res_list = read_from_pkl("../results/Real-time/Zurich.pkl", 0, 4)
+    seg_res_list = read_from_pkl("../results/results.pkl", 0, 4)
 
     for segment in seg_res_list:
         #plt.figure()

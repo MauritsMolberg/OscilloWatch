@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Fixed warning function call after renaming">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Fixed bug that removed too much from buffer after creating segment in real-time">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/access_old_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/real_time_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/real_time_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/EMD.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/EMD.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/hilbert_spectrum_stft.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -107,7 +105,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.send_array_simplePMU">
+  <component name="RunManager" selected="Python.real_time_analysis">
     <configuration name="access_old_results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscilloWatch" />
       <option name="ENV_FILES" value="" />
@@ -377,13 +375,6 @@
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
     </task>
-    <task id="LOCAL−00032" summary="Cleanup, todo added">
-      <option name="closed" value="true" />
-      <created>1707832783236</created>
-      <option name="number" value="LOCAL−00032" />
-      <option name="presentableId" value="LOCAL−00032" />
-      <updated>1707832783236</updated>
-    </task>
     <task id="LOCAL−00033" summary="Improved csv saving">
       <option name="closed" value="true" />
       <created>1707908833300</created>
@@ -573,7 +564,14 @@
       <option name="presentableId" value="LOCAL−00059" />
       <updated>1713123388970</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL−00060" summary="Fixed bug that removed too much from buffer after creating segment in real-time">
+      <option name="closed" value="true" />
+      <created>1713181827678</created>
+      <option name="number" value="LOCAL−00060" />
+      <option name="presentableId" value="LOCAL−00060" />
+      <updated>1713181827679</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -599,7 +597,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="PMU ID/Channel select implemented" />
     <MESSAGE value="Converting all segment sample lengths to int" />
     <MESSAGE value="Added threading for receiving and buffering data" />
     <MESSAGE value="Added test for reading data from CSV file" />
@@ -624,7 +621,8 @@
     <MESSAGE value="Renamed to OscilloWatch" />
     <MESSAGE value="Updated docstring and name for mode_warning_evaluation()" />
     <MESSAGE value="Fixed warning function call after renaming" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed warning function call after renaming" />
+    <MESSAGE value="Fixed bug that removed too much from buffer after creating segment in real-time" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug that removed too much from buffer after creating segment in real-time" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

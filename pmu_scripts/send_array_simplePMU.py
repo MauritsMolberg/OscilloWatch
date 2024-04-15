@@ -49,7 +49,7 @@ if __name__ == "__main__":
     while True:
         time.sleep(1/fs)
         if pmu.pmu.clients:
-            pmu.publish(phasor_data=[(f(k/fs), 0)])
+            pmu.publish(phasor_data=[(k/fs, 0)])
             #array_copy = np.delete(array_copy, 0)
             k += 1
 
