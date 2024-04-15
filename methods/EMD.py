@@ -189,7 +189,7 @@ class EMD:
         axes[num_imfs+1].plot(tAxis, res_new, color='red', linewidth = .7)
         axes[num_imfs+1].set_title('Residual', fontsize=16)
 
-        axes[num_imfs+1].set_xlabel('Time [s]', fontsize=16)
+        axes[num_imfs+1].set_xlabel('Time [s]', fontsize=12)
 
         plt.tight_layout()
         if show:
