@@ -47,11 +47,12 @@ class RealTimeAnalysis:
 
         self.pdc.stop()  # Required for properly connecting to certain devices. Try commenting out if you get errors.
         self.pmu_config = self.pdc.get_config()  # Get configuration from PMU
-        try:
-            self.pmu_header = self.pdc.get_header()  # Get header from PMU
-            print(f"Header:\n{self.pmu_header.get_header()[1:]}")
-        except Exception as e:
-            print(f"Unable to obtain header. Exception: {e}.")
+
+        # try:
+        #     self.pmu_header = self.pdc.get_header()  # Get header from PMU
+        #     print(f"Header:\n{self.pmu_header.get_header()[1:]}")
+        # except Exception as e:
+        #     print(f"Unable to obtain header. Exception: {e}.")
 
         # Initialize indices before finding the correct values
         self.id_index = 0
@@ -163,8 +164,7 @@ class RealTimeAnalysis:
                 # Create segment of data frames, remove correct amount of samples from start of buffer
                 df_segment = self.df_buffer[:self.settings.total_segment_length_samples]  # Segment of data frames.
                 # Remove correct number of data frames from beginning of segment
-                self.df_buffer = self.df_buffer[(self.settings.segment_length_samples
-                                                + self.settings.extension_padding_samples_end):]
+                self.df_buffer = self.df_buffer[self.settings.segment_length_samples:]
 
                 # Create segment array with wanted numerical values found from data frame using dict keys and indices
                 if self.settings.channel.lower() == "freq" or self.settings.channel.lower() == "frequency":
@@ -175,8 +175,8 @@ class RealTimeAnalysis:
                 timestamp = df_segment[self.settings.extension_padding_samples_start]["time"]  # Epoch time
                 timestamp_datetime = datetime.datetime.fromtimestamp(timestamp)
 
-                #plt.figure()
-                #plt.plot(values_segment)
+                plt.figure()
+                plt.plot(values_segment)
 
                 # Run segment analysis
                 seg_an = SegmentAnalysis(values_segment, self.settings, previous_segment,
@@ -193,7 +193,7 @@ class RealTimeAnalysis:
                 #seg_an.hht.emd.plot_emd_results(show=False)
                 #seg_an.hht.plot_hilbert_spectrum(show=False)
 
-                #plt.show()
+                plt.show()
 
                 self.segment_number += 1
 

@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Updated docstring and name for mode_warning_evaluation()" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Fixed warning function call after renaming">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/access_old_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/real_time_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/real_time_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/EMD.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/EMD.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/hilbert_spectrum_stft.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -99,7 +107,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.data_from_csv">
+  <component name="RunManager" selected="Python.send_array_simplePMU">
     <configuration name="access_old_results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscilloWatch" />
       <option name="ENV_FILES" value="" />
@@ -114,28 +122,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/access_old_results.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="csv_multiple_pmus" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscilloWatch" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/csv_multiple_pmus.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -188,7 +174,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="read_from_pkl" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="real_time_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscilloWatch" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -201,7 +187,29 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods\read_from_pkl.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/real_time_analysis.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="send_array_simplePMU" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscilloWatch" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pmu_scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -211,19 +219,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.csv_multiple_pmus" />
+      <item itemvalue="Python.real_time_analysis" />
+      <item itemvalue="Python.send_array_simplePMU" />
       <item itemvalue="Python.data_from_csv" />
       <item itemvalue="Python.plot_mode_amplitude" />
       <item itemvalue="Python.access_old_results" />
-      <item itemvalue="Python.read_from_pkl" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.data_from_csv" />
-        <item itemvalue="Python.plot_mode_amplitude" />
+        <item itemvalue="Python.real_time_analysis" />
+        <item itemvalue="Python.send_array_simplePMU" />
         <item itemvalue="Python.access_old_results" />
-        <item itemvalue="Python.csv_multiple_pmus" />
-        <item itemvalue="Python.read_from_pkl" />
+        <item itemvalue="Python.plot_mode_amplitude" />
+        <item itemvalue="Python.data_from_csv" />
       </list>
     </recent_temporary>
   </component>
@@ -368,13 +376,6 @@
       <option name="number" value="LOCAL−00021" />
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
-    </task>
-    <task id="LOCAL−00031" summary="Cleanup, todo added">
-      <option name="closed" value="true" />
-      <created>1707832056314</created>
-      <option name="number" value="LOCAL−00031" />
-      <option name="presentableId" value="LOCAL−00031" />
-      <updated>1707832056314</updated>
     </task>
     <task id="LOCAL−00032" summary="Cleanup, todo added">
       <option name="closed" value="true" />
@@ -565,7 +566,14 @@
       <option name="presentableId" value="LOCAL−00058" />
       <updated>1713100352793</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL−00059" summary="Fixed warning function call after renaming">
+      <option name="closed" value="true" />
+      <created>1713123388970</created>
+      <option name="number" value="LOCAL−00059" />
+      <option name="presentableId" value="LOCAL−00059" />
+      <updated>1713123388970</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -591,7 +599,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Basic real-time analysis implemented" />
     <MESSAGE value="PMU ID/Channel select implemented" />
     <MESSAGE value="Converting all segment sample lengths to int" />
     <MESSAGE value="Added threading for receiving and buffering data" />
@@ -616,7 +623,8 @@
     <MESSAGE value="Added option to print warnings" />
     <MESSAGE value="Renamed to OscilloWatch" />
     <MESSAGE value="Updated docstring and name for mode_warning_evaluation()" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated docstring and name for mode_warning_evaluation()" />
+    <MESSAGE value="Fixed warning function call after renaming" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed warning function call after renaming" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

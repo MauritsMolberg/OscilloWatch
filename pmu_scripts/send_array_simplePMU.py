@@ -19,8 +19,8 @@ if __name__ == "__main__":
         return (
                 10*np.exp(.15*t)*np.cos(2.4*np.pi*t)
                 #+ 16*np.exp(.1)*np.cos(np.pi*t)
-                + 8*np.exp(.1*t)*np.cos(5*np.pi*t)
-                + 20*np.exp(-.2*t)*np.cos(10*np.pi*t)
+                #+ 8*np.exp(.1*t)*np.cos(5*np.pi*t)
+                #+ 20*np.exp(-.2*t)*np.cos(10*np.pi*t)
                 )
 
     #array = f(t)
