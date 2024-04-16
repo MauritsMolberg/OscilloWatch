@@ -5,7 +5,7 @@ from methods.read_from_pkl import read_from_pkl
 
 
 if __name__ == "__main__":
-    seg_res_list = read_from_pkl("../results/Real PMU data NTNU/NTNU_V_1.pkl", 4, 6)
+    seg_res_list = read_from_pkl("../results/Real PMU data NTNU/NTNU_V.pkl", 197, 198)
 
     for segment in seg_res_list:
         #plt.figure()

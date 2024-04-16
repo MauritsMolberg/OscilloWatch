@@ -252,10 +252,10 @@ class SegmentAnalysis:
         else:
             mode_info_dict["Damping evaluation"] = "Good"
 
-    def damping_analysis(self):
+    def analyze_segment(self):
         """
-        Analyzes the damping of different components of the signal segment by performing HHT and using the developed
-        algorithm to analyze the Hilbert spectrum.
+        Runs HHT, uses row combination algorithm on Hilbert spectrum to identify modes, and uses interpolation and
+        curve fitting to estimate damping.
 
         :return: None
         """

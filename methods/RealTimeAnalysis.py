@@ -182,7 +182,7 @@ class RealTimeAnalysis:
                 # Run segment analysis
                 seg_an = SegmentAnalysis(values_segment, self.settings, previous_segment,
                                          timestamp_datetime)
-                seg_an.damping_analysis()
+                seg_an.analyze_segment()
 
                 seg_an.previous_segment = None  # To save storage space when storing in PKL file
                 previous_segment = seg_an

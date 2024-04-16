@@ -9,7 +9,7 @@ from methods.csv_column_to_list import csv_column_to_list
 # Analyze PMU data from a CSV file
 if __name__ == "__main__":
 
-    file_path = "../example_pmu_data/Real PMU signals 5min.CSV"
+    file_path = "../example_pmu_data/Real PMU signals.CSV"
     column_index = 1
     fs = 50
 
@@ -34,7 +34,7 @@ if __name__ == "__main__":
                                 hht_frequency_moving_avg_window=41,
                                 max_imfs=5,
                                 skip_storing_uncertain_modes=False,
-                                hht_amplitude_threshold=0.05,
+                                hht_amplitude_threshold=0.1,
                                 results_file_path="../results/Real PMU data NTNU/NTNU_V"
                                 )
 

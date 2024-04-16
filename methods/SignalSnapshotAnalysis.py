@@ -64,7 +64,7 @@ class SignalSnapshotAnalysis:
             if self.settings.print_segment_number:
                 print(f"-------------------------------\nSegment {i}:")
             seg_analysis = SegmentAnalysis(segment, self.settings, previous_segment=previous_segment)
-            seg_analysis.damping_analysis()
+            seg_analysis.analyze_segment()
 
             seg_analysis.previous_segment = None  # To save storage space when storing in PKL file
             previous_segment = seg_analysis

@@ -35,7 +35,7 @@ if __name__ == "__main__":
     settings.print_segment_analysis_time = True
 
     seg_an = SegmentAnalysis(input_signal1, settings)
-    seg_an.damping_analysis()
+    seg_an.analyze_segment()
     seg_an.hht.emd.plot_emd_results(show=False)
     seg_an.hht.plot_hilbert_spectrum(show=False)
 

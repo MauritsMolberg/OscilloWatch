@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Changed font size in EMD plot">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added option to choose if advanced results should be included in CSV">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/access_old_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/tests/test_segment_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tests/test_segment_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" beforeDir="false" afterPath="$PROJECT_DIR$/pmu_scripts/send_array_simplePMU.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +107,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.data_from_csv">
+  <component name="RunManager" selected="Python.access_old_results">
     <configuration name="access_old_results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscilloWatch" />
       <option name="ENV_FILES" value="" />
@@ -377,13 +377,6 @@
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
     </task>
-    <task id="LOCAL−00035" summary="Improved csv saving">
-      <option name="closed" value="true" />
-      <created>1707915649606</created>
-      <option name="number" value="LOCAL−00035" />
-      <option name="presentableId" value="LOCAL−00035" />
-      <updated>1707915649606</updated>
-    </task>
     <task id="LOCAL−00036" summary="Improved csv saving">
       <option name="closed" value="true" />
       <created>1707917466188</created>
@@ -573,7 +566,14 @@
       <option name="presentableId" value="LOCAL−00062" />
       <updated>1713183392284</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL−00063" summary="Added option to choose if advanced results should be included in CSV">
+      <option name="closed" value="true" />
+      <created>1713188774725</created>
+      <option name="number" value="LOCAL−00063" />
+      <option name="presentableId" value="LOCAL−00063" />
+      <updated>1713188774726</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -599,7 +599,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added test for reading data from CSV file" />
     <MESSAGE value="Cleanup, todo added" />
     <MESSAGE value="Improved csv saving" />
     <MESSAGE value="Implemented CSV storage for real-time analysis" />
@@ -624,7 +623,8 @@
     <MESSAGE value="Fixed bug that removed too much from buffer after creating segment in real-time" />
     <MESSAGE value="Commented out plotting function for testing in RealTimeAnalysis" />
     <MESSAGE value="Changed font size in EMD plot" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed font size in EMD plot" />
+    <MESSAGE value="Added option to choose if advanced results should be included in CSV" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added option to choose if advanced results should be included in CSV" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
