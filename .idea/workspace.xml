@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added option to choose if advanced results should be included in CSV">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Updated function name and docstring of analyze_segment()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/access_old_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/tests/test_segment_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tests/test_segment_analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/RealTimeAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/real_time_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/real_time_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/methods/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/AnalysisSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/methods/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SegmentAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/methods/SignalSnapshotAnalysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -377,13 +374,6 @@
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
     </task>
-    <task id="LOCAL−00036" summary="Improved csv saving">
-      <option name="closed" value="true" />
-      <created>1707917466188</created>
-      <option name="number" value="LOCAL−00036" />
-      <option name="presentableId" value="LOCAL−00036" />
-      <updated>1707917466188</updated>
-    </task>
     <task id="LOCAL−00037" summary="Improved csv saving">
       <option name="closed" value="true" />
       <created>1707917950666</created>
@@ -573,7 +563,14 @@
       <option name="presentableId" value="LOCAL−00063" />
       <updated>1713188774726</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL−00064" summary="Updated function name and docstring of analyze_segment()">
+      <option name="closed" value="true" />
+      <created>1713298495323</created>
+      <option name="number" value="LOCAL−00064" />
+      <option name="presentableId" value="LOCAL−00064" />
+      <updated>1713298495324</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -599,7 +596,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cleanup, todo added" />
     <MESSAGE value="Improved csv saving" />
     <MESSAGE value="Implemented CSV storage for real-time analysis" />
     <MESSAGE value="Implemented pickle storage for snapshot and real-time analysis" />
@@ -624,7 +620,8 @@
     <MESSAGE value="Commented out plotting function for testing in RealTimeAnalysis" />
     <MESSAGE value="Changed font size in EMD plot" />
     <MESSAGE value="Added option to choose if advanced results should be included in CSV" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added option to choose if advanced results should be included in CSV" />
+    <MESSAGE value="Updated function name and docstring of analyze_segment()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated function name and docstring of analyze_segment()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

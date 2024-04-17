@@ -176,7 +176,7 @@ class SegmentAnalysis:
 
         mode_info_dict["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2 + (2*np.pi*mode_info_dict["Frequency"])**2))
 
-        self.mode_warning_evaluation(mode_info_dict)  # Updates dict
+        self.mode_alarm_evaluation(mode_info_dict)  # Updates dict
 
         self.mode_info_list.append(mode_info_dict)
         return
@@ -203,9 +203,9 @@ class SegmentAnalysis:
                 freq_est_row_ind = (row_ind + freq_est_row_ind)//2  # Take average frequency of the two estimates
         return self.hht.freq_axis[freq_est_row_ind]
 
-    def mode_warning_evaluation(self, mode_info_dict):
+    def mode_alarm_evaluation(self, mode_info_dict):
         """
-        Checks if mode should get warning and adds the correct warning message to mode_info_dict if so.
+        Checks if mode should raise an alarm and adds the correct alarm message to mode_info_dict if so.
         :param mode_info_dict: Dict with estimated characteristics of the mode.
         :return: None
         """
@@ -226,29 +226,29 @@ class SegmentAnalysis:
             mode_info_dict["Damping evaluation"] = "Negative"
             if sustained_osc_flag:
                 if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
-                    mode_info_dict["Warning"] += "Critical"
-                    if self.settings.print_warnings:
-                        print(f"Critical warning for {mode['Frequency']:.2f} Hz mode.")
+                    mode_info_dict["Alarm"] += "Critical"
+                    if self.settings.print_alarms:
+                        print(f"Critical alarm for {mode['Frequency']:.2f} Hz mode.")
                 else:
-                    mode_info_dict["Warning"] += "No warning, ended early"
-        elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_strong_warning_threshold:
+                    mode_info_dict["Alarm"] += "No alarm, ended early"
+        elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_strong_alarm_threshold:
             mode_info_dict["Damping evaluation"] = "Very low"
             if sustained_osc_flag:
                 if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
-                    mode_info_dict["Warning"] += "Strong"
-                    if self.settings.print_warnings:
-                        print(f"Strong warning for {mode['Frequency']:.2f} Hz mode.")
+                    mode_info_dict["Alarm"] += "Strong"
+                    if self.settings.print_alarms:
+                        print(f"Strong alarm for {mode['Frequency']:.2f} Hz mode.")
                 else:
-                    mode_info_dict["Warning"] += "No warning, ended early"
-        elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_weak_warning_threshold:
+                    mode_info_dict["Alarm"] += "No alarm, ended early"
+        elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_weak_alarm_threshold:
             mode_info_dict["Damping evaluation"] = "Low"
             if sustained_osc_flag:
                 if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
-                    mode_info_dict["Warning"] += "Weak"
-                    if self.settings.print_warnings:
-                        print(f"Weak warning for {mode['Frequency']:.2f} Hz mode.")
+                    mode_info_dict["Alarm"] += "Weak"
+                    if self.settings.print_alarms:
+                        print(f"Weak alarm for {mode['Frequency']:.2f} Hz mode.")
                 else:
-                    mode_info_dict["Warning"] += "No warning, ended early"
+                    mode_info_dict["Alarm"] += "No alarm, ended early"
         else:
             mode_info_dict["Damping evaluation"] = "Good"
 

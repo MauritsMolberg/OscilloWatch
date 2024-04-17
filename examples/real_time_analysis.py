@@ -9,7 +9,7 @@ settings_N44 = AnalysisSettings(segment_length_time=3,
                                 port=34702,
                                 pmu_id=3000,
                                 sender_device_id=45,
-                                print_warnings=True
+                                print_alarms=True
                                 )
 
 settings_real_NTNU = AnalysisSettings(segment_length_time=10,
@@ -21,7 +21,7 @@ settings_real_NTNU = AnalysisSettings(segment_length_time=10,
                                       pmu_id=2017,
                                       sender_device_id=2017,
                                       results_file_path="../results/Real-time/real_NTNU",
-                                      print_warnings=True
+                                      print_alarms=True
                                       )
 
 settings_zurich = AnalysisSettings(segment_length_time=10,
@@ -33,7 +33,7 @@ settings_zurich = AnalysisSettings(segment_length_time=10,
                                    pmu_id=200,
                                    sender_device_id=4321,
                                    results_file_path="../results/Real-time/Zurich",
-                                   print_warnings=True
+                                   print_alarms=True
                                    )
 
 settings_array = AnalysisSettings(segment_length_time=10,
@@ -41,7 +41,7 @@ settings_array = AnalysisSettings(segment_length_time=10,
                                   extension_padding_time_end=2,
                                   channel="signal",
                                   pmu_id=1410,
-                                  print_warnings=True
+                                  print_alarms=True
                                   )
 
 settings_simplePMU = AnalysisSettings(segment_length_time=10,
@@ -49,7 +49,7 @@ settings_simplePMU = AnalysisSettings(segment_length_time=10,
                                       extension_padding_time_end=.5,
                                       channel="Phasor2.3",
                                       pmu_id=1411,
-                                      print_warnings=True
+                                      print_alarms=True
                                       )
 
 settings_topsrt = AnalysisSettings(segment_length_time=10,
@@ -58,7 +58,7 @@ settings_topsrt = AnalysisSettings(segment_length_time=10,
                                    channel="V",
                                    pmu_id=1,
                                    sender_device_id=1,
-                                   print_warnings=True
+                                   print_alarms=True
                                    )
 
 rta = RealTimeAnalysis(settings_array)

@@ -8,8 +8,8 @@ class AnalysisSettings:
                  print_emd_time=False,
                  print_hht_time=False,
                  print_segment_analysis_time=False,
-                 print_warnings=False,
-                 
+                 print_alarms=False,
+
                  # File storing settings
                  csv_decimals=5,
                  csv_delimiter=";",
@@ -63,9 +63,9 @@ class AnalysisSettings:
                  channel="V_1",
                  phasor_component="magnitude",
 
-                 # Warning settings
-                 damping_ratio_weak_warning_threshold=0.15,
-                 damping_ratio_strong_warning_threshold=0.05,
+                 # Alarm settings
+                 damping_ratio_weak_alarm_threshold=0.15,
+                 damping_ratio_strong_alarm_threshold=0.05,
                  oscillation_timeout=2,
                  segment_memory_freq_threshold=0.1
                  ):
@@ -76,7 +76,7 @@ class AnalysisSettings:
         self.print_emd_time = print_emd_time
         self.print_hht_time = print_hht_time
         self.print_segment_analysis_time = print_segment_analysis_time
-        self.print_warnings = print_warnings
+        self.print_alarms = print_alarms
 
         self.csv_decimals = csv_decimals
         self.csv_delimiter = csv_delimiter
@@ -119,8 +119,8 @@ class AnalysisSettings:
         self.channel = channel
         self.phasor_component = phasor_component
 
-        self.damping_ratio_weak_warning_threshold = damping_ratio_weak_warning_threshold
-        self.damping_ratio_strong_warning_threshold = damping_ratio_strong_warning_threshold
+        self.damping_ratio_weak_alarm_threshold = damping_ratio_weak_alarm_threshold
+        self.damping_ratio_strong_alarm_threshold = damping_ratio_strong_alarm_threshold
         self.oscillation_timeout = oscillation_timeout
         self.segment_memory_freq_threshold = segment_memory_freq_threshold
 
@@ -137,7 +137,7 @@ class AnalysisSettings:
         self.blank_mode_info_dict = {  # Practical to have here, so the keys can be easily fetched from anywhere
             "Mode status": "",
             "Damping evaluation": "",
-            "Warning": "",
+            "Alarm": "",
             "Frequency": 0.0,
             "Damping ratio": 0.0,
             "Init. amp.": 0.0,
@@ -157,7 +157,7 @@ class AnalysisSettings:
         self.blank_mode_info_dict_simple = {
             "Mode status": "",
             "Damping evaluation": "",
-            "Warning": "",
+            "Alarm": "",
             "Frequency": 0.0,
             "Damping ratio": 0.0,
             "Init. amp.": 0.0,
