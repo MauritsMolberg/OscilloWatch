@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from methods.AnalysisSettings import AnalysisSettings
-from methods.EMD import EMD
-from methods.HHT import HHT
-from methods.SignalSnapshotAnalysis import SignalSnapshotAnalysis
+from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.EMD import EMD
+from OscilloWatch.HHT import HHT
+from OscilloWatch.SignalSnapshotAnalysis import SignalSnapshotAnalysis
 
 if __name__ == "__main__":
     np.random.seed(0)

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from methods.read_from_pkl import read_from_pkl
+from OscilloWatch.read_from_pkl import read_from_pkl
 
 
 if __name__ == "__main__":

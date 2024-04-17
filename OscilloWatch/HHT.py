@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import hilbert, stft, find_peaks
 from time import time
-from methods.AnalysisSettings import AnalysisSettings
-from methods.EMD import EMD
+from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.EMD import EMD
 
 
 class HHT:
@@ -17,7 +17,7 @@ class HHT:
 
         :param input_signal: Signal to be decomposed.
         :type input_signal: numpy.ndarray or list
-        :param settings: Object containing the settings for the HHT algorithm, and the other methods that will be used
+        :param settings: Object containing the settings for the HHT algorithm, and the other OscilloWatch that will be used
          in the signal analysis
         :type settings: AnalysisSettings
         """

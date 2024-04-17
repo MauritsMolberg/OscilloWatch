@@ -3,7 +3,7 @@ from scipy.interpolate import CubicSpline
 import matplotlib.pyplot as plt
 import numpy as np
 from time import time
-from methods.AnalysisSettings import AnalysisSettings
+from OscilloWatch.AnalysisSettings import AnalysisSettings
 
 
 
@@ -19,7 +19,7 @@ class EMD:
 
         :param input_signal: Signal to be decomposed.
         :type input_signal: numpy.ndarray or list
-        :param settings: Object containing the settings for the EMD algorithm, and the other methods that will be used
+        :param settings: Object containing the settings for the EMD algorithm, and the other OscilloWatch that will be used
             in the signal analysis
         :type settings: AnalysisSettings
         """

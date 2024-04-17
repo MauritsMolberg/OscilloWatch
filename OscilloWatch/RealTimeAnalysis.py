@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 from synchrophasor.pdc import Pdc
 from synchrophasor.frame import DataFrame
 
-from methods.AnalysisSettings import AnalysisSettings
-from methods.SegmentAnalysis import SegmentAnalysis
+from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.SegmentAnalysis import SegmentAnalysis
 
 
 class RealTimeAnalysis:

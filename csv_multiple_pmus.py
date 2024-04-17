@@ -3,9 +3,9 @@ from time import time
 import matplotlib.pyplot as plt
 import numpy as np
 
-from methods.SignalSnapshotAnalysis import SignalSnapshotAnalysis
-from methods.AnalysisSettings import AnalysisSettings
-from methods.csv_column_to_list import csv_column_to_list
+from OscilloWatch.SignalSnapshotAnalysis import SignalSnapshotAnalysis
+from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.csv_column_to_list import csv_column_to_list
 
 if __name__ == "__main__":
 

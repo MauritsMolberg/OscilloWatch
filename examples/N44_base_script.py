@@ -8,11 +8,11 @@ import dynpssimpy.solvers as dps_sol
 import importlib
 importlib.reload(dps)
 
-from methods.EMD import EMD
-from methods.HHT import HHT
-from methods.AnalysisSettings import AnalysisSettings
-from methods.SegmentAnalysis import SegmentAnalysis
-from methods.SignalSnapshotAnalysis import SignalSnapshotAnalysis
+from OscilloWatch.EMD import EMD
+from OscilloWatch.HHT import HHT
+from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.SegmentAnalysis import SegmentAnalysis
+from OscilloWatch.SignalSnapshotAnalysis import SignalSnapshotAnalysis
 
 
 if __name__ == '__main__':

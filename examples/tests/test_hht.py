@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from methods.HHT import HHT, moving_average
-from methods.EMD import EMD
-from methods.AnalysisSettings import AnalysisSettings
+from OscilloWatch.HHT import HHT, moving_average
+from OscilloWatch.EMD import EMD
+from OscilloWatch.AnalysisSettings import AnalysisSettings
 
 np.random.seed(0)
 

@@ -5,8 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
-from methods.HHT import HHT
-from methods.AnalysisSettings import AnalysisSettings
+from OscilloWatch.HHT import HHT
+from OscilloWatch.AnalysisSettings import AnalysisSettings
 
 
 class SegmentAnalysis:

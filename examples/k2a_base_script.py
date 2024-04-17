@@ -6,11 +6,11 @@ import time
 import dynpssimpy.dynamic as dps
 import dynpssimpy.solvers as dps_sol
 import importlib
-from methods.AnalysisSettings import AnalysisSettings
-from methods.EMD import EMD
-from methods.HHT import HHT, moving_average
-from methods.SegmentAnalysis import SegmentAnalysis
-from methods.SignalSnapshotAnalysis import SignalSnapshotAnalysis
+from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.EMD import EMD
+from OscilloWatch.HHT import HHT, moving_average
+from OscilloWatch.SegmentAnalysis import SegmentAnalysis
+from OscilloWatch.SignalSnapshotAnalysis import SignalSnapshotAnalysis
 importlib.reload(dps)
 
 

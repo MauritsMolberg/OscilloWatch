@@ -1,5 +1,5 @@
-from methods.RealTimeAnalysis import RealTimeAnalysis
-from methods.AnalysisSettings import AnalysisSettings
+from OscilloWatch.RealTimeAnalysis import RealTimeAnalysis
+from OscilloWatch.AnalysisSettings import AnalysisSettings
 
 settings_N44 = AnalysisSettings(segment_length_time=3,
                                 extension_padding_time_start=.5,

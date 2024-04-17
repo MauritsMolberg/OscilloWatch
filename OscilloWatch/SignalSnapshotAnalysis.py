@@ -3,8 +3,8 @@ import pickle
 import numpy as np
 import csv
 import os
-from methods.AnalysisSettings import AnalysisSettings
-from methods.SegmentAnalysis import SegmentAnalysis
+from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.SegmentAnalysis import SegmentAnalysis
 
 
 class SignalSnapshotAnalysis:

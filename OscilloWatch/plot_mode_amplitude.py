@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from methods.SegmentAnalysis import SegmentAnalysis
-from methods.read_from_pkl import read_from_pkl
-from methods.csv_column_to_list import csv_column_to_list
+from OscilloWatch.SegmentAnalysis import SegmentAnalysis
+from OscilloWatch.read_from_pkl import read_from_pkl
+from OscilloWatch.csv_column_to_list import csv_column_to_list
 
 
 def get_mode_amplitude_evolution(segment_list: list[SegmentAnalysis], mode_frequency, tolerance=None):
