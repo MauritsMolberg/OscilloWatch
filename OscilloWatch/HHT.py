@@ -110,22 +110,25 @@ class HHT:
             self.amplitude_signal_list.append(amplitude_signal)
 
         # Creating frequency axis
-        max_freq = np.amax(self.freq_signal_list)
-        min_freq = 1/(self.settings.segment_length_time + self.settings.extension_padding_time_start
-                      + self.settings.extension_padding_time_end)
+        if self.settings.max_freq is None:
+            self.settings.max_freq = np.amax(self.freq_signal_list)
+        if self.settings.min_freq is None:
+            self.settings.min_freq = 1/(self.settings.segment_length_time + self.settings.extension_padding_time_start
+                                        + self.settings.extension_padding_time_end)
 
         # Cannot construct meaningful Hilbert spectrum if the lowest detectable frequency is higher than the highest
         # measured frequency
-        if min_freq >= max_freq:
+        if self.settings.min_freq >= self.settings.max_freq:
             self.freq_axis = np.zeros(1)
             self.hilbert_spectrum = np.zeros([1, 1])
             print("No frequencies above minimum limit detected.")
             return
 
-        if max_freq < self.settings.hht_frequency_resolution: # Give frequency axis length of at least 1
-            max_freq = self.settings.hht_frequency_resolution
-        self.freq_axis = np.linspace(min_freq, max_freq + self.settings.hht_frequency_resolution,
-                                     int(max_freq/self.settings.hht_frequency_resolution))
+        if self.settings.max_freq < self.settings.hht_frequency_resolution: # Give frequency axis length of at least 1
+            self.settings.max_freq = self.settings.hht_frequency_resolution
+        self.freq_axis = np.arange(self.settings.min_freq, self.settings.max_freq
+                                   + self.settings.hht_frequency_resolution,
+                                   self.settings.hht_frequency_resolution)
 
         # Constructing spectrum:
         self.hilbert_spectrum = np.zeros((len(self.freq_axis), len(self.amplitude_signal_list[0])))
@@ -171,10 +174,8 @@ class HHT:
         # Calculate how much to remove after Hilbert transform in Hilbert Spectrum calculation:
         if self.settings.remove_padding_after_hht and not self.settings.remove_padding_after_emd:
             mirror_fraction_removal = int(self.settings.mirror_padding_fraction*len(self.input_signal))
-            self.samples_to_remove_start = mirror_fraction_removal\
-                                           + self.settings.extension_padding_samples_start
-            self.samples_to_remove_end = mirror_fraction_removal\
-                                         + self.settings.extension_padding_samples_end
+            self.samples_to_remove_start = mirror_fraction_removal + self.settings.extension_padding_samples_start
+            self.samples_to_remove_end = mirror_fraction_removal + self.settings.extension_padding_samples_end
         # Else: Both kept at 0
 
         self.calc_hilbert_spectrum(self.emd.imf_list)  # Calculate hilbert_spectrum and freq_axis

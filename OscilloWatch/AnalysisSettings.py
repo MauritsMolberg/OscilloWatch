@@ -32,13 +32,15 @@ class AnalysisSettings:
 
                  # HHT settings
                  hht_amplitude_threshold=1e-6,
-                 hht_frequency_resolution="auto",
-                 hht_frequency_threshold="auto",
+                 hht_frequency_resolution=None,
+                 hht_frequency_threshold=None,
                  hht_amplitude_moving_avg_window=5,
                  hht_frequency_moving_avg_window=41,
                  hht_split_signal_freq_change_toggle=True,
                  hht_split_signal_freq_change_threshold=0.5,
                  hht_split_signal_freq_change_nperseg=100,
+                 min_freq = None,
+                 max_freq = None,
 
                  # Result format settings
                  skip_storing_uncertain_modes=False,
@@ -102,6 +104,8 @@ class AnalysisSettings:
         self.hht_split_signal_freq_change_toggle = hht_split_signal_freq_change_toggle
         self.hht_split_signal_freq_change_threshold = hht_split_signal_freq_change_threshold
         self.hht_split_signal_freq_change_nperseg = hht_split_signal_freq_change_nperseg
+        self.min_freq = min_freq
+        self.max_freq = max_freq
 
         self.skip_storing_uncertain_modes = skip_storing_uncertain_modes
         self.minimum_total_non_zero_fraction = minimum_total_non_zero_fraction
@@ -175,9 +179,9 @@ class AnalysisSettings:
                                              + self.extension_padding_samples_start
                                              + self.extension_padding_samples_end)
 
-        if self.hht_frequency_resolution == "auto":
+        if self.hht_frequency_resolution is None:
             self.hht_frequency_resolution = 1/self.fs
-        if self.hht_frequency_threshold == "auto":
+        if self.hht_frequency_threshold is None:
             self.hht_frequency_threshold = self.hht_frequency_resolution/2
 
 
