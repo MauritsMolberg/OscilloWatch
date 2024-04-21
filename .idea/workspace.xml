@@ -4,12 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Renamed methods folder to OscilloWatch">
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added min/max frequency settings">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OscilloWatch/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OscilloWatch/get_mode_amplitude_evolution.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/plot_mode_amplitude.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thesis_test_scripts/2018_norway_amplitude.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OscilloWatch/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/OscilloWatch/AnalysisSettings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OscilloWatch/HHT.py" beforeDir="false" afterPath="$PROJECT_DIR$/OscilloWatch/HHT.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OscilloWatch/plot_mode_amplitude.py" beforeDir="false" afterPath="$PROJECT_DIR$/OscilloWatch/plot_mode_amplitude.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_multiple_pmus.py" beforeDir="false" afterPath="$PROJECT_DIR$/csv_multiple_pmus.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OscilloWatch/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/OscilloWatch/SegmentAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OscilloWatch/plot_mode_amplitude.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv_multiple_pmus.py" beforeDir="false" afterPath="$PROJECT_DIR$/thesis_test_scripts/2018_norway_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/N44_base_script.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/access_old_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
     </list>
@@ -58,56 +64,101 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.RealTimeAnalysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.access_old_results.executor&quot;: &quot;Run&quot;,
-    &quot;Python.csv_multiple_pmus.executor&quot;: &quot;Run&quot;,
-    &quot;Python.custom_plot.executor&quot;: &quot;Run&quot;,
-    &quot;Python.data_from_csv.executor&quot;: &quot;Run&quot;,
-    &quot;Python.k2a_base_script.executor&quot;: &quot;Run&quot;,
-    &quot;Python.phasor_plot.executor&quot;: &quot;Run&quot;,
-    &quot;Python.pickle_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.plot_mode_amplitude.executor&quot;: &quot;Run&quot;,
-    &quot;Python.pmu.executor&quot;: &quot;Run&quot;,
-    &quot;Python.randomPMU.executor&quot;: &quot;Run&quot;,
-    &quot;Python.read_from_pkl (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.read_from_pkl.executor&quot;: &quot;Run&quot;,
-    &quot;Python.read_from_pkl_2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.real_time_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.send_array.executor&quot;: &quot;Run&quot;,
-    &quot;Python.send_array_simplePMU.executor&quot;: &quot;Run&quot;,
-    &quot;Python.signal_snapshot_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.simplePMU.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_hht.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_real_time_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_segment_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_signal_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_signal_snapshot_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tinyPDC.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tinyPMU.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/mauri/OneDrive - NTNU/NTNU/Fordypningsprosjekt/test_project&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Confirmation&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.2018_norway_amplitude.executor": "Run",
+    "Python.RealTimeAnalysis.executor": "Run",
+    "Python.access_old_results.executor": "Run",
+    "Python.csv_multiple_pmus.executor": "Run",
+    "Python.custom_plot.executor": "Run",
+    "Python.data_from_csv.executor": "Run",
+    "Python.k2a_base_script.executor": "Run",
+    "Python.phasor_plot.executor": "Run",
+    "Python.pickle_test.executor": "Run",
+    "Python.plot_mode_amplitude.executor": "Run",
+    "Python.pmu.executor": "Run",
+    "Python.randomPMU.executor": "Run",
+    "Python.read_from_pkl (1).executor": "Run",
+    "Python.read_from_pkl.executor": "Run",
+    "Python.read_from_pkl_2.executor": "Run",
+    "Python.real_time_analysis.executor": "Run",
+    "Python.send_array.executor": "Run",
+    "Python.send_array_simplePMU.executor": "Run",
+    "Python.signal_snapshot_analysis.executor": "Run",
+    "Python.simplePMU.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.test_hht.executor": "Run",
+    "Python.test_real_time_analysis.executor": "Run",
+    "Python.test_segment_analysis.executor": "Run",
+    "Python.test_signal_analysis.executor": "Run",
+    "Python.test_signal_snapshot_analysis.executor": "Run",
+    "Python.tinyPDC.executor": "Run",
+    "Python.tinyPMU.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/mauri/OneDrive - NTNU/NTNU/Fordypningsprosjekt/test_project",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\pmu_scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\thesis_test_scripts" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\examples\tests" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\methods" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tops-rt_examples" />
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\pmu_scripts" />
-      <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\tests_osc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.data_from_csv">
+  <component name="RunManager" selected="Python.2018_norway_amplitude">
+    <configuration name="2018_norway_amplitude" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscilloWatch" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/thesis_test_scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/thesis_test_scripts/2018_norway_amplitude.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="2018_norway_csv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscilloWatch" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\thesis_test_scripts\2018_norway_csv.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="access_old_results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscilloWatch" />
       <option name="ENV_FILES" value="" />
@@ -122,28 +173,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/access_old_results.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="csv_multiple_pmus" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscilloWatch" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/csv_multiple_pmus.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -174,7 +203,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="plot_mode_amplitude" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="get_mode_amplitude_evolution" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscilloWatch" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -187,29 +216,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/OscilloWatch/plot_mode_amplitude.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_segment_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscilloWatch" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/tests/test_segment_analysis.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\OscilloWatch\get_mode_amplitude_evolution.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -219,19 +226,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.csv_multiple_pmus" />
-      <item itemvalue="Python.test_segment_analysis" />
+      <item itemvalue="Python.2018_norway_amplitude" />
       <item itemvalue="Python.data_from_csv" />
-      <item itemvalue="Python.plot_mode_amplitude" />
+      <item itemvalue="Python.get_mode_amplitude_evolution" />
       <item itemvalue="Python.access_old_results" />
+      <item itemvalue="Python.2018_norway_csv" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.2018_norway_amplitude" />
+        <item itemvalue="Python.2018_norway_csv" />
+        <item itemvalue="Python.get_mode_amplitude_evolution" />
         <item itemvalue="Python.data_from_csv" />
         <item itemvalue="Python.access_old_results" />
-        <item itemvalue="Python.test_segment_analysis" />
-        <item itemvalue="Python.plot_mode_amplitude" />
-        <item itemvalue="Python.csv_multiple_pmus" />
       </list>
     </recent_temporary>
   </component>
@@ -376,13 +383,6 @@
       <option name="number" value="LOCAL−00021" />
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
-    </task>
-    <task id="LOCAL−00039" summary="Implemented pickle storage for snapshot and real-time analysis">
-      <option name="closed" value="true" />
-      <created>1708168272570</created>
-      <option name="number" value="LOCAL−00039" />
-      <option name="presentableId" value="LOCAL−00039" />
-      <updated>1708168272570</updated>
     </task>
     <task id="LOCAL−00040" summary="Implemented pickle storage for snapshot and real-time analysis">
       <option name="closed" value="true" />
@@ -573,7 +573,14 @@
       <option name="presentableId" value="LOCAL−00066" />
       <updated>1713358370889</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL−00067" summary="Added min/max frequency settings">
+      <option name="closed" value="true" />
+      <created>1713441809923</created>
+      <option name="number" value="LOCAL−00067" />
+      <option name="presentableId" value="LOCAL−00067" />
+      <updated>1713441809923</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -599,7 +606,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implemented pickle storage for snapshot and real-time analysis" />
     <MESSAGE value="Added frequency estimation" />
     <MESSAGE value="Cleanup and documentation" />
     <MESSAGE value="Added segment number printing for real-time analysis" />
@@ -624,7 +630,8 @@
     <MESSAGE value="Updated function name and docstring of analyze_segment()" />
     <MESSAGE value="Changed &quot;warning&quot; to &quot;alarm&quot;" />
     <MESSAGE value="Renamed methods folder to OscilloWatch" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed methods folder to OscilloWatch" />
+    <MESSAGE value="Added min/max frequency settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added min/max frequency settings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

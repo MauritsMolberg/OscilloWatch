@@ -10,8 +10,8 @@ from OscilloWatch.csv_column_to_list import csv_column_to_list
 if __name__ == "__main__":
 
     file_path = "../example_pmu_data/180924-osc-frekvens-og-vinkel_semicolon.csv"
-    column_index = 5
-    fs = 10
+    column_index = 1
+    fs = 50
 
     data = csv_column_to_list(file_path, column_index, delimiter=";")
     t = np.linspace(0, len(data)/fs, len(data))
@@ -19,7 +19,6 @@ if __name__ == "__main__":
     plt.plot(t, data)
     plt.xlabel("Time [s]")
     plt.ylabel("Frequency [Hz]")
-    plt.plot(t, data)
     #plt.show()
 
     settings = AnalysisSettings(

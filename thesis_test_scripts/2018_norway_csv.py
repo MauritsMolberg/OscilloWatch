@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     start_time = time()
 
-    file_path = "example_pmu_data/180924-osc-frekvens og vinkel.csv"
+    file_path = "../example_pmu_data/180924-osc-frekvens og vinkel.csv"
 
 
     column_index = 1
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     plt.plot(t, data)
     plt.xlabel("Time [s]")
     plt.ylabel("Frequency [Hz]")
-    plt.plot(t, data)
+    plt.tight_layout()
     #plt.show()
 
     settings = AnalysisSettings(
@@ -40,7 +40,8 @@ if __name__ == "__main__":
                                 max_imfs=5,
                                 skip_storing_uncertain_modes=False,
                                 hht_amplitude_threshold=0.001,
-                                results_file_path="results/fortun"
+                                min_freq=0.1,
+                                results_file_path="results/WE"
                                 )
 
     snap_an = SignalSnapshotAnalysis(data, settings)
@@ -58,7 +59,7 @@ if __name__ == "__main__":
     plt.plot(t, data)
     plt.xlabel("Time [s]")
     plt.ylabel("Frequency [Hz]")
-    plt.plot(t, data)
+    plt.tight_layout()
 
     settings = AnalysisSettings(
         fs=fs,
@@ -74,7 +75,8 @@ if __name__ == "__main__":
         max_imfs=5,
         skip_storing_uncertain_modes=False,
         hht_amplitude_threshold=0.001,
-        results_file_path="results/hasle"
+        min_freq=0.1,
+        results_file_path="results/SE"
     )
     snap_an = SignalSnapshotAnalysis(data, settings)
     snap_an.analyze_whole_signal()
@@ -90,9 +92,10 @@ if __name__ == "__main__":
     plt.plot(t, data)
     plt.xlabel("Time [s]")
     plt.ylabel("Frequency [Hz]")
-    plt.plot(t, data)
+    plt.tight_layout()
 
-    settings.results_file_path = "results/klæbu"
+    settings.results_file_path = "results/MD"
+    settings.min_freq=0.1
     snap_an = SignalSnapshotAnalysis(data, settings)
     snap_an.analyze_whole_signal()
     snap_an.write_results_to_csv()
@@ -107,10 +110,10 @@ if __name__ == "__main__":
     plt.plot(t, data)
     plt.xlabel("Time [s]")
     plt.ylabel("Frequency [Hz]")
-    plt.plot(t, data)
+    plt.tight_layout()
 
     settings.fs = fs
-    settings.results_file_path = "results/kristiansand"
+    settings.results_file_path = "results/SO"
     snap_an = SignalSnapshotAnalysis(data, settings)
     snap_an.analyze_whole_signal()
     snap_an.write_results_to_csv()
@@ -125,10 +128,10 @@ if __name__ == "__main__":
     plt.plot(t, data)
     plt.xlabel("Time [s]")
     plt.ylabel("Frequency [Hz]")
-    plt.plot(t, data)
+    plt.tight_layout()
 
     settings.fs = fs
-    settings.results_file_path = "results/kvandal"
+    settings.results_file_path = "results/NW"
     snap_an = SignalSnapshotAnalysis(data, settings)
     snap_an.analyze_whole_signal()
     snap_an.write_results_to_csv()
@@ -143,10 +146,10 @@ if __name__ == "__main__":
     plt.plot(t, data)
     plt.xlabel("Time [s]")
     plt.ylabel("Frequency [Hz]")
-    plt.plot(t, data)
+    plt.tight_layout()
 
     settings.fs = fs
-    settings.results_file_path = "results/kvilldal"
+    settings.results_file_path = "results/SW"
     snap_an = SignalSnapshotAnalysis(data, settings)
     snap_an.analyze_whole_signal()
     snap_an.write_results_to_csv()
@@ -162,7 +165,7 @@ if __name__ == "__main__":
     plt.plot(t, data)
     plt.xlabel("Time [s]")
     plt.ylabel("Frequency [Hz]")
-    plt.plot(t, data)
+    plt.tight_layout()
 
     settings = AnalysisSettings(
         fs=fs,
@@ -178,7 +181,8 @@ if __name__ == "__main__":
         max_imfs=5,
         skip_storing_uncertain_modes=False,
         hht_amplitude_threshold=0.001,
-        results_file_path="results/skaidi"
+        min_freq=0.1,
+        results_file_path="results/NO"
     )
     snap_an = SignalSnapshotAnalysis(data, settings)
     snap_an.analyze_whole_signal()
@@ -195,7 +199,7 @@ if __name__ == "__main__":
     plt.plot(t, data)
     plt.xlabel("Time [s]")
     plt.ylabel("Frequency [Hz]")
-    plt.plot(t, data)
+    plt.tight_layout()
 
     settings = AnalysisSettings(
         fs=fs,
@@ -211,7 +215,8 @@ if __name__ == "__main__":
         max_imfs=5,
         skip_storing_uncertain_modes=False,
         hht_amplitude_threshold=0.001,
-        results_file_path="results/varangerbotn"
+        min_freq=0.1,
+        results_file_path="results/NE"
     )
     snap_an = SignalSnapshotAnalysis(data, settings)
     snap_an.analyze_whole_signal()
