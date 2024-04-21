@@ -213,7 +213,7 @@ class SegmentAnalysis:
         sustained_osc_flag = False
         if self.previous_segment is not None:
             for mode in self.previous_segment.mode_info_list:
-                if abs(mode["Frequency"] - mode_info_dict["Frequency"]) < self.settings.segment_memory_freq_threshold:
+                if abs(mode["Frequency"] - mode_info_dict["Frequency"]) <= self.settings.segment_memory_freq_threshold:
                     sustained_osc_flag = True
                     break
 
