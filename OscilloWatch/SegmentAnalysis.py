@@ -97,28 +97,7 @@ class SegmentAnalysis:
         Analyzes the damping of a frequency band by curve fitting an amplitude curve to a decaying exponential curve.
         Removes zero-values before and after the first and last non-zero value and interpolates the remaining curve
         before curve fitting. Stores the following information about the frequency band in a dict that is added to the
-        DampingAnalysis object's damping_info_list variable:
-
-        Frequency range: Estimated frequency range of the frequency band
-
-        Start and end time: When the oscillations in the frequency band start and stop, according to the spectrum
-
-        Non-zero fraction: Fraction of the whole amplitude curve that is not zero
-
-        Initial and final amplitude: Measured amplitude of the first and last non-zero value
-
-        Initial amplitude estimate: Initial amplitude of the fitted exponential curve
-
-        Decay rate: Decay rate of the fitted exponential curve
-
-        Damping ratio: Estimated damping ratio based on the decay rate and central frequency of the frequency band
-
-        Interpolated fraction: Fraction of the amplitude curve that has been interpolated.
-
-        Coefficient of variation: Standard deviation between the interpolated amplitude curve and the fitted curve,
-        divided by the mean of the interpolated curve
-
-        Note: String that stores some info about the process, such as if the damping info is skipped
+        DampingAnalysis object's damping_info_list dict.
 
         :param numpy.ndarray amp_curve: Single or combined row from Hilbert spectrum that is being analyzed.
         :param int bottom_row_ind: Index of the bottom row in the frequency band that is being analyzed.
