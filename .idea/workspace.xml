@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Added min/max frequency settings">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OscilloWatch/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OscilloWatch/get_mode_amplitude_evolution.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/plot_mode_amplitude.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/thesis_test_scripts/2018_norway_amplitude.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="e4784257-83c0-4994-8508-163e26eb62e4" name="Changes" comment="Update docstring in analyze_frequency_band()">
       <change beforePath="$PROJECT_DIR$/OscilloWatch/AnalysisSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/OscilloWatch/AnalysisSettings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OscilloWatch/SegmentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/OscilloWatch/SegmentAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OscilloWatch/plot_mode_amplitude.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_multiple_pmus.py" beforeDir="false" afterPath="$PROJECT_DIR$/thesis_test_scripts/2018_norway_csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/N44_base_script.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/access_old_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/access_old_results.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/data_from_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_from_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OscilloWatch/HHT.py" beforeDir="false" afterPath="$PROJECT_DIR$/OscilloWatch/HHT.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +103,7 @@
       <recent name="C:\Users\mauri\OneDrive - NTNU\NTNU\Fordypningsprosjekt\OscillationDetection\pmu_scripts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.2018_norway_amplitude">
+  <component name="RunManager" selected="Python.test_segment_analysis">
     <configuration name="2018_norway_amplitude" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscilloWatch" />
       <option name="ENV_FILES" value="" />
@@ -159,50 +148,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="access_old_results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscilloWatch" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/access_old_results.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="data_from_csv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OscilloWatch" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/data_from_csv.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="get_mode_amplitude_evolution" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OscilloWatch" />
       <option name="ENV_FILES" value="" />
@@ -225,20 +170,64 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_hht" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscilloWatch" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/tests/test_hht.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_segment_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OscilloWatch" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/tests/test_segment_analysis.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Python.test_hht" />
+      <item itemvalue="Python.test_segment_analysis" />
       <item itemvalue="Python.2018_norway_amplitude" />
-      <item itemvalue="Python.data_from_csv" />
       <item itemvalue="Python.get_mode_amplitude_evolution" />
-      <item itemvalue="Python.access_old_results" />
       <item itemvalue="Python.2018_norway_csv" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_segment_analysis" />
+        <item itemvalue="Python.test_hht" />
         <item itemvalue="Python.2018_norway_amplitude" />
         <item itemvalue="Python.2018_norway_csv" />
         <item itemvalue="Python.get_mode_amplitude_evolution" />
-        <item itemvalue="Python.data_from_csv" />
-        <item itemvalue="Python.access_old_results" />
       </list>
     </recent_temporary>
   </component>
@@ -383,41 +372,6 @@
       <option name="number" value="LOCAL−00021" />
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1701952459843</updated>
-    </task>
-    <task id="LOCAL−00040" summary="Implemented pickle storage for snapshot and real-time analysis">
-      <option name="closed" value="true" />
-      <created>1708169229789</created>
-      <option name="number" value="LOCAL−00040" />
-      <option name="presentableId" value="LOCAL−00040" />
-      <updated>1708169229789</updated>
-    </task>
-    <task id="LOCAL−00041" summary="Implemented pickle storage for snapshot and real-time analysis">
-      <option name="closed" value="true" />
-      <created>1708169454617</created>
-      <option name="number" value="LOCAL−00041" />
-      <option name="presentableId" value="LOCAL−00041" />
-      <updated>1708169454617</updated>
-    </task>
-    <task id="LOCAL−00042" summary="Added frequency estimation">
-      <option name="closed" value="true" />
-      <created>1708173697480</created>
-      <option name="number" value="LOCAL−00042" />
-      <option name="presentableId" value="LOCAL−00042" />
-      <updated>1708173697480</updated>
-    </task>
-    <task id="LOCAL−00043" summary="Cleanup and documentation">
-      <option name="closed" value="true" />
-      <created>1708956545325</created>
-      <option name="number" value="LOCAL−00043" />
-      <option name="presentableId" value="LOCAL−00043" />
-      <updated>1708956545325</updated>
-    </task>
-    <task id="LOCAL−00044" summary="Added segment number printing for real-time analysis">
-      <option name="closed" value="true" />
-      <created>1708957551345</created>
-      <option name="number" value="LOCAL−00044" />
-      <option name="presentableId" value="LOCAL−00044" />
-      <updated>1708957551345</updated>
     </task>
     <task id="LOCAL−00045" summary="Print notice when sampling frequency is updated to match config frame">
       <option name="closed" value="true" />
@@ -580,7 +534,42 @@
       <option name="presentableId" value="LOCAL−00067" />
       <updated>1713441809923</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL−00068" summary="Add .gitignore">
+      <option name="closed" value="true" />
+      <created>1713727033933</created>
+      <option name="number" value="LOCAL−00068" />
+      <option name="presentableId" value="LOCAL−00068" />
+      <updated>1713727033934</updated>
+    </task>
+    <task id="LOCAL−00069" summary="Restructure amp plot files">
+      <option name="closed" value="true" />
+      <created>1713727087177</created>
+      <option name="number" value="LOCAL−00069" />
+      <option name="presentableId" value="LOCAL−00069" />
+      <updated>1713727087177</updated>
+    </task>
+    <task id="LOCAL−00070" summary="Add __init__.py">
+      <option name="closed" value="true" />
+      <created>1713727098377</created>
+      <option name="number" value="LOCAL−00070" />
+      <option name="presentableId" value="LOCAL−00070" />
+      <updated>1713727098377</updated>
+    </task>
+    <task id="LOCAL−00071" summary="Adjust frequency memory tolerance">
+      <option name="closed" value="true" />
+      <created>1713727137893</created>
+      <option name="number" value="LOCAL−00071" />
+      <option name="presentableId" value="LOCAL−00071" />
+      <updated>1713727137893</updated>
+    </task>
+    <task id="LOCAL−00072" summary="Update docstring in analyze_frequency_band()">
+      <option name="closed" value="true" />
+      <created>1713727228114</created>
+      <option name="number" value="LOCAL−00072" />
+      <option name="presentableId" value="LOCAL−00072" />
+      <updated>1713727228114</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -606,11 +595,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added frequency estimation" />
-    <MESSAGE value="Cleanup and documentation" />
-    <MESSAGE value="Added segment number printing for real-time analysis" />
-    <MESSAGE value="Print notice when sampling frequency is updated to match config frame" />
-    <MESSAGE value="Added TOPS-RT example files for testing" />
     <MESSAGE value="Fixed bug where single-character channel names could not be found" />
     <MESSAGE value="Attempt at fully removing dynpsssimpy" />
     <MESSAGE value="Improved warning system with memory" />
@@ -631,7 +615,12 @@
     <MESSAGE value="Changed &quot;warning&quot; to &quot;alarm&quot;" />
     <MESSAGE value="Renamed methods folder to OscilloWatch" />
     <MESSAGE value="Added min/max frequency settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added min/max frequency settings" />
+    <MESSAGE value="Add .gitignore" />
+    <MESSAGE value="Restructure amp plot files" />
+    <MESSAGE value="Add __init__.py" />
+    <MESSAGE value="Adjust frequency memory tolerance" />
+    <MESSAGE value="Update docstring in analyze_frequency_band()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update docstring in analyze_frequency_band()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

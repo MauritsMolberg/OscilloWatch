@@ -135,7 +135,7 @@ class HHT:
         for k in range(len(signal_list)): # For each signal (IMF)
             for i in range(len(self.amplitude_signal_list[k])): # For each sample in segment
                 for j in range(len(self.freq_axis)): # For each frequency
-                    if (abs(self.freq_axis[j] - self.freq_signal_list[k][i]) < self.settings.hht_frequency_threshold
+                    if (abs(self.freq_axis[j] - self.freq_signal_list[k][i]) < self.settings.hht_frequency_resolution/2
                        and self.amplitude_signal_list[k][i] > self.settings.hht_amplitude_threshold):
                         # Using maximum of amplitude values in case of overlap, instead of adding together
                         self.hilbert_spectrum[j][i] = max(self.amplitude_signal_list[k][i], self.hilbert_spectrum[j][i])
@@ -236,6 +236,7 @@ def moving_average(signal, window_size=5):
         smoothed_signal[i] = np.mean(signal[start_idx:end_idx])
 
     return smoothed_signal
+
 
 def split_signal_freq_change(signal, threshold = 0.5, fs=50, nperseg=256):
     """

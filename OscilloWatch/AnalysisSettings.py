@@ -33,14 +33,13 @@ class AnalysisSettings:
                  # HHT settings
                  hht_amplitude_threshold=1e-6,
                  hht_frequency_resolution=None,
-                 hht_frequency_threshold=None,
                  hht_amplitude_moving_avg_window=5,
                  hht_frequency_moving_avg_window=41,
                  hht_split_signal_freq_change_toggle=True,
                  hht_split_signal_freq_change_threshold=0.5,
                  hht_split_signal_freq_change_nperseg=100,
-                 min_freq = None,
-                 max_freq = None,
+                 min_freq=None,
+                 max_freq=None,
 
                  # Result format settings
                  skip_storing_uncertain_modes=False,
@@ -134,7 +133,6 @@ class AnalysisSettings:
         self.extension_padding_samples_end = 0
         self.total_segment_length_samples = 0
         self.hht_frequency_resolution = hht_frequency_resolution
-        self.hht_frequency_threshold = hht_frequency_threshold
 
         self.update_calc_values()
 
@@ -181,7 +179,3 @@ class AnalysisSettings:
 
         if self.hht_frequency_resolution is None:
             self.hht_frequency_resolution = 1/self.fs
-        if self.hht_frequency_threshold is None:
-            self.hht_frequency_threshold = self.hht_frequency_resolution/2
-
-
