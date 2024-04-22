@@ -78,7 +78,7 @@ class SegmentAnalysis:
         if mode_info_dict["Interp. frac."] > self.settings.max_interp_fraction:
             if self.settings.skip_storing_uncertain_modes:
                 return None
-            mode_info_dict["Note"] += "Uncertain mode (high interp. frac.). "
+            mode_info_dict["uncertain mode flag"] = True
 
         # Get the corresponding non-zero values and their indices
         non_zero_values = [cropped_signal[i] for i in non_zero_indices]
@@ -126,9 +126,9 @@ class SegmentAnalysis:
         try:
             popt, _ = curve_fit(exponential_decay_model, time_points, interp_amp_curve, maxfev=1500)
         except Exception as e:
-            mode_info_dict["Note"] += "Skipped. SciPy curve fit failed."
+            mode_info_dict["Damping ratio"] = "N/A (SciPy curve fit failed)."
             self.mode_info_list.append(mode_info_dict)
-            print(f"Exception occured during curve fit: {e}. Skipped and added note in CSV.")
+            print(f"Exception occurred during curve fit: {e}. Skipped and added note in CSV.")
             return
         A, decay_rate = popt[0], popt[1]
 
@@ -146,11 +146,12 @@ class SegmentAnalysis:
             = (np.std(interp_amp_curve - exponential_decay_model(time_points, A, decay_rate)) /
                np.mean(interp_amp_curve))
         if mode_info_dict["CV"] > self.settings.max_coefficient_of_variation:
-            mode_info_dict["Note"] += "Inaccurate damping estimate (high CV). "
+            mode_info_dict["inaccurate damping flag"] = True
 
         mode_info_dict["Median amp."] = np.median(interp_amp_curve)
         mode_info_dict["Init. amp."] = interp_amp_curve[0]
         mode_info_dict["Final amp."] = interp_amp_curve[-1]
+
         mode_info_dict["Init. amp. est."] = A
         mode_info_dict["Decay rate"] = decay_rate
 
@@ -371,4 +372,3 @@ def exponential_decay_model(t, A, k):
     """
     return A * np.exp(-k * t)
 
-# Todo: Update doc for analyze_freq_band

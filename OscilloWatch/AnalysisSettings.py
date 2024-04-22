@@ -49,6 +49,7 @@ class AnalysisSettings:
                  max_coefficient_of_variation=0.4,
                  max_interp_fraction=0.4,
                  include_advanced_results=False,
+                 include_asterisk_explanations=True,
 
                  # Mode characterization settings
                  start_amp_curve_at_peak=True,
@@ -114,6 +115,7 @@ class AnalysisSettings:
         self.max_interp_fraction = max_interp_fraction
         self.start_amp_curve_at_peak = start_amp_curve_at_peak
         self.include_advanced_results = include_advanced_results
+        self.include_asterisk_explanations = include_asterisk_explanations
 
         self.ip = ip
         self.port = port
@@ -154,7 +156,10 @@ class AnalysisSettings:
             "NZF": 0.0,
             "Interp. frac.": 0.0,
             "CV": 0.0,
-            "Note": ""
+
+            # Not written to CSV:
+            "inaccurate damping flag": False,
+            "uncertain mode flag": False
         }
 
         self.blank_mode_info_dict_simple = {
@@ -165,8 +170,7 @@ class AnalysisSettings:
             "Damping ratio": 0.0,
             "Median amp.": 0.0,
             "Start time": 0.0,
-            "End time": 0.0,
-            "Note": ""
+            "End time": 0.0
         }
 
     def update_calc_values(self):

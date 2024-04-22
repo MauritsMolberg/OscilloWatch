@@ -78,6 +78,8 @@ class SignalSnapshotAnalysis:
         """
         if self.settings.include_advanced_results:
             headers = list(self.settings.blank_mode_info_dict)
+            headers.remove("inaccurate damping flag")
+            headers.remove("uncertain mode flag")
         else:
             headers = list(self.settings.blank_mode_info_dict_simple)
 
@@ -101,10 +103,22 @@ class SignalSnapshotAnalysis:
 
                         for header in headers:
                             if isinstance(data_dict[header], float) or isinstance(data_dict[header], np.float64):
-                                row.append(f"{data_dict[header]:.{self.settings.csv_decimals}f}")
+                                if header == "Damping ratio" and data_dict["inaccurate damping flag"]:
+                                    row.append(f"({data_dict[header]:.{self.settings.csv_decimals}f})*")
+                                elif header == "Frequency" and data_dict["uncertain mode flag"]:
+                                    row.append(f"({data_dict[header]:.{self.settings.csv_decimals}f})**")
+                                else:
+                                    row.append(f"{data_dict[header]:.{self.settings.csv_decimals}f}")
                             else:
                                 row.append(data_dict[header])
                         csv_writer.writerow(row)
+
+                if self.settings.include_asterisk_explanations:
+                    csv_writer.writerow([])
+                    csv_writer.writerow(["* Inaccurate damping ratio estimate (high coefficient of variation)."])
+                    if not self.settings.skip_storing_uncertain_modes:
+                        csv_writer.writerow(["** Uncertain mode (high interpolated fraction)."])
+
                 print(f"Results successfully saved to {self.results_path_updated}.csv.")
         except PermissionError:
             self.file_save_attempt_count += 1

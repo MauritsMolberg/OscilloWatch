@@ -213,6 +213,13 @@ class RealTimeAnalysis:
         try:
             with open(self.results_path_updated + ".csv", 'w', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
+
+                if self.settings.include_asterisk_explanations:
+                    csv_writer.writerow(["* Inaccurate damping ratio estimate (high coefficient of variation)."])
+                    if not self.settings.skip_storing_uncertain_modes:
+                        csv_writer.writerow(["** Uncertain mode (high interpolated fraction)."])
+                    csv_writer.writerow([])
+
                 csv_writer.writerow(["Segment", "Timestamp"] + headers)
                 print(f"{self.results_path_updated}.csv will be used for storing numerical results.")
         except PermissionError:
@@ -254,7 +261,12 @@ class RealTimeAnalysis:
 
                         for header in headers:
                             if isinstance(data_dict[header], float) or isinstance(data_dict[header], np.float64):
-                                row.append(f"{data_dict[header]:.{self.settings.csv_decimals}f}")
+                                if header == "Damping ratio" and data_dict["inaccurate damping flag"]:
+                                    row.append(f"({data_dict[header]:.{self.settings.csv_decimals}f})*")
+                                elif header == "Frequency" and data_dict["uncertain mode flag"]:
+                                    row.append(f"({data_dict[header]:.{self.settings.csv_decimals}f})**")
+                                else:
+                                    row.append(f"{data_dict[header]:.{self.settings.csv_decimals}f}")
                             else:
                                 row.append(data_dict[header])
                         csv_writer.writerow(row)
