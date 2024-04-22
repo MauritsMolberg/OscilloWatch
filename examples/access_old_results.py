@@ -5,7 +5,7 @@ from OscilloWatch.read_from_pkl import read_from_pkl
 
 
 if __name__ == "__main__":
-    seg_res_list = read_from_pkl("../results/res_2.pkl", 17, 18)
+    seg_res_list = read_from_pkl("../results/Real-time/real_NTNU.pkl", 0, 2)
 
     for segment in seg_res_list:
         #plt.figure()

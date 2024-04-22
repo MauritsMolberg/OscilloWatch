@@ -15,13 +15,16 @@ settings_N44 = AnalysisSettings(segment_length_time=3,
 settings_real_NTNU = AnalysisSettings(segment_length_time=10,
                                       extension_padding_time_start=3,
                                       extension_padding_time_end=3,
+                                      hht_amplitude_threshold=0.1,
                                       channel="VAYPM",
                                       ip="129.241.31.57",
                                       port=10111,
                                       pmu_id=2017,
                                       sender_device_id=2017,
                                       results_file_path="../results/Real-time/real_NTNU",
-                                      print_alarms=True
+                                      print_alarms=True,
+                                      print_segment_analysis_time=True,
+                                      min_freq=0.1
                                       )
 
 settings_zurich = AnalysisSettings(segment_length_time=10,
@@ -61,5 +64,5 @@ settings_topsrt = AnalysisSettings(segment_length_time=10,
                                    print_alarms=True
                                    )
 
-rta = RealTimeAnalysis(settings_array)
+rta = RealTimeAnalysis(settings_real_NTNU)
 rta.start()

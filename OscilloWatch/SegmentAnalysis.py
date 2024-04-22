@@ -148,6 +148,7 @@ class SegmentAnalysis:
         if mode_info_dict["CV"] > self.settings.max_coefficient_of_variation:
             mode_info_dict["Note"] += "Inaccurate damping estimate (high CV). "
 
+        mode_info_dict["Median amp."] = np.median(interp_amp_curve)
         mode_info_dict["Init. amp."] = interp_amp_curve[0]
         mode_info_dict["Final amp."] = interp_amp_curve[-1]
         mode_info_dict["Init. amp. est."] = A

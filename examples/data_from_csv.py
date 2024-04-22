@@ -9,7 +9,7 @@ from OscilloWatch.csv_column_to_list import csv_column_to_list
 # Analyze PMU data from a CSV file
 if __name__ == "__main__":
 
-    file_path = "../example_pmu_data/180924-osc-frekvens-og-vinkel_semicolon.csv"
+    file_path = "../example_pmu_data/Generator Loss event N45.CSV"
     column_index = 1
     fs = 50
 
@@ -18,7 +18,7 @@ if __name__ == "__main__":
     plt.figure()
     plt.plot(t, data)
     plt.xlabel("Time [s]")
-    plt.ylabel("Frequency [Hz]")
+    #plt.ylabel("Frequency [Hz]")
     #plt.show()
 
     settings = AnalysisSettings(
@@ -35,7 +35,7 @@ if __name__ == "__main__":
                                 skip_storing_uncertain_modes=False,
                                 hht_amplitude_threshold=0.001,
                                 min_freq=0.1,
-                                results_file_path="../results/res"
+                                results_file_path="../results/N45/gen_loss_b3000_V"
                                 )
 
     snap_an = SignalSnapshotAnalysis(data, settings)

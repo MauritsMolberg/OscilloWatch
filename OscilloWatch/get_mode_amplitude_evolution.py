@@ -6,7 +6,10 @@ from OscilloWatch.read_from_pkl import read_from_pkl
 from OscilloWatch.csv_column_to_list import csv_column_to_list
 
 
-def get_mode_amplitude_evolution(segment_list: list[SegmentAnalysis], mode_frequency, tolerance=None, fs=None,
+def get_mode_amplitude_evolution(segment_list: list[SegmentAnalysis],
+                                 mode_frequency,
+                                 tolerance=None,
+                                 fs=None,
                                  include_extension_start=True):
     if tolerance is None:
         tolerance = segment_list[0].settings.segment_memory_freq_threshold
@@ -28,13 +31,8 @@ def get_mode_amplitude_evolution(segment_list: list[SegmentAnalysis], mode_frequ
         for mode in segment.mode_info_list:
             if abs(mode["Frequency"] - mode_frequency) <= tolerance:
                 found_mode = True
-                interpolated_values = np.linspace(mode["Init. amp."], mode["Final amp."],
-                                                  num=int((mode["End time"]-mode["Start time"])*fs))
                 amplitude_curve = np.append(amplitude_curve,
-                                            np.concatenate((np.zeros(int(mode["Start time"]*fs)),
-                                                            interpolated_values,
-                                                            np.zeros(int((segment_length_time - mode["End time"])*fs))))
-                                            )
+                                            [mode["Median amp."] for i in range(segment_length_samples)])
                 break
         if not found_mode:
             amplitude_curve = np.append(amplitude_curve, np.zeros(segment_length_samples))
