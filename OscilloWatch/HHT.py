@@ -121,7 +121,7 @@ class HHT:
         if self.settings.min_freq >= self.settings.max_freq:
             self.freq_axis = np.zeros(1)
             self.hilbert_spectrum = np.zeros([1, 1])
-            print("No frequencies above minimum limit detected.")
+            #print("No frequencies above minimum limit detected.")
             return
 
         if self.settings.max_freq < self.settings.hht_frequency_resolution: # Give frequency axis length of at least 1
@@ -140,7 +140,14 @@ class HHT:
                         # Using maximum of amplitude values in case of overlap, instead of adding together
                         self.hilbert_spectrum[j][i] = max(self.amplitude_signal_list[k][i], self.hilbert_spectrum[j][i])
 
-        # Deleting rows with only zeros from the top of the spectrum, to possibly reduce its size
+        # Make spectrum a 1x1 array if it is empty (consists of only zeros), to save memory and storage space
+        if np.amax(self.hilbert_spectrum) == 0.0:
+            self.freq_axis = np.zeros(1)
+            self.hilbert_spectrum = np.zeros([1, 1])
+            #print("Empty Hilbert spectrum")
+            return
+
+        # Delete rows with only zeros from the top of the spectrum, to reduce its size
         row_remove_count = 0
         for freq in reversed(self.hilbert_spectrum):
             if np.amax(freq) > 0.0:
