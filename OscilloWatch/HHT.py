@@ -127,7 +127,7 @@ class HHT:
         if self.settings.max_freq < self.settings.hht_frequency_resolution: # Give frequency axis length of at least 1
             self.settings.max_freq = self.settings.hht_frequency_resolution
         self.freq_axis = np.arange(self.settings.min_freq, self.settings.max_freq
-                                   + self.settings.hht_frequency_resolution,
+                                   + self.settings.hht_frequency_resolution,  # Add this to ensure a zero-row is on top
                                    self.settings.hht_frequency_resolution)
 
         # Constructing spectrum:
@@ -148,14 +148,13 @@ class HHT:
             return
 
         # Delete rows with only zeros from the top of the spectrum, to reduce its size
-        row_remove_count = 0
+        row_remove_count = -1
         for freq in reversed(self.hilbert_spectrum):
             if np.amax(freq) > 0.0:
                 break
             else:
                 row_remove_count += 1
         if 1 < row_remove_count < len(self.freq_axis):
-            #print("Removed rows:", row_remove_count)
             self.freq_axis = self.freq_axis[:-row_remove_count]
             self.hilbert_spectrum = self.hilbert_spectrum[:-row_remove_count]
 

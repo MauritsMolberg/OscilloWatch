@@ -22,7 +22,7 @@ def a(t):
 def f(t):
     return a(t)*np.cos(3*2*np.pi*t)
 
-settings = AnalysisSettings(max_imfs=0, extension_padding_time_start=5, extension_padding_time_end=10)
+settings = AnalysisSettings(max_imfs=0, extension_padding_time_start=5, extension_padding_time_end=10, hht_amplitude_threshold=10.5)
 start = -5
 end = 20
 fs = 50
