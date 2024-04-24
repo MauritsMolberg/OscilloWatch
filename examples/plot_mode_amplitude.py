@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from OscilloWatch.get_mode_amplitude_evolution import get_mode_amplitude_evolution
-from OscilloWatch.read_from_pkl import read_from_pkl
+from OscilloWatch.post_processing.get_mode_amplitude_evolution import get_mode_amplitude_evolution
+from OscilloWatch.post_processing.read_from_pkl import read_from_pkl
 
 mode_freq = 0.4
 

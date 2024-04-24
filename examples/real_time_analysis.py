@@ -15,7 +15,7 @@ settings_N44 = AnalysisSettings(segment_length_time=3,
 settings_real_NTNU = AnalysisSettings(segment_length_time=10,
                                       extension_padding_time_start=3,
                                       extension_padding_time_end=3,
-                                      hht_amplitude_threshold=0.1,
+                                      minimum_amplitude=0.1,
                                       channel="VAYPM",
                                       ip="129.241.31.57",
                                       port=10111,
@@ -24,7 +24,7 @@ settings_real_NTNU = AnalysisSettings(segment_length_time=10,
                                       results_file_path="../results/Real-time/real_NTNU",
                                       print_alarms=True,
                                       print_segment_analysis_time=True,
-                                      min_freq=0.1
+                                      minimum_frequency=0.1
                                       )
 
 settings_zurich = AnalysisSettings(segment_length_time=10,

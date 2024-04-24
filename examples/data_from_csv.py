@@ -33,8 +33,8 @@ if __name__ == "__main__":
                                 hht_frequency_moving_avg_window=41,
                                 max_imfs=5,
                                 skip_storing_uncertain_modes=False,
-                                hht_amplitude_threshold=0.001,
-                                min_freq=0.1,
+                                minimum_amplitude=0.001,
+                                minimum_frequency=0.1,
                                 results_file_path="../results/N45/gen_loss_b3000_V"
                                 )
 

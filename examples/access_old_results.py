@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from OscilloWatch.read_from_pkl import read_from_pkl
+from OscilloWatch.post_processing.read_from_pkl import read_from_pkl
 
 
 if __name__ == "__main__":
-    seg_res_list = read_from_pkl("../results/Real-time/real_NTNU.pkl", 0, 2)
+    seg_res_list = read_from_pkl("../results/Real-time/real_NTNU_f.pkl",309, 309)
 
     for segment in seg_res_list:
         #plt.figure()

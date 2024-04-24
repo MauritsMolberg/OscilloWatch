@@ -7,8 +7,8 @@ class AnalysisSettings:
                  print_segment_number=True,
                  print_emd_time=False,
                  print_hht_time=False,
-                 print_segment_analysis_time=False,
-                 print_alarms=False,
+                 print_segment_analysis_time=True,
+                 print_alarms=True,
 
                  # File storing settings
                  csv_decimals=5,
@@ -31,15 +31,15 @@ class AnalysisSettings:
                  remove_padding_after_hht=True,
 
                  # HHT settings
-                 hht_amplitude_threshold=1e-6,
+                 minimum_amplitude=1e-6,
                  hht_frequency_resolution=None,
                  hht_amplitude_moving_avg_window=5,
                  hht_frequency_moving_avg_window=41,
                  hht_split_signal_freq_change_toggle=True,
                  hht_split_signal_freq_change_threshold=0.5,
                  hht_split_signal_freq_change_nperseg=100,
-                 min_freq=None,
-                 max_freq=None,
+                 minimum_frequency=None,
+                 maximum_frequency=None,
 
                  # Result format settings
                  skip_storing_uncertain_modes=False,
@@ -97,15 +97,15 @@ class AnalysisSettings:
         self.remove_padding_after_emd = remove_padding_after_emd
         self.remove_padding_after_hht = remove_padding_after_hht
 
-        self.hht_amplitude_threshold = hht_amplitude_threshold
+        self.minimum_amplitude = minimum_amplitude
 
         self.hht_amplitude_moving_avg_window = hht_amplitude_moving_avg_window
         self.hht_frequency_moving_avg_window = hht_frequency_moving_avg_window
         self.hht_split_signal_freq_change_toggle = hht_split_signal_freq_change_toggle
         self.hht_split_signal_freq_change_threshold = hht_split_signal_freq_change_threshold
         self.hht_split_signal_freq_change_nperseg = hht_split_signal_freq_change_nperseg
-        self.min_freq = min_freq
-        self.max_freq = max_freq
+        self.minimum_frequency = minimum_frequency
+        self.maximum_frequency = maximum_frequency
 
         self.skip_storing_uncertain_modes = skip_storing_uncertain_modes
         self.minimum_total_non_zero_fraction = minimum_total_non_zero_fraction

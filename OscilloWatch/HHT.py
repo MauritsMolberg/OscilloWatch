@@ -110,23 +110,23 @@ class HHT:
             self.amplitude_signal_list.append(amplitude_signal)
 
         # Creating frequency axis
-        if self.settings.max_freq is None:
-            self.settings.max_freq = np.amax(self.freq_signal_list)
-        if self.settings.min_freq is None:
-            self.settings.min_freq = 1/(self.settings.segment_length_time + self.settings.extension_padding_time_start
-                                        + self.settings.extension_padding_time_end)
+        if self.settings.maximum_frequency is None:
+            self.settings.maximum_frequency = np.amax(self.freq_signal_list)
+        if self.settings.minimum_frequency is None:
+            self.settings.minimum_frequency = 1/(self.settings.segment_length_time + self.settings.extension_padding_time_start
+                                                 + self.settings.extension_padding_time_end)
 
         # Cannot construct meaningful Hilbert spectrum if the lowest detectable frequency is higher than the highest
         # measured frequency
-        if self.settings.min_freq >= self.settings.max_freq:
+        if self.settings.minimum_frequency >= self.settings.maximum_frequency:
             self.freq_axis = np.zeros(1)
             self.hilbert_spectrum = np.zeros([1, 1])
             #print("No frequencies above minimum limit detected.")
             return
 
-        if self.settings.max_freq < self.settings.hht_frequency_resolution: # Give frequency axis length of at least 1
-            self.settings.max_freq = self.settings.hht_frequency_resolution
-        self.freq_axis = np.arange(self.settings.min_freq, self.settings.max_freq
+        if self.settings.maximum_frequency < self.settings.hht_frequency_resolution: # Give frequency axis length of at least 1
+            self.settings.maximum_frequency = self.settings.hht_frequency_resolution
+        self.freq_axis = np.arange(self.settings.minimum_frequency, self.settings.maximum_frequency
                                    + self.settings.hht_frequency_resolution,  # Add this to ensure a zero-row is on top
                                    self.settings.hht_frequency_resolution)
 
@@ -136,7 +136,7 @@ class HHT:
             for i in range(len(self.amplitude_signal_list[k])): # For each sample in segment
                 for j in range(len(self.freq_axis)): # For each frequency
                     if (abs(self.freq_axis[j] - self.freq_signal_list[k][i]) < self.settings.hht_frequency_resolution/2
-                       and self.amplitude_signal_list[k][i] > self.settings.hht_amplitude_threshold):
+                       and self.amplitude_signal_list[k][i] > self.settings.minimum_amplitude):
                         # Using maximum of amplitude values in case of overlap, instead of adding together
                         self.hilbert_spectrum[j][i] = max(self.amplitude_signal_list[k][i], self.hilbert_spectrum[j][i])
 
@@ -158,8 +158,6 @@ class HHT:
             self.freq_axis = self.freq_axis[:-row_remove_count]
             self.hilbert_spectrum = self.hilbert_spectrum[:-row_remove_count]
 
-        # Add a zero row to the top to simplify the analysis algorithm
-        #self.hilbert_spectrum = np.append(self.hilbert_spectrum, np.zeros(len(self.hilbert_spectrum[0])))
         return
 
     def full_hht(self):
