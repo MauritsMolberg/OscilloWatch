@@ -17,8 +17,8 @@ class HHT:
 
         :param input_signal: Signal to be decomposed.
         :type input_signal: numpy.ndarray or list
-        :param settings: Object containing the settings for the HHT algorithm, and the other OscilloWatch that will be used
-         in the signal analysis
+        :param settings: Object containing the settings for the HHT algorithm, and the other methods that will be used
+         in the signal analysis.
         :type settings: AnalysisSettings
         """
         self.settings = settings
@@ -113,7 +113,8 @@ class HHT:
         if self.settings.maximum_frequency is None:
             self.settings.maximum_frequency = np.amax(self.freq_signal_list)
         if self.settings.minimum_frequency is None:
-            self.settings.minimum_frequency = 1/(self.settings.segment_length_time + self.settings.extension_padding_time_start
+            self.settings.minimum_frequency = 1/(self.settings.segment_length_time
+                                                 + self.settings.extension_padding_time_start
                                                  + self.settings.extension_padding_time_end)
 
         # Cannot construct meaningful Hilbert spectrum if the lowest detectable frequency is higher than the highest
@@ -124,7 +125,8 @@ class HHT:
             #print("No frequencies above minimum limit detected.")
             return
 
-        if self.settings.maximum_frequency < self.settings.hht_frequency_resolution: # Give frequency axis length of at least 1
+        if self.settings.maximum_frequency < self.settings.hht_frequency_resolution:
+            # Give frequency axis length of at least 1
             self.settings.maximum_frequency = self.settings.hht_frequency_resolution
         self.freq_axis = np.arange(self.settings.minimum_frequency, self.settings.maximum_frequency
                                    + self.settings.hht_frequency_resolution,  # Add this to ensure a zero-row is on top
@@ -242,7 +244,7 @@ def moving_average(signal, window_size=5):
     return smoothed_signal
 
 
-def split_signal_freq_change(signal, threshold = 0.5, fs=50, nperseg=256):
+def split_signal_freq_change(signal, threshold=0.5, fs=50, nperseg=256):
     """
     Performs STFT on the signal, finds the dominant frequency and its derivative to estimate where the dominant
     frequency changes abruptly. Splits the signal in these places and returns a list containing each of the portions of
@@ -255,9 +257,9 @@ def split_signal_freq_change(signal, threshold = 0.5, fs=50, nperseg=256):
     :type threshold: float
     :param fs: Sampling frequency. Number of samples per second. Used to give accurate frequencies.
     :type fs: int
-    :param nperseg: Number of samples in each segment of the STFT. Higher means better frequency resolution (and thereby
-        more accurate dominant frequency, making it easier to set a universial threshold), at the cost of worse time
-        resolution, making the location of the abrupt frequency changes less accurate.
+    :param nperseg: Number of samples in each window of the STFT. Higher means better frequency resolution (and thereby
+     more accurate dominant frequency, making it easier to set a universial threshold), at the cost of worse time
+     resolution, making the location of the abrupt frequency changes less accurate.
     :type nperseg: int
 
     :return: List of signal portions, split where the dominant frequency changes abruptly.
