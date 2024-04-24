@@ -212,7 +212,7 @@ class HHT:
         ax.set_ylabel("Frequency [Hz]", fontsize=16)
         c = ax.pcolormesh(xAxis_mesh, freq_axis_mesh, spec_copy, shading="auto")
         cbar = fig.colorbar(c, ax=ax, fraction=.05)
-        cbar.set_label("Amplitude [pu]", fontsize=16, labelpad=8)
+        cbar.set_label("Amplitude", fontsize=16, labelpad=8)
         plt.tight_layout()
         if show:
             plt.show()
