@@ -42,6 +42,8 @@ class AnalysisSettings:
                  maximum_frequency=None,  # Default: Unbounded
 
                  # Result format settings
+                 store_csv=True,
+                 store_pkl=True,
                  skip_storing_uncertain_modes=False,
                  minimum_total_non_zero_fraction=0.1,
                  minimum_consecutive_non_zero_length=5,
@@ -108,6 +110,8 @@ class AnalysisSettings:
         self.minimum_frequency = minimum_frequency
         self.maximum_frequency = maximum_frequency
 
+        self.store_csv = store_csv
+        self.store_pkl = store_pkl
         self.skip_storing_uncertain_modes = skip_storing_uncertain_modes
         self.minimum_total_non_zero_fraction = minimum_total_non_zero_fraction
         self.minimum_consecutive_non_zero_length = minimum_consecutive_non_zero_length

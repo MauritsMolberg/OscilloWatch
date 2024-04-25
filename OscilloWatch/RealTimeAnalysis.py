@@ -2,10 +2,8 @@ import csv
 import pickle
 import threading
 import datetime
-import time
 
 import numpy as np
-import matplotlib.pyplot as plt
 from synchrophasor.pdc import Pdc
 from synchrophasor.frame import DataFrame
 
@@ -65,10 +63,12 @@ class RealTimeAnalysis:
             self.settings.fs = self.pmu_config.get_data_rate()
             self.settings.update_calc_values()
 
-        self.init_csv()  # Clear existing csv file or create new
-        with open(self.results_path_updated + ".pkl", "wb") as file:
-            # Clears existing pkl file or creates new:
-            print(f"{self.results_path_updated}.pkl will be used for storing segment result objects.")
+        if self.settings.store_csv:
+            self.init_csv()  # Clear existing csv file or create new
+        if self.settings.store_pkl:
+            with open(self.results_path_updated + ".pkl", "wb") as file:
+                # Clears existing pkl file or creates new:
+                print(f"{self.results_path_updated}.pkl will be used for storing segment result objects.")
 
     def find_channel_indices(self):
         """
@@ -215,9 +215,9 @@ class RealTimeAnalysis:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
 
                 if self.settings.include_asterisk_explanations:
-                    csv_writer.writerow(["* Inaccurate damping ratio estimate (high coefficient of variation)."])
+                    csv_writer.writerow(["*Inaccurate damping ratio estimate (high coefficient of variation)."])
                     if not self.settings.skip_storing_uncertain_modes:
-                        csv_writer.writerow(["** Uncertain mode (high interpolated fraction)."])
+                        csv_writer.writerow(["**Uncertain mode (high interpolated fraction)."])
                     csv_writer.writerow([])
 
                 csv_writer.writerow(["Segment", "Timestamp"] + headers)

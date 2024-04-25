@@ -77,6 +77,11 @@ class SignalSnapshotAnalysis:
 
             self.segment_analysis_list.append(seg_analysis)
 
+        if self.settings.store_csv:
+            self.write_results_to_csv()
+        if self.settings.store_pkl:
+            self.write_result_objects_to_pkl()
+
     def write_results_to_csv(self):
         """
         Writes the estimated characteristics for all modes in all segments to CSV file.
