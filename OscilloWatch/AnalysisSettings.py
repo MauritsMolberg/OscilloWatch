@@ -17,11 +17,11 @@ class AnalysisSettings:
 
                  # EMD settings
                  emd_rec_tolerance=0.003,
-                 max_imfs=10,
+                 max_imfs=5,
                  max_emd_sifting_iterations=100,
                  print_emd_sifting_details=False,
                  emd_min_peaks=4,
-                 emd_add_edges_to_peaks=False,
+                 emd_add_edges_to_peaks=True,
 
                  # EMD/HHT settings
                  mirror_padding_fraction=1,
@@ -32,14 +32,14 @@ class AnalysisSettings:
 
                  # HHT settings
                  minimum_amplitude=1e-6,
-                 hht_frequency_resolution=None,
+                 hht_frequency_resolution=None,  # Deafult: Equal to sampling rate
                  hht_amplitude_moving_avg_window=5,
                  hht_frequency_moving_avg_window=41,
                  hht_split_signal_freq_change_toggle=True,
                  hht_split_signal_freq_change_threshold=0.5,
                  hht_split_signal_freq_change_nperseg=100,
-                 minimum_frequency=None,
-                 maximum_frequency=None,
+                 minimum_frequency=None,  # Default: Uses Nyquist–Shannon sampling theorem
+                 maximum_frequency=None,  # Default: Unbounded
 
                  # Result format settings
                  skip_storing_uncertain_modes=False,
@@ -66,6 +66,7 @@ class AnalysisSettings:
                  phasor_component="magnitude",
 
                  # Alarm settings
+                 alarm_median_amplitude_threshold=1e-6,
                  damping_ratio_weak_alarm_threshold=0.15,
                  damping_ratio_strong_alarm_threshold=0.05,
                  oscillation_timeout=2,
@@ -124,6 +125,7 @@ class AnalysisSettings:
         self.channel = channel
         self.phasor_component = phasor_component
 
+        self.alarm_median_amplitude_threshold = alarm_median_amplitude_threshold
         self.damping_ratio_weak_alarm_threshold = damping_ratio_weak_alarm_threshold
         self.damping_ratio_strong_alarm_threshold = damping_ratio_strong_alarm_threshold
         self.oscillation_timeout = oscillation_timeout

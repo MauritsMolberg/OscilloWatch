@@ -205,7 +205,7 @@ class SegmentAnalysis:
 
         if mode_info_dict["Damping ratio"] < 0:
             mode_info_dict["Damping evaluation"] = "Negative"
-            if sustained_osc_flag:
+            if sustained_osc_flag and mode_info_dict["Median amp."] >= self.settings.alarm_median_amplitude_threshold:
                 if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
                     mode_info_dict["Alarm"] += "Critical"
                     if self.settings.print_alarms:
@@ -214,7 +214,7 @@ class SegmentAnalysis:
                     mode_info_dict["Alarm"] += "No alarm, ended early"
         elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_strong_alarm_threshold:
             mode_info_dict["Damping evaluation"] = "Very low"
-            if sustained_osc_flag:
+            if sustained_osc_flag and mode_info_dict["Median amp."] >= self.settings.alarm_median_amplitude_threshold:
                 if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
                     mode_info_dict["Alarm"] += "Strong"
                     if self.settings.print_alarms:
@@ -223,7 +223,7 @@ class SegmentAnalysis:
                     mode_info_dict["Alarm"] += "No alarm, ended early"
         elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_weak_alarm_threshold:
             mode_info_dict["Damping evaluation"] = "Low"
-            if sustained_osc_flag:
+            if sustained_osc_flag and mode_info_dict["Median amp."] >= self.settings.alarm_median_amplitude_threshold:
                 if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
                     mode_info_dict["Alarm"] += "Weak"
                     if self.settings.print_alarms:
