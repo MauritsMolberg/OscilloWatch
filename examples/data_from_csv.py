@@ -40,8 +40,6 @@ if __name__ == "__main__":
 
     snap_an = SignalSnapshotAnalysis(data, settings)
     snap_an.analyze_whole_signal()
-    snap_an.write_results_to_csv()
-    snap_an.write_result_objects_to_pkl()
 
     # for segment in sig_an.segment_analysis_list[26:31]:
     #     segment.hht.emd.plot_emd_results(show=False)

@@ -187,10 +187,12 @@ class RealTimeAnalysis:
                 seg_an.previous_segment = None  # To save storage space when storing in PKL file
                 previous_segment = seg_an
 
-                self.result_buffer_csv.append(seg_an)
-                self.result_buffer_pkl.append(seg_an)
-                self.add_segment_result_to_csv()
-                self.add_segment_result_to_pkl()
+                if self.settings.store_csv:
+                    self.result_buffer_csv.append(seg_an)
+                    self.add_segment_result_to_csv()
+                if self.settings.store_pkl:
+                    self.result_buffer_pkl.append(seg_an)
+                    self.add_segment_result_to_pkl()
                 #seg_an.hht.emd.plot_emd_results(show=False)
                 #seg_an.hht.plot_hilbert_spectrum(show=False)
 
