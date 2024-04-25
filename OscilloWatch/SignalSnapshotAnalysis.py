@@ -38,6 +38,12 @@ class SignalSnapshotAnalysis:
 
         :return: None
         """
+        if (len(self.input_signal) <
+                self.settings.segment_length_samples
+                + self.settings.extension_padding_samples_start
+                + self.settings.extension_padding_samples_end):
+            raise ValueError("Input signal too short to create segment.")
+
         for seg_ind in range((len(self.input_signal) - self.settings.extension_padding_samples_start
                               - self.settings.extension_padding_samples_end)
                              // self.settings.segment_length_samples):
@@ -115,9 +121,9 @@ class SignalSnapshotAnalysis:
 
                 if self.settings.include_asterisk_explanations:
                     csv_writer.writerow([])
-                    csv_writer.writerow(["* Inaccurate damping ratio estimate (high coefficient of variation)."])
+                    csv_writer.writerow(["*Inaccurate damping ratio estimate (high coefficient of variation)."])
                     if not self.settings.skip_storing_uncertain_modes:
-                        csv_writer.writerow(["** Uncertain mode (high interpolated fraction)."])
+                        csv_writer.writerow(["**Uncertain mode (high interpolated fraction)."])
 
                 print(f"Results successfully saved to {self.results_path_updated}.csv.")
         except PermissionError:
