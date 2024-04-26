@@ -100,6 +100,7 @@ class HHT:
             #axes[0].set_title(f"Amplitude IMF {imf_count} (unfiltered)")
             #axes[1].plot(freq_signal, color="red")
             #axes[1].set_title(f"Frequency IMF {imf_count} (unfiltered)")
+
             imf_count += 1
 
             amplitude_signal = moving_average(amplitude_signal,
@@ -109,27 +110,32 @@ class HHT:
             self.freq_signal_list.append(freq_signal)
             self.amplitude_signal_list.append(amplitude_signal)
 
-        # Creating frequency axis
+        # Set frequency axis max/min
         if self.settings.maximum_frequency is None:
-            self.settings.maximum_frequency = np.amax(self.freq_signal_list)
+            freq_axis_max = np.amax(self.freq_signal_list)
+        else:
+            freq_axis_max = self.settings.maximum_frequency
         if self.settings.minimum_frequency is None:
-            self.settings.minimum_frequency = 1/(self.settings.segment_length_time
-                                                 + self.settings.extension_padding_time_start
-                                                 + self.settings.extension_padding_time_end)
+            freq_axis_min = 1/(self.settings.segment_length_time
+                               + self.settings.extension_padding_time_start
+                               + self.settings.extension_padding_time_end)
+        else:
+            freq_axis_min = self.settings.minimum_frequency
 
         # Cannot construct meaningful Hilbert spectrum if the lowest detectable frequency is higher than the highest
         # measured frequency
-        if self.settings.minimum_frequency >= self.settings.maximum_frequency:
+        if freq_axis_min >= freq_axis_max:
             self.freq_axis = np.zeros(1)
             self.hilbert_spectrum = np.zeros([1, 1])
             #print("No frequencies above minimum limit detected.")
             return
 
-        if self.settings.maximum_frequency < self.settings.hht_frequency_resolution:
-            # Give frequency axis length of at least 1
-            self.settings.maximum_frequency = self.settings.hht_frequency_resolution
-        self.freq_axis = np.arange(self.settings.minimum_frequency, self.settings.maximum_frequency
-                                   + self.settings.hht_frequency_resolution,  # Add this to ensure a zero-row is on top
+        if freq_axis_max < self.settings.hht_frequency_resolution:  # Give frequency axis length of at least 1
+            freq_axis_max = self.settings.hht_frequency_resolution
+
+        # Construct frequency axis, making sure it has one "extra" element at the end, to ensure that there is an extra
+        # row at the top of the Hilbert spectrum (for the spectrum analysis algorithm to work properly)
+        self.freq_axis = np.arange(freq_axis_min, freq_axis_max + self.settings.hht_frequency_resolution,
                                    self.settings.hht_frequency_resolution)
 
         # Constructing spectrum:
