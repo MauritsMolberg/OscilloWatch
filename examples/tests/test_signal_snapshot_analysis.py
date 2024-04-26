@@ -20,8 +20,8 @@ if __name__ == "__main__":
         return 4*np.exp(.1*t)*np.cos(np.pi*t) + 15*np.exp(-.1*t)*np.cos(.4*np.pi*t)
 
 
-    start = -10
-    end = 12
+    start = -20
+    end = 22
     fs = 50
 
     t = np.arange(start, end, 1/fs)
@@ -48,7 +48,8 @@ if __name__ == "__main__":
                                 print_hht_time=True,
                                 include_asterisk_explanations=True,
                                 include_advanced_results=True,
-                                minimum_frequency=0.1
+                                minimum_frequency=0.1,
+                                results_file_path="../../results/results"
                                 )
 
     sig_an = SignalSnapshotAnalysis(input_signal, settings)
