@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import hilbert, stft, find_peaks
 from time import time
-from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.OWSettings import OWSettings
 from OscilloWatch.EMD import EMD
 
 
@@ -11,7 +11,7 @@ class HHT:
     Class for performing the Hilbert-Huang Transform on a signal segment.
     """
 
-    def __init__(self, input_signal, settings: AnalysisSettings):
+    def __init__(self, input_signal, settings: OWSettings):
         """
         Constructor for HHT class. Initializes variables, but does not perform the actual HHT algorithm.
 
@@ -19,7 +19,7 @@ class HHT:
         :type input_signal: numpy.ndarray or list
         :param settings: Object containing the settings for the HHT algorithm, and the other methods that will be used
          in the signal analysis.
-        :type settings: AnalysisSettings
+        :type settings: OWSettings
         """
         self.settings = settings
         self.input_signal = input_signal

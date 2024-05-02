@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.OWSettings import OWSettings
 from OscilloWatch.EMD import EMD
 from OscilloWatch.HHT import HHT
 from OscilloWatch.SignalSnapshotAnalysis import SignalSnapshotAnalysis
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     # plt.tight_layout()
     # plt.show()
 
-    settings = AnalysisSettings(
+    settings = OWSettings(
                                 fs=fs,
                                 segment_length_time=10,
                                 extension_padding_time_start=10,

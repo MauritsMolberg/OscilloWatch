@@ -15,7 +15,7 @@ import numpy as np
 import tops.dynamic as dps
 import tops.solvers as dps_sol
 
-from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.OWSettings import OWSettings
 from OscilloWatch.SignalSnapshotAnalysis import SignalSnapshotAnalysis
 
 if __name__ == '__main__':
@@ -106,7 +106,7 @@ if __name__ == '__main__':
     V3 = [round(V3[i], 10) for i in range(0, len(V3), 4)]
     V4 = [round(V4[i], 10) for i in range(0, len(V4), 4)]
 
-    settings = AnalysisSettings(
+    settings = OWSettings(
         fs=50,
         segment_length_time=10,
         extension_padding_time_start=10,

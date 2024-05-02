@@ -1,4 +1,4 @@
-class AnalysisSettings:
+class OWSettings:
 
     def __init__(self,
 
@@ -149,8 +149,8 @@ class AnalysisSettings:
             "Damping evaluation": "",
             "Alarm": "",
             "Frequency": 0.0,
-            "Damping ratio": 0.0,
             "Median amp.": 0.0,
+            "Damping ratio": 0.0,
             "Start time": 0.0,
             "End time": 0.0,
             "Init. amp.": 0.0,
@@ -173,8 +173,8 @@ class AnalysisSettings:
             "Damping evaluation": "",
             "Alarm": "",
             "Frequency": 0.0,
-            "Damping ratio": 0.0,
             "Median amp.": 0.0,
+            "Damping ratio": 0.0,
             "Start time": 0.0,
             "End time": 0.0
         }

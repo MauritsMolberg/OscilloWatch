@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
 from OscilloWatch.HHT import HHT
-from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.OWSettings import OWSettings
 
 
 class SegmentAnalysis:
@@ -15,12 +15,12 @@ class SegmentAnalysis:
     interpreting the Hilbert spectrum.
     """
 
-    def __init__(self, input_signal, settings: AnalysisSettings, previous_segment=None, timestamp=""):
+    def __init__(self, input_signal, settings: OWSettings, previous_segment=None, timestamp=""):
         """
         Constructor for the SegmentAnalysis class. Initializes variables, but does not perform the actual analysis.
 
         :param numpy.ndarray | list input_signal: Signal segment to be analyzed.
-        :param AnalysisSettings settings: Object containing the settings for the different algorithms used in the signal
+        :param OWSettings settings: Object containing the settings for the different algorithms used in the signal
          analysis.
         :param SegmentAnalysis | None previous_segment: SegmentAnalysis object of the previous segment.
         :param datetime.datetime timestamp: Timestamp in datetime format.

@@ -3,7 +3,7 @@ from scipy.interpolate import CubicSpline
 import matplotlib.pyplot as plt
 import numpy as np
 from time import time
-from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.OWSettings import OWSettings
 
 
 
@@ -13,7 +13,7 @@ class EMD:
     Class for performing Empirical Mode Decomposition on a signal segment.
     """
 
-    def __init__(self, input_signal, settings: AnalysisSettings):
+    def __init__(self, input_signal, settings: OWSettings):
         """
         Constructor for EMD class. Initializes variables, but does not perform the actual EMD algorithm.
 
@@ -21,7 +21,7 @@ class EMD:
         :type input_signal: numpy.ndarray or list
         :param settings: Object containing the settings for the EMD algorithm, and the other OscilloWatch that will be used
             in the signal analysis
-        :type settings: AnalysisSettings
+        :type settings: OWSettings
         """
         self.settings = settings
         self.input_signal = input_signal

@@ -7,7 +7,7 @@ import numpy as np
 from synchrophasor.pdc import Pdc
 from synchrophasor.frame import DataFrame
 
-from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.OWSettings import OWSettings
 from OscilloWatch.SegmentAnalysis import SegmentAnalysis
 
 
@@ -16,13 +16,13 @@ class RealTimeAnalysis:
     Class for analyzing data from a PMU sent with the IEEE C37.118 protocol in real-time.
     """
 
-    def __init__(self, settings: AnalysisSettings):
+    def __init__(self, settings: OWSettings):
         """
         Constructor for the RealTimeAnalysis class. Initializes variables and attempts to connect to the PMU specified
         in settings. If successful, requests config frame and uses it to locate the wanted phasor data in the data
         frames. The sampling rate, fs, in settings is updated.
 
-        :param AnalysisSettings settings: Object containing the settings for the different algorithms used in the signal
+        :param OWSettings settings: Object containing the settings for the different algorithms used in the signal
          analysis.
         """
         self.settings = settings

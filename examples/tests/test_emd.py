@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from OscilloWatch.HHT import HHT, moving_average
 from OscilloWatch.EMD import EMD
-from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.OWSettings import OWSettings
 
 np.random.seed(0)
 
@@ -18,7 +18,7 @@ def g(t):
 
 
 
-settings = AnalysisSettings(remove_padding_after_emd=False, max_imfs=3)
+settings = OWSettings(remove_padding_after_emd=False, max_imfs=3)
 
 start = 0
 end = 10

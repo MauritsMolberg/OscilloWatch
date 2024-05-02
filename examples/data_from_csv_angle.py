@@ -7,15 +7,20 @@ from OscilloWatch.csv_column_to_list import csv_column_to_list
 
 
 file_path = "../example_pmu_data/Generator Loss event N45.CSV"
-column_index = 1
+
+reference_angle = np.unwrap(np.array(csv_column_to_list(file_path, 2, delimiter=";")), period=360)
+
+
+
+column_index = 30
 fs = 50
 
-data = csv_column_to_list(file_path, column_index, delimiter=";")
-t = np.linspace(0, len(data)/fs, len(data))
+angle_data = reference_angle - np.unwrap(np.array(csv_column_to_list(file_path,column_index,delimiter=";")),period=360)
+t = np.linspace(0, len(angle_data)/fs, len(angle_data))
 plt.figure()
-plt.plot(t, data)
+plt.plot(t, angle_data)
 plt.xlabel("Time [s]")
-#plt.ylabel("Frequency [Hz]")
+plt.ylabel("Angle [deg]")
 #plt.show()
 
 settings = OWSettings(
@@ -30,12 +35,13 @@ settings = OWSettings(
                             hht_frequency_moving_avg_window=41,
                             max_imfs=5,
                             skip_storing_uncertain_modes=False,
-                            minimum_amplitude=0.001,
+                            minimum_amplitude=0.01,
+                            alarm_median_amplitude_threshold=1.0,
                             minimum_frequency=0.1,
-                            results_file_path="../results/Real PMU data NTNU/real_NTNU_f"
+                            results_file_path="../results/N45/gen/b5110_angle"
                             )
 
-snap_an = SignalSnapshotAnalysis(data, settings)
+snap_an = SignalSnapshotAnalysis(angle_data, settings)
 snap_an.analyze_whole_signal()
 
 # for segment in sig_an.segment_analysis_list[26:31]:

@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 import csv
 import os
-from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.OWSettings import OWSettings
 from OscilloWatch.SegmentAnalysis import SegmentAnalysis
 
 
@@ -12,12 +12,12 @@ class SignalSnapshotAnalysis:
     Class that splits an input signal into segments and performs damping analysis on each segment. Simulates how the
     analysis would be performed on a real-time data stream.
     """
-    def __init__(self, input_signal, settings: AnalysisSettings):
+    def __init__(self, input_signal, settings: OWSettings):
         """
         Constructor for the SignalSnapshotAnalysis class. Initializes variables and splits signal into segments.
 
         :param list | numpy.ndarray input_signal: Input signal that is to be split into segments and analyzed.
-        :param AnalysisSettings settings: Object containing the settings for the different algorithms used in the signal
+        :param OWSettings settings: Object containing the settings for the different algorithms used in the signal
          analysis.
         """
         self.settings = settings

@@ -3,7 +3,7 @@ from OscilloWatch.post_processing import read_from_pkl
 import matplotlib.pyplot as plt
 import numpy as np
 
-seg_res_list = read_from_pkl("../../results/results.pkl")
+seg_res_list = read_from_pkl("../../results/N45/gen/b5110_angle.pkl.pkl")
 signal = reconstruct_signal(seg_res_list)
 
 fs = seg_res_list[0].settings.fs

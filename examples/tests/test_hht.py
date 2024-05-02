@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from OscilloWatch.HHT import HHT, moving_average
 from OscilloWatch.EMD import EMD
-from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.OWSettings import OWSettings
 
 np.random.seed(0)
 
@@ -23,7 +23,7 @@ def f(t):
     return a(t)*np.cos(3*2*np.pi*t)
 
 
-settings = AnalysisSettings(max_imfs=4, extension_padding_time_start=5, extension_padding_time_end=10)
+settings = OWSettings(max_imfs=4, extension_padding_time_start=5, extension_padding_time_end=10)
 start = -5
 end = 20
 fs = 50

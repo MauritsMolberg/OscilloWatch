@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from OscilloWatch.SegmentAnalysis import SegmentAnalysis
 from OscilloWatch.HHT import HHT
 from OscilloWatch.EMD import EMD
-from OscilloWatch.AnalysisSettings import AnalysisSettings
+from OscilloWatch.OWSettings import OWSettings
 
 if __name__ == "__main__":
     np.random.seed(0)
@@ -21,7 +21,7 @@ if __name__ == "__main__":
         return 4*np.exp(.2*t)*np.cos(3*np.pi*t)
 
 
-    settings = AnalysisSettings(max_imfs=3, extension_padding_time_start=2, extension_padding_time_end=2)
+    settings = OWSettings(max_imfs=3, extension_padding_time_start=2, extension_padding_time_end=2)
     start = -1
     end = 11
     fs = 50

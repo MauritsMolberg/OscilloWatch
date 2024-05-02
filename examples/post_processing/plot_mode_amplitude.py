@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 from OscilloWatch.post_processing import get_mode_amplitude_evolution
 from OscilloWatch.post_processing import read_from_pkl
 
-mode_freq = 0.4
+mode_freq = 0.8
 
-seg_lst = read_from_pkl("../../results/results.pkl")
+seg_lst = read_from_pkl("../../results/N45/gen/b5110_angle.pkl.pkl")
 amplitude_curve = get_mode_amplitude_evolution(seg_lst, mode_freq)
 
 tAxis = np.linspace(0,
