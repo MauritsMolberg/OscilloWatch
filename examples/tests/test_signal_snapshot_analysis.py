@@ -48,8 +48,7 @@ if __name__ == "__main__":
                                 print_hht_time=True,
                                 include_asterisk_explanations=True,
                                 include_advanced_results=True,
-                                minimum_frequency=0.1,
-                                results_file_path="../../results/results"
+                                minimum_frequency=0.1
                                 )
 
     sig_an = SignalSnapshotAnalysis(input_signal, settings)

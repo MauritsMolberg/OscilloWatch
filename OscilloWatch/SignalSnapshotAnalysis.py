@@ -1,4 +1,5 @@
 import pickle
+import os
 
 import numpy as np
 import csv
@@ -87,6 +88,11 @@ class SignalSnapshotAnalysis:
         Writes the estimated characteristics for all modes in all segments to CSV file.
         :return: None
         """
+
+        # Create new directory if it doesn't already exist
+        if not os.path.exists(os.path.dirname(self.results_path_updated)):
+            os.makedirs(os.path.dirname(self.results_path_updated))
+
         if self.settings.include_advanced_results:
             headers = list(self.settings.blank_mode_info_dict)
             headers.remove("inaccurate damping flag")
@@ -147,6 +153,11 @@ class SignalSnapshotAnalysis:
         Writes all SegmentAnalysis objects to PKL file.
         :return: None
         """
+
+        # Create new directory if it doesn't already exist
+        if not os.path.exists(os.path.dirname(self.results_path_updated)):
+            os.makedirs(os.path.dirname(self.results_path_updated))
+
         try:
             with open(self.results_path_updated + ".pkl", "wb") as file:
                 for segment_analysis_obj in self.segment_analysis_list:

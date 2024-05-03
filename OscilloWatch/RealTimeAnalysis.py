@@ -2,6 +2,7 @@ import csv
 import pickle
 import threading
 import datetime
+import os
 
 import numpy as np
 from synchrophasor.pdc import Pdc
@@ -206,6 +207,11 @@ class RealTimeAnalysis:
         results.
         :return: None
         """
+
+        # Create new directory if it doesn't already exist
+        if not os.path.exists(os.path.dirname(self.results_path_updated)):
+            os.makedirs(os.path.dirname(self.results_path_updated))
+
         if self.settings.include_advanced_results:
             headers = list(self.settings.blank_mode_info_dict)
         else:

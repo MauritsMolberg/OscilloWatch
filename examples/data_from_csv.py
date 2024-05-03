@@ -32,7 +32,7 @@ settings = OWSettings(
                             skip_storing_uncertain_modes=False,
                             minimum_amplitude=0.001,
                             minimum_frequency=0.1,
-                            results_file_path="../results/Real PMU data NTNU/real_NTNU_f"
+                            results_file_path="../results/N45/gen/test"
                             )
 
 snap_an = SignalSnapshotAnalysis(data, settings)
