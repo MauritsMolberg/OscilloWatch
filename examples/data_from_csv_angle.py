@@ -44,8 +44,4 @@ settings = OWSettings(
 snap_an = SignalSnapshotAnalysis(angle_data, settings)
 snap_an.analyze_whole_signal()
 
-# for segment in sig_an.segment_analysis_list[26:31]:
-#     segment.hht.emd.plot_emd_results(show=False)
-#     segment.hht.plot_hilbert_spectrum(show=False)
-#
 plt.show()

@@ -1,4 +1,5 @@
 import pickle
+import csv
 
 import numpy as np
 
@@ -107,3 +108,68 @@ def reconstruct_signal(seg_res_list):
                                               -settings.extension_padding_samples_end]
         signal = np.append(signal, segment_signal)
     return signal
+
+
+def summarize_alarms(pkl_file_tuple_list, results_file_path="alarms_summary.csv", csv_delimiter=","):
+    """
+    Stores info on all alarms that were raised from analysis of data from multiple PMUs into a csv file.
+
+    :param list[tuple[str, str]] pkl_file_tuple_list: List of tuples containing the file path to a PKL file and the name
+     of the corresponding PMU. Must be on the form [('file_path_1', 'pmu_1_name'), ('file_path_2', 'pmu_2_name') ...].
+     The PKL files must contain the same number of segments.
+    :param str results_file_path: File path to CSV file to store results to, including the .csv extension.
+    :param str csv_delimiter: Delimiter to use for separating columns in CSV file.
+    :return: None
+    :rtype: None
+    """
+    row_list = [["Segment", "PMU name", "Frequency [Hz]", "Median amplitude", "Alarm type"]]  # Headers for CSV
+
+    pkl_file_tuple_list_unpacked = list(zip(*pkl_file_tuple_list))
+
+    # Read PKL files
+    seg_res_list_list = []
+    for pkl_file in pkl_file_tuple_list_unpacked[0]:
+        seg_res_list_list.append(read_from_pkl(pkl_file))
+
+    # Raise error if not equal number of segments from the PMUs
+    length = len(seg_res_list_list[0])
+    for sublist in seg_res_list_list:
+        if len(sublist) != length:
+            raise ValueError("Number of segments from each PMU is not equal")
+
+    # Transpose seg_res_list_list, to read segment data in the correct order
+    seg_res_list_list_transposed = []
+    for i in range(length):
+        seg_res_list_list_transposed.append([seg_res_list_list[j][i] for j in range(len(seg_res_list_list))])
+
+    # Iterate through segments for each PMU
+    for segment_idx, segment_list in enumerate(seg_res_list_list_transposed):  # For each segment
+        alarm_flag = False
+        for pmu_idx, segment_data in enumerate(segment_list):  # For each PMU's data on that segment
+            first_mode_in_segment = True
+            for mode in segment_data.mode_info_list:
+                if mode["Alarm"] and mode["Alarm"] != "No alarm, ended early":
+                    if first_mode_in_segment:
+                        row_new = ["",
+                                   pkl_file_tuple_list_unpacked[1][pmu_idx],
+                                   f"{mode['Frequency']:.2f}",
+                                   f"{mode['Median amp.']:.5f}",
+                                   mode["Alarm"]]
+                        first_mode_in_segment = False
+                    else:
+                        row_new = ["",
+                                   "",
+                                   f"{mode['Frequency']:.2f}",
+                                   f"{mode['Median amp.']:.5f}",
+                                   mode["Alarm"]]
+                    if not alarm_flag:
+                        row_new[0] = segment_idx
+                        alarm_flag = True
+                    row_list.append(row_new)
+
+    # Write results to CSV file
+    with open(results_file_path, "w", newline="") as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=csv_delimiter)
+        for row in row_list:
+            csv_writer.writerow(row)
+        print(f"Results written to {results_file_path}.")
