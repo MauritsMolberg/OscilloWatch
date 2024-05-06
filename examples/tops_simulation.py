@@ -45,6 +45,11 @@ if __name__ == '__main__':
     V3 = []
     V4 = []
 
+    theta1 = []
+    theta2 = []
+    theta3 = []
+    theta4 = []
+
     # Event settings
     short_circuit_enable = False
     line_outage_event_flag = True
@@ -89,7 +94,10 @@ if __name__ == '__main__':
         V2.append(abs(v[1]))
         V3.append(abs(v[2]))
         V4.append(abs(v[3]))
-
+        theta1.append(np.angle(v[0]))
+        theta2.append(np.angle(v[1]))
+        theta3.append(np.angle(v[2]))
+        theta4.append(np.angle(v[3]))
 
     print('\nSimulation completed in {:.2f} seconds.'.format(time.time() - t_0))
 
@@ -106,24 +114,30 @@ if __name__ == '__main__':
     V3 = [round(V3[i], 10) for i in range(0, len(V3), 4)]
     V4 = [round(V4[i], 10) for i in range(0, len(V4), 4)]
 
+    theta1 = [round(theta1[i], 10) for i in range(0, len(theta1), 4)]
+    theta2 = [round(theta2[i], 10) for i in range(0, len(theta2), 4)]
+    theta3 = [round(theta3[i], 10) for i in range(0, len(theta3), 4)]
+    theta4 = [round(theta4[i], 10) for i in range(0, len(theta4), 4)]
+
+
     settings = OWSettings(
-        fs=50,
-        segment_length_time=10,
-        extension_padding_time_start=10,
-        extension_padding_time_end=2,
-        max_imfs=5,
-        skip_storing_uncertain_modes=False,
-        minimum_frequency=0.1,
-        include_asterisk_explanations=False,
+                          fs=50,
+                          segment_length_time=10,
+                          extension_padding_time_start=10,
+                          extension_padding_time_end=2,
+                          max_imfs=5,
+                          skip_storing_uncertain_modes=False,
+                          minimum_frequency=0.1,
+                          include_asterisk_explanations=False,
     )
 
     settings.results_file_path = "../results/TOPS/G1_speed"
     snap_an = SignalSnapshotAnalysis(G1_speed, settings)
     snap_an.analyze_whole_signal()
-    snap_an.segment_analysis_list[0].hht.emd.plot_emd_results()
-    snap_an.segment_analysis_list[0].hht.plot_hilbert_spectrum()
-    snap_an.segment_analysis_list[1].hht.emd.plot_emd_results()
-    snap_an.segment_analysis_list[1].hht.plot_hilbert_spectrum()
+    # snap_an.segment_analysis_list[0].hht.emd.plot_emd_results()
+    # snap_an.segment_analysis_list[0].hht.plot_hilbert_spectrum()
+    # snap_an.segment_analysis_list[1].hht.emd.plot_emd_results()
+    # snap_an.segment_analysis_list[1].hht.plot_hilbert_spectrum()
 
     settings.results_file_path = "../results/TOPS/G2_speed"
     snap_an = SignalSnapshotAnalysis(G2_speed, settings)
@@ -154,6 +168,26 @@ if __name__ == '__main__':
     snap_an = SignalSnapshotAnalysis(V4, settings)
     snap_an.analyze_whole_signal()
 
+    settings.results_file_path = "../results/TOPS/theta1"
+    snap_an = SignalSnapshotAnalysis(theta1, settings)
+    snap_an.analyze_whole_signal()
+    snap_an.segment_analysis_list[0].hht.emd.plot_emd_results()
+    snap_an.segment_analysis_list[0].hht.plot_hilbert_spectrum()
+    snap_an.segment_analysis_list[1].hht.emd.plot_emd_results()
+    snap_an.segment_analysis_list[1].hht.plot_hilbert_spectrum()
+
+    settings.results_file_path = "../results/TOPS/theta2"
+    snap_an = SignalSnapshotAnalysis(theta2, settings)
+    snap_an.analyze_whole_signal()
+
+    settings.results_file_path = "../results/TOPS/theta3"
+    snap_an = SignalSnapshotAnalysis(theta3, settings)
+    snap_an.analyze_whole_signal()
+
+    settings.results_file_path = "../results/TOPS/theta4"
+    snap_an = SignalSnapshotAnalysis(theta4, settings)
+    snap_an.analyze_whole_signal()
+
 
 
 
@@ -175,8 +209,19 @@ if __name__ == '__main__':
     plt.plot(t_axis_50Hz, V3, label="Bus 3")
     plt.plot(t_axis_50Hz, V4, label="Bus 4")
     plt.xlabel('Time [s]')
-    plt.ylabel('Bus voltage [pu]')
+    plt.ylabel('Bus voltage magnitude [pu]')
     plt.legend()
     plt.tight_layout()
+
+    plt.figure()
+    plt.plot(t_axis_50Hz, theta1, label="Bus 1")
+    plt.plot(t_axis_50Hz, theta2, label="Bus 2")
+    plt.plot(t_axis_50Hz, theta3, label="Bus 3")
+    plt.plot(t_axis_50Hz, theta4, label="Bus 4")
+    plt.xlabel('Time [s]')
+    plt.ylabel('Bus voltage angle [rad]')
+    plt.legend()
+    plt.tight_layout()
+
 
     plt.show()

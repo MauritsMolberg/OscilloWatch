@@ -36,13 +36,9 @@ input_signal2 = np.random.randn(500)
 #input_signal1 = moving_average(input_signal1, settings1.noise_reduction_moving_avg_window)
 
 
-
-emd1 = EMD(input_signal1, settings)
-emd1.perform_emd()
-emd1.plot_emd_results(show=False)
-
 hht = HHT(input_signal1, settings)
 hht.full_hht()
+hht.emd.plot_emd_results()
 hht.plot_hilbert_spectrum(show=False)
 
 plt.show()

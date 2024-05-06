@@ -35,7 +35,7 @@ class OWSettings:
                  hht_frequency_resolution=None,  # Deafult: Equal to sampling rate
                  hht_amplitude_moving_avg_window=5,
                  hht_frequency_moving_avg_window=41,
-                 hht_split_signal_freq_change_toggle=True,
+                 hht_split_signal_freq_change_enable=True,
                  hht_split_signal_freq_change_threshold=0.5,
                  hht_split_signal_freq_change_nperseg=100,
                  minimum_frequency=None,  # Default: Uses Nyquist–Shannon sampling theorem
@@ -104,7 +104,7 @@ class OWSettings:
 
         self.hht_amplitude_moving_avg_window = hht_amplitude_moving_avg_window
         self.hht_frequency_moving_avg_window = hht_frequency_moving_avg_window
-        self.hht_split_signal_freq_change_toggle = hht_split_signal_freq_change_toggle
+        self.hht_split_signal_freq_change_enable = hht_split_signal_freq_change_enable
         self.hht_split_signal_freq_change_threshold = hht_split_signal_freq_change_threshold
         self.hht_split_signal_freq_change_nperseg = hht_split_signal_freq_change_nperseg
         self.minimum_frequency = minimum_frequency

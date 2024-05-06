@@ -122,7 +122,7 @@ def summarize_alarms(pkl_file_tuple_list, results_file_path="alarms_summary.csv"
     :return: None
     :rtype: None
     """
-    row_list = [["Segment", "PMU name", "Frequency [Hz]", "Median amplitude", "Alarm type"]]  # Headers for CSV
+    row_list = [["Segment", "PMU", "Frequency [Hz]", "Median amplitude", "Alarm type"]]  # Headers for CSV
 
     pkl_file_tuple_list_unpacked = list(zip(*pkl_file_tuple_list))
 

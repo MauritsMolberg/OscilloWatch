@@ -55,7 +55,7 @@ class HHT:
         for signal in signal_list:
             #print("IMF", imf_count)
 
-            if self.settings.hht_split_signal_freq_change_toggle:
+            if self.settings.hht_split_signal_freq_change_enable:
                 # Split the signal where there is an abrupt change in frequency
                 split_signal = split_signal_freq_change(signal,
                                                         nperseg=self.settings.hht_split_signal_freq_change_nperseg,
@@ -212,13 +212,13 @@ class HHT:
                     spec_copy[i][j] = None
         xAxis = np.linspace(0, len(spec_copy[0])/self.settings.fs, len(spec_copy[0]))
         xAxis_mesh, freq_axis_mesh = np.meshgrid(xAxis, self.freq_axis)
-        fig, ax = plt.subplots(figsize=(12, 7))
+        fig, ax = plt.subplots()
         #ax.set_title("Hilbert spectrum")
-        ax.set_xlabel("Time [s]", fontsize=16)
-        ax.set_ylabel("Frequency [Hz]", fontsize=16)
+        ax.set_xlabel("Time [s]")
+        ax.set_ylabel("Frequency [Hz]")
         c = ax.pcolormesh(xAxis_mesh, freq_axis_mesh, spec_copy, shading="auto")
         cbar = fig.colorbar(c, ax=ax, fraction=.05)
-        cbar.set_label("Amplitude", fontsize=16, labelpad=8)
+        cbar.set_label("Amplitude", labelpad=8)
         plt.tight_layout()
         if show:
             plt.show()

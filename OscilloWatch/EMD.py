@@ -174,22 +174,22 @@ class EMD:
         num_imfs = len(self.imf_list)
 
         # Create a grid of subplots for IMFs and residual
-        fig, axes = plt.subplots(num_imfs + 2, 1, figsize=(7, 2 * (num_imfs + .7)), sharex=True)
+        fig, axes = plt.subplots(num_imfs + 2, 1, figsize=(5, 1.5*(num_imfs + .7)), sharex=True)
 
         # Plot the input signal
         axes[0].plot(tAxis, orig_signal, color='blue', linewidth = .7)
-        axes[0].set_title('Input Signal', fontsize=16)
+        axes[0].set_title('Input Signal')
 
         # Plot each IMF
         for i, imf in enumerate(new_imf_list):
             axes[i + 1].plot(tAxis, imf, color='green', linewidth = .7)
-            axes[i + 1].set_title(f'IMF {i + 1}', fontsize=16)
+            axes[i + 1].set_title(f'IMF {i + 1}')
 
         # Plot the residual
         axes[num_imfs+1].plot(tAxis, res_new, color='red', linewidth = .7)
-        axes[num_imfs+1].set_title('Residual', fontsize=16)
+        axes[num_imfs+1].set_title('Residual')
 
-        axes[num_imfs+1].set_xlabel('Time [s]', fontsize=12)
+        axes[num_imfs+1].set_xlabel('Time [s]')
 
         plt.tight_layout()
         if show:
