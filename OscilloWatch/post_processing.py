@@ -110,9 +110,13 @@ def reconstruct_signal(seg_res_list):
     return signal
 
 
-def summarize_alarms(pkl_file_tuple_list, results_file_path="alarms_summary.csv", csv_delimiter=","):
+def summarize_alarms(pkl_file_tuple_list,
+                     results_file_path="alarms_summary.csv",
+                     include_timestamp=True,
+                     csv_delimiter=","):
     """
-    Stores info on all alarms that were raised from analysis of data from multiple PMUs into a csv file.
+    Stores info on all alarms that were raised from analysis of data from multiple PMUs analyzed with the same settings
+    into a csv file.
 
     :param list[tuple[str, str]] pkl_file_tuple_list: List of tuples containing the file path to a PKL file and the name
      of the corresponding PMU. Must be on the form [('file_path_1', 'pmu_1_name'), ('file_path_2', 'pmu_2_name') ...].
@@ -120,7 +124,7 @@ def summarize_alarms(pkl_file_tuple_list, results_file_path="alarms_summary.csv"
     :param str results_file_path: File path to CSV file to store results to, including the .csv extension.
     :param str csv_delimiter: Delimiter to use for separating columns in CSV file.
     :return: None
-    :rtype: None
+    :rtype: NoneType
     """
     row_list = [["Segment", "PMU", "Frequency [Hz]", "Median amplitude", "Alarm type"]]  # Headers for CSV
 
@@ -130,6 +134,8 @@ def summarize_alarms(pkl_file_tuple_list, results_file_path="alarms_summary.csv"
     seg_res_list_list = []
     for pkl_file in pkl_file_tuple_list_unpacked[0]:
         seg_res_list_list.append(read_from_pkl(pkl_file))
+
+    settings = seg_res_list_list[0][0].settings
 
     # Raise error if not equal number of segments from the PMUs
     length = len(seg_res_list_list[0])
@@ -163,7 +169,12 @@ def summarize_alarms(pkl_file_tuple_list, results_file_path="alarms_summary.csv"
                                    f"{mode['Median amp.']:.5f}",
                                    mode["Alarm"]]
                     if not alarm_flag:
-                        row_new[0] = segment_idx
+                        if include_timestamp:
+                            timestamp = (settings.extension_padding_time_start
+                                         + segment_idx * settings.segment_length_time)
+                            row_new[0] = f"{segment_idx} ({timestamp} s)"
+                        else:
+                            row_new[0] = segment_idx
                         alarm_flag = True
                     row_list.append(row_new)
 
@@ -172,4 +183,4 @@ def summarize_alarms(pkl_file_tuple_list, results_file_path="alarms_summary.csv"
         csv_writer = csv.writer(csv_file, delimiter=csv_delimiter)
         for row in row_list:
             csv_writer.writerow(row)
-        print(f"Results written to {results_file_path}.")
+        print(f"Alarm summary written to {results_file_path}.")
