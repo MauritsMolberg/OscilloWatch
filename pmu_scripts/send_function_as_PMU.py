@@ -1,3 +1,7 @@
+"""
+Sends values of a function as voltage magnitude samples in data frames as a PMU.
+"""
+
 import socket
 import time
 
@@ -7,15 +11,12 @@ from synchrophasor.simplePMU import SimplePMU
 
 
 if __name__ == "__main__":
-    #start = -30
-    #end = 100
-    fs = 50
-    #t = np.arange(start, end, 1/fs)
-
     ip = "localhost"
     port = 50000
 
-    def f(t):
+    fs = 50
+
+    def f(t):  # Function that will be sent
         return (
                 10*np.exp(.15*t)*np.cos(2.4*np.pi*t)
                 #+ 16*np.exp(.1)*np.cos(np.pi*t)
@@ -23,9 +24,7 @@ if __name__ == "__main__":
                 + 20*np.exp(-.2*t)*np.cos(10*np.pi*t)
                 )
 
-    #array = f(t)
-
-    station_names = ["ArrayPMU"]
+    station_names = ["FunctionPMU"]
     channel_names = [["signal"]]
     channel_types = [["v"]]
     id_codes = [1410]
