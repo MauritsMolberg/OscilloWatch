@@ -78,10 +78,10 @@ def get_mode_amplitude_evolution(segment_list: list[SegmentAnalysis],
         found_mode = False
 
         for mode in segment.mode_info_list:
-            if abs(mode["Frequency"] - mode_frequency) <= tolerance:
+            if abs(mode["frequency"] - mode_frequency) <= tolerance:
                 found_mode = True
                 amplitude_curve = np.append(amplitude_curve,
-                                            [mode["Median amp."] for i in range(segment_length_samples)])
+                                            [mode["median_amp"] for i in range(segment_length_samples)])
                 break
         if not found_mode:
             amplitude_curve = np.append(amplitude_curve, np.zeros(segment_length_samples))
@@ -126,16 +126,20 @@ def summarize_alarms(pkl_file_tuple_list,
     :return: None
     :rtype: NoneType
     """
-    row_list = [["Segment", "PMU", "Frequency [Hz]", "Median amplitude", "Alarm type"]]  # Headers for CSV
-
     pkl_file_tuple_list_unpacked = list(zip(*pkl_file_tuple_list))
 
     # Read PKL files
     seg_res_list_list = []
     for pkl_file in pkl_file_tuple_list_unpacked[0]:
         seg_res_list_list.append(read_from_pkl(pkl_file))
-
     settings = seg_res_list_list[0][0].settings
+
+    if settings.unit is None:
+        unit_string = ""
+    else:
+        unit_string = f"[{settings.unit}]"
+
+    row_list = [["Segment", "PMU", "Frequency [Hz]", "Median amplitude" + unit_string, "Alarm type"]]  # Headers for CSV
 
     # Raise error if not equal number of segments from the PMUs
     length = len(seg_res_list_list[0])
@@ -154,20 +158,20 @@ def summarize_alarms(pkl_file_tuple_list,
         for pmu_idx, segment_data in enumerate(segment_list):  # For each PMU's data on that segment
             first_mode_in_segment = True
             for mode in segment_data.mode_info_list:
-                if mode["Alarm"] and mode["Alarm"] != "No alarm, ended early":
+                if mode["alarm"] and mode["alarm"] != "No alarm, ended early":
                     if first_mode_in_segment:
                         row_new = ["",
                                    pkl_file_tuple_list_unpacked[1][pmu_idx],
-                                   f"{mode['Frequency']:.2f}",
-                                   f"{mode['Median amp.']:.5f}",
-                                   mode["Alarm"]]
+                                   f"{mode['frequency']:.2f}",
+                                   f"{mode['median_amp']:.5f}",
+                                   mode["alarm"]]
                         first_mode_in_segment = False
                     else:
                         row_new = ["",
                                    "",
-                                   f"{mode['Frequency']:.2f}",
-                                   f"{mode['Median amp.']:.5f}",
-                                   mode["Alarm"]]
+                                   f"{mode['frequency']:.2f}",
+                                   f"{mode['median_amp']:.5f}",
+                                   mode["alarm"]]
                     if not alarm_flag:
                         if include_timestamp:
                             timestamp = (settings.extension_padding_time_start

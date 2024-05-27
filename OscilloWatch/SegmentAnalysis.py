@@ -66,19 +66,19 @@ class SegmentAnalysis:
         if self.settings.start_amp_curve_at_peak and first_max_index <= len(signal[start_index:end_index])/2:
             start_index = first_max_index
 
-        mode_info_dict["Start time"] = start_index/self.settings.fs
-        mode_info_dict["End time"] = end_index/self.settings.fs
+        mode_info_dict["start_time"] = start_index/self.settings.fs
+        mode_info_dict["end_time"] = end_index/self.settings.fs
 
         # Ignore all zero values before the first and after the last non-zero value
         cropped_signal = signal[start_index:end_index]
 
         # Recalculate non_zero_indices based on the cropped signal
         non_zero_indices = np.nonzero(cropped_signal)[0]
-        mode_info_dict["Interp. frac."] = 1 - len(non_zero_indices)/len(cropped_signal)
-        if mode_info_dict["Interp. frac."] > self.settings.max_interp_fraction:
+        mode_info_dict["interp_frac"] = 1 - len(non_zero_indices)/len(cropped_signal)
+        if mode_info_dict["interp_frac"] > self.settings.max_interp_fraction:
             if self.settings.skip_storing_uncertain_modes:
                 return None
-            mode_info_dict["uncertain mode flag"] = True
+            mode_info_dict["uncertain_mode_flag"] = True
 
         # Get the corresponding non-zero values and their indices
         non_zero_values = [cropped_signal[i] for i in non_zero_indices]
@@ -106,13 +106,26 @@ class SegmentAnalysis:
         """
         non_zero_fraction = np.count_nonzero(amp_curve)/len(amp_curve)
 
-        mode_info_dict = self.settings.blank_mode_info_dict.copy()
-
-        mode_info_dict["Freq. start"] = self.hht.freq_axis[bottom_row_ind]
-        mode_info_dict["Freq. stop"] = self.hht.freq_axis[top_row_ind]
-        mode_info_dict["Frequency"] = self.estimate_frequency(bottom_row_ind, top_row_ind)
-
-        mode_info_dict["NZF"] = non_zero_fraction
+        mode_info_dict = {"mode_status": "",
+                          "damping_evaluation": "",
+                          "alarm": "",
+                          "frequency": self.estimate_frequency(bottom_row_ind, top_row_ind),
+                          "median_amp": 0.0,
+                          "damping_ratio": 0.0,
+                          "start_time": 0.0,
+                          "end_time": 0.0,
+                          "init_amp": 0.0,
+                          "final_amp": 0.0,
+                          "freq_start": self.hht.freq_axis[bottom_row_ind],
+                          "freq_stop": self.hht.freq_axis[top_row_ind],
+                          "init_amp_est": 0.0,
+                          "decay_rate": 0.0,
+                          "NZF": non_zero_fraction,
+                          "interp_frac": 0.0,
+                          "CV": 0.0,
+                          
+                          "inaccurate_damping_flag": False,
+                          "uncertain_mode_flag": False}
 
         interp_amp_curve = self.interpolate_signal(amp_curve, mode_info_dict)  # Updates dict
 
@@ -126,12 +139,13 @@ class SegmentAnalysis:
         try:
             popt, _ = curve_fit(exponential_decay_model, time_points, interp_amp_curve, maxfev=1500)
         except Exception as e:
-            mode_info_dict["Damping ratio"] = "N/A (SciPy curve fit failed)."
+            mode_info_dict["damping_ratio"] = "N/A (SciPy curve fit failed)."
             self.mode_info_list.append(mode_info_dict)
             print(f"Exception occurred during curve fit: {e}. Skipped and added note in CSV.")
             return
         A, decay_rate = popt[0], popt[1]
 
+        # Uncomment to get a plot for the mode's amplitude curve and fitted exponential curve:
         # plt.figure()
         # plt.plot(time_points, interp_amp_curve, label="Amplitude curve w. interpolation")
         # plt.plot(time_points, exponential_decay_model(time_points, A, decay_rate), label="Fitted curve",
@@ -146,16 +160,16 @@ class SegmentAnalysis:
             = (np.std(interp_amp_curve - exponential_decay_model(time_points, A, decay_rate)) /
                np.mean(interp_amp_curve))
         if mode_info_dict["CV"] > self.settings.max_coefficient_of_variation:
-            mode_info_dict["inaccurate damping flag"] = True
+            mode_info_dict["inaccurate_damping_flag"] = True
 
-        mode_info_dict["Median amp."] = np.median(interp_amp_curve)
-        mode_info_dict["Init. amp."] = interp_amp_curve[0]
-        mode_info_dict["Final amp."] = interp_amp_curve[-1]
+        mode_info_dict["median_amp"] = np.median(interp_amp_curve)
+        mode_info_dict["init_amp"] = interp_amp_curve[0]
+        mode_info_dict["final_amp"] = interp_amp_curve[-1]
 
-        mode_info_dict["Init. amp. est."] = A
-        mode_info_dict["Decay rate"] = decay_rate
+        mode_info_dict["init_amp_est"] = A
+        mode_info_dict["decay_rate"] = decay_rate
 
-        mode_info_dict["Damping ratio"] = decay_rate/(np.sqrt(decay_rate**2 + (2*np.pi*mode_info_dict["Frequency"])**2))
+        mode_info_dict["damping_ratio"] = decay_rate/(np.sqrt(decay_rate**2 + (2*np.pi*mode_info_dict["frequency"])**2))
 
         self.mode_alarm_evaluation(mode_info_dict)  # Updates dict
 
@@ -194,44 +208,44 @@ class SegmentAnalysis:
         sustained_osc_flag = False
         if self.previous_segment is not None:
             for mode in self.previous_segment.mode_info_list:
-                if abs(mode["Frequency"] - mode_info_dict["Frequency"]) <= self.settings.segment_memory_freq_threshold:
+                if abs(mode["frequency"] - mode_info_dict["frequency"]) <= self.settings.segment_memory_freq_threshold:
                     sustained_osc_flag = True
                     break
 
         if sustained_osc_flag:
-            mode_info_dict["Mode status"] = "Sustained"
+            mode_info_dict["mode_status"] = "Sustained"
         else:
-            mode_info_dict["Mode status"] = "New"
+            mode_info_dict["mode_status"] = "New"
 
-        if mode_info_dict["Damping ratio"] < 0:
-            mode_info_dict["Damping evaluation"] = "Negative"
-            if sustained_osc_flag and mode_info_dict["Median amp."] >= self.settings.alarm_median_amplitude_threshold:
-                if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
-                    mode_info_dict["Alarm"] += "Critical"
+        if mode_info_dict["damping_ratio"] < 0:
+            mode_info_dict["damping_evaluation"] = "Negative"
+            if sustained_osc_flag and mode_info_dict["median_amp"] >= self.settings.alarm_median_amplitude_threshold:
+                if self.settings.segment_length_time - mode_info_dict["end_time"] <= self.settings.oscillation_timeout:
+                    mode_info_dict["alarm"] += "Critical"
                     if self.settings.print_alarms:
-                        print(f"Critical alarm for {mode['Frequency']:.2f} Hz mode.")
+                        print(f"Critical alarm for {mode['frequency']:.2f} Hz mode.")
                 else:
-                    mode_info_dict["Alarm"] += "No alarm, ended early"
-        elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_strong_alarm_threshold:
-            mode_info_dict["Damping evaluation"] = "Very low"
-            if sustained_osc_flag and mode_info_dict["Median amp."] >= self.settings.alarm_median_amplitude_threshold:
-                if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
-                    mode_info_dict["Alarm"] += "Strong"
+                    mode_info_dict["alarm"] += "No alarm, ended early"
+        elif mode_info_dict["damping_ratio"] <= self.settings.damping_ratio_strong_alarm_threshold:
+            mode_info_dict["damping_evaluation"] = "Very low"
+            if sustained_osc_flag and mode_info_dict["median_amp"] >= self.settings.alarm_median_amplitude_threshold:
+                if self.settings.segment_length_time - mode_info_dict["end_time"] <= self.settings.oscillation_timeout:
+                    mode_info_dict["alarm"] += "Strong"
                     if self.settings.print_alarms:
-                        print(f"Strong alarm for {mode['Frequency']:.2f} Hz mode.")
+                        print(f"Strong alarm for {mode['frequency']:.2f} Hz mode.")
                 else:
-                    mode_info_dict["Alarm"] += "No alarm, ended early"
-        elif mode_info_dict["Damping ratio"] <= self.settings.damping_ratio_weak_alarm_threshold:
-            mode_info_dict["Damping evaluation"] = "Low"
-            if sustained_osc_flag and mode_info_dict["Median amp."] >= self.settings.alarm_median_amplitude_threshold:
-                if self.settings.segment_length_time - mode_info_dict["End time"] <= self.settings.oscillation_timeout:
-                    mode_info_dict["Alarm"] += "Weak"
+                    mode_info_dict["alarm"] += "No alarm, ended early"
+        elif mode_info_dict["damping_ratio"] <= self.settings.damping_ratio_weak_alarm_threshold:
+            mode_info_dict["damping_evaluation"] = "Low"
+            if sustained_osc_flag and mode_info_dict["median_amp"] >= self.settings.alarm_median_amplitude_threshold:
+                if self.settings.segment_length_time - mode_info_dict["end_time"] <= self.settings.oscillation_timeout:
+                    mode_info_dict["alarm"] += "Weak"
                     if self.settings.print_alarms:
-                        print(f"Weak alarm for {mode['Frequency']:.2f} Hz mode.")
+                        print(f"Weak alarm for {mode['frequency']:.2f} Hz mode.")
                 else:
-                    mode_info_dict["Alarm"] += "No alarm, ended early"
+                    mode_info_dict["alarm"] += "No alarm, ended early"
         else:
-            mode_info_dict["Damping evaluation"] = "Good"
+            mode_info_dict["damping_evaluation"] = "Good"
 
     def analyze_segment(self):
         """

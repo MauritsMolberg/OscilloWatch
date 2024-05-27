@@ -44,6 +44,7 @@ class OWSettings:
                  # Result format settings
                  store_csv=True,
                  store_pkl=True,
+                 unit = None,
                  skip_storing_uncertain_modes=False,
                  minimum_total_non_zero_fraction=0.1,
                  minimum_consecutive_non_zero_length=5,
@@ -112,6 +113,7 @@ class OWSettings:
 
         self.store_csv = store_csv
         self.store_pkl = store_pkl
+        self.unit = unit
         self.skip_storing_uncertain_modes = skip_storing_uncertain_modes
         self.minimum_total_non_zero_fraction = minimum_total_non_zero_fraction
         self.minimum_consecutive_non_zero_length = minimum_consecutive_non_zero_length
@@ -180,6 +182,11 @@ class OWSettings:
         }
 
     def update_calc_values(self):
+        """
+        Updates values that need to be calculated, based on the current parameter values. Must be run after a parameter
+        like the sampling rate is updated.
+        :return: None
+        """
         self.segment_length_samples = int(self.segment_length_time*self.fs)
         self.extension_padding_samples_start = int(self.extension_padding_time_start*self.fs)
         self.extension_padding_samples_end = int(self.extension_padding_time_end*self.fs)

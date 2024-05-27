@@ -107,7 +107,7 @@ class RealTimeAnalysis:
                         phasor_channel_names.append(channel_name)
                         break
         else:
-            raise TypeError("Invalid type of ID code in config frame. Must be int or list")
+            raise TypeError("Invalid type of ID code in config frame. Must be int or list.")
 
         if self.settings.channel.lower() != "freq" and self.settings.channel.lower() != "frequency":
             if self.settings.channel not in phasor_channel_names:
@@ -212,12 +212,41 @@ class RealTimeAnalysis:
         if not os.path.exists(os.path.dirname(self.results_path_updated)):
             os.makedirs(os.path.dirname(self.results_path_updated))
 
-        if self.settings.include_advanced_results:
-            headers = list(self.settings.blank_mode_info_dict)
+        # Set unit in [] in header if desired
+        if self.settings.unit is None:
+            unit_string = ""
         else:
-            headers = list(self.settings.blank_mode_info_dict_simple)
+            unit_string = f"[{self.settings.unit}]"
 
-        # Adds "_(number)" to file name if permission denied (when file is open in Excel, most likely)
+        if self.settings.include_advanced_results:
+            headers = ["Mode status",
+                       "Damping evaluation",
+                       "Alarm",
+                       "Frequency [Hz]",
+                       "Median amp. " + unit_string,
+                       "Damping ratio",
+                       "Start time [s]",
+                       "End time [s]",
+                       "Init. amp. " + unit_string,
+                       "Final amp. " + unit_string,
+                       "Frequency start [Hz]",
+                       "Frequency stop [Hz]",
+                       "Init. amp. est. " + unit_string,
+                       "Decay rate",
+                       "NZF",
+                       "Interp. frac.",
+                       "CV"]
+        else:
+            headers = ["Mode status",
+                       "Damping evaluation",
+                       "Alarm",
+                       "Frequency [Hz]",
+                       "Median amp. " + unit_string,
+                       "Damping ratio",
+                       "Start time [s]",
+                       "End time [s]"]
+
+        # Adds "_(number)" to file name if permission denied (Likely because a file with the same name is open in Excel)
         try:
             with open(self.results_path_updated + ".csv", 'w', newline='') as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter=self.settings.csv_delimiter)
@@ -236,7 +265,8 @@ class RealTimeAnalysis:
                 print("File opening attempts exceeded limit. Unable to save results to csv.")
                 return
             new_path = self.settings.results_file_path + "_" + str(self.csv_open_attempts)
-            print(f"Permission denied for file {self.results_path_updated}.csv. Trying to save to {new_path}.csv instead.")
+            print(f"Permission denied for file {self.results_path_updated}.csv. Trying to save to {new_path}.csv"
+                  f" instead.")
             self.results_path_updated = new_path
 
             return self.init_csv()
@@ -246,13 +276,36 @@ class RealTimeAnalysis:
         Writes the estimated characteristics of each detected mode in the segment to the CSV file, as well as for all
         previous segments whose results have not been saved yet. If an exception occurs (likely permission error
         because the file is open in Excel), the results are kept in a buffer, and a new attempt to write is made the
-        next time this function is called (after next segment is analyzed).
+        next time this function is called (after the next segment is analyzed).
         :return: None
         """
         if self.settings.include_advanced_results:
-            headers = list(self.settings.blank_mode_info_dict)
+            dict_keys = ["mode_status",
+                         "damping_evaluation",
+                         "alarm",
+                         "frequency",
+                         "median_amp",
+                         "damping_ratio",
+                         "start_time",
+                         "end_time",
+                         "init_amp",
+                         "final_amp",
+                         "freq_start",
+                         "freq_stop",
+                         "init_amp_est",
+                         "decay_rate",
+                         "NZF",
+                         "interp_frac",
+                         "CV"]
         else:
-            headers = list(self.settings.blank_mode_info_dict_simple)
+            dict_keys = ["mode_status",
+                         "damping_evaluation",
+                         "alarm",
+                         "frequency",
+                         "median_amp",
+                         "damping_ratio",
+                         "start_time",
+                         "end_time"]
 
         try:
             with open(self.results_path_updated + ".csv", 'a', newline='') as csv_file:
@@ -267,16 +320,16 @@ class RealTimeAnalysis:
                         else:
                             row = ["", ""]
 
-                        for header in headers:
-                            if isinstance(data_dict[header], float) or isinstance(data_dict[header], np.float64):
-                                if header == "Damping ratio" and data_dict["inaccurate damping flag"]:
-                                    row.append(f"({data_dict[header]:.{self.settings.csv_decimals}f})*")
-                                elif header == "Frequency" and data_dict["uncertain mode flag"]:
-                                    row.append(f"({data_dict[header]:.{self.settings.csv_decimals}f})**")
+                        for key in dict_keys:
+                            if isinstance(data_dict[key], float) or isinstance(data_dict[key], np.float64):
+                                if key == "damping_ratio" and data_dict["inaccurate_damping_flag"]:
+                                    row.append(f"({data_dict[key]:.{self.settings.csv_decimals}f})*")
+                                elif key == "frequency" and data_dict["uncertain_mode_flag"]:
+                                    row.append(f"({data_dict[key]:.{self.settings.csv_decimals}f})**")
                                 else:
-                                    row.append(f"{data_dict[header]:.{self.settings.csv_decimals}f}")
+                                    row.append(f"{data_dict[key]:.{self.settings.csv_decimals}f}")
                             else:
-                                row.append(data_dict[header])
+                                row.append(data_dict[key])
                         csv_writer.writerow(row)
                     print(f"Results for segment {self.segment_number_csv} added to {self.results_path_updated}.csv.")
                     self.segment_number_csv += 1
@@ -287,9 +340,8 @@ class RealTimeAnalysis:
     def add_segment_result_to_pkl(self):
         """
         Writes the SegmentAnalysis object of the current segment to PKL file, as well as for all previous segments
-        whose results have not been saved yet. If an exception occurs (likely permission error because the file is open
-        in Excel), the results are kept in a buffer, and a new attempt to write is made the  next time this function is
-        called (after next segment is analyzed).
+        whose results have not been saved yet. If an exception occurs, the results are kept in a buffer, and a new
+        attempt to write is made the  next time this function is called (after the next segment is analyzed).
         :return: None
         """
         try:

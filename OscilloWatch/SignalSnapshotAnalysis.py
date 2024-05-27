@@ -13,6 +13,7 @@ class SignalSnapshotAnalysis:
     Class that splits an input signal into segments and performs damping analysis on each segment. Simulates how the
     analysis would be performed on a real-time data stream.
     """
+
     def __init__(self, input_signal, settings: OWSettings):
         """
         Constructor for the SignalSnapshotAnalysis class. Initializes variables and splits signal into segments.
@@ -47,14 +48,14 @@ class SignalSnapshotAnalysis:
 
         for seg_ind in range((len(self.input_signal) - self.settings.extension_padding_samples_start
                               - self.settings.extension_padding_samples_end)
-                             // self.settings.segment_length_samples):
-            start_ind = seg_ind * self.settings.segment_length_samples
-            end_ind = ((seg_ind+1)*self.settings.segment_length_samples
+                             //self.settings.segment_length_samples):
+            start_ind = seg_ind*self.settings.segment_length_samples
+            end_ind = ((seg_ind + 1)*self.settings.segment_length_samples
                        + self.settings.extension_padding_samples_start + self.settings.extension_padding_samples_end)
             self.segment_list.append(self.input_signal[start_ind:end_ind])
 
         remaining_samples = len(self.input_signal) - end_ind
-        print(f"Input signal split into {seg_ind+1} segments.")
+        print(f"Input signal split into {seg_ind + 1} segments.")
         if remaining_samples:
             print(f"Last {remaining_samples/self.settings.fs + self.settings.extension_padding_time_end} seconds "
                   f"excluded.")
@@ -93,12 +94,66 @@ class SignalSnapshotAnalysis:
         if not os.path.exists(os.path.dirname(self.results_path_updated)):
             os.makedirs(os.path.dirname(self.results_path_updated))
 
-        if self.settings.include_advanced_results:
-            headers = list(self.settings.blank_mode_info_dict)
-            headers.remove("inaccurate damping flag")
-            headers.remove("uncertain mode flag")
+        # Set unit in [] in header if desired
+        if self.settings.unit is None:
+            unit_string = ""
         else:
-            headers = list(self.settings.blank_mode_info_dict_simple)
+            unit_string = f"[{self.settings.unit}]"
+
+        if self.settings.include_advanced_results:
+            dict_keys = ["mode_status",
+                         "damping_evaluation",
+                         "alarm",
+                         "frequency",
+                         "median_amp",
+                         "damping_ratio",
+                         "start_time",
+                         "end_time",
+                         "init_amp",
+                         "final_amp",
+                         "freq_start",
+                         "freq_stop",
+                         "init_amp_est",
+                         "decay_rate",
+                         "NZF",
+                         "interp_frac",
+                         "CV"]
+
+            headers = ["Mode status",
+                       "Damping evaluation",
+                       "Alarm",
+                       "Frequency [Hz]",
+                       "Median amp. " + unit_string,
+                       "Damping ratio",
+                       "Start time [s]",
+                       "End time [s]",
+                       "Init. amp. " + unit_string,
+                       "Final amp. " + unit_string,
+                       "Frequency start [Hz]",
+                       "Frequency stop [Hz]",
+                       "Init. amp. est. " + unit_string,
+                       "Decay rate",
+                       "NZF",
+                       "Interp. frac.",
+                       "CV"]
+        else:
+            dict_keys = ["mode_status",
+                         "damping_evaluation",
+                         "alarm",
+                         "frequency",
+                         "median_amp",
+                         "damping_ratio",
+                         "start_time",
+                         "end_time"]
+
+            headers = ["Mode status",
+                       "Damping evaluation",
+                       "Alarm",
+                       "Frequency [Hz]",
+                       "Median amp. " + unit_string,
+                       "Damping ratio",
+                       "Start time [s]",
+                       "End time [s]"]
 
         # Adds "_(number)" to file name if permission denied (when file is open in Excel, most likely)
         try:
@@ -112,22 +167,22 @@ class SignalSnapshotAnalysis:
                         # Make sure each segment number appears only once, for better readability
                         if first_mode_in_segment:
                             timestamp = (self.settings.extension_padding_time_start
-                                         + segment_number * self.settings.segment_length_time)
+                                         + segment_number*self.settings.segment_length_time)
                             row = [segment_number, timestamp]
                             first_mode_in_segment = False
                         else:
                             row = ["", ""]
 
-                        for header in headers:
-                            if isinstance(data_dict[header], float) or isinstance(data_dict[header], np.float64):
-                                if header == "Damping ratio" and data_dict["inaccurate damping flag"]:
-                                    row.append(f"({data_dict[header]:.{self.settings.csv_decimals}f})*")
-                                elif header == "Frequency" and data_dict["uncertain mode flag"]:
-                                    row.append(f"({data_dict[header]:.{self.settings.csv_decimals}f})**")
+                        for key in dict_keys:
+                            if isinstance(data_dict[key], float) or isinstance(data_dict[key], np.float64):
+                                if key == "damping_ratio" and data_dict["inaccurate_damping_flag"]:
+                                    row.append(f"({data_dict[key]:.{self.settings.csv_decimals}f})*")
+                                elif key == "frequency" and data_dict["uncertain_mode_flag"]:
+                                    row.append(f"({data_dict[key]:.{self.settings.csv_decimals}f})**")
                                 else:
-                                    row.append(f"{data_dict[header]:.{self.settings.csv_decimals}f}")
+                                    row.append(f"{data_dict[key]:.{self.settings.csv_decimals}f}")
                             else:
-                                row.append(data_dict[header])
+                                row.append(data_dict[key])
                         csv_writer.writerow(row)
 
                 if self.settings.include_asterisk_explanations:
@@ -143,7 +198,8 @@ class SignalSnapshotAnalysis:
                 print("Unable to store results to csv.")
                 return
             new_path = self.settings.results_file_path + "_" + str(self.file_save_attempt_count)
-            print(f"Permission denied for file {self.results_path_updated}.csv. Trying to save to {new_path}.csv instead.")
+            print(
+                f"Permission denied for file {self.results_path_updated}.csv. Trying to save to {new_path}.csv instead.")
             self.results_path_updated = new_path
 
             return self.write_results_to_csv()
