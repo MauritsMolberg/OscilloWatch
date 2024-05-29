@@ -1,11 +1,27 @@
+#################################################################################
+#     OscilloWatch, early warning application for low-frequency oscillations
+#     Copyright (C) 2024  Maurits Sørensen Molberg
+#
+#     This program is free software: you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation, either version 3 of the License, or
+#     (at your option) any later version.
+#
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#################################################################################
+
 from scipy.signal import find_peaks
 from scipy.interpolate import CubicSpline
 import matplotlib.pyplot as plt
 import numpy as np
 from time import time
 from OscilloWatch.OWSettings import OWSettings
-
-
 
 
 class EMD:
@@ -194,13 +210,3 @@ class EMD:
         plt.tight_layout()
         if show:
             plt.show()
-
-
-
-
-
-"""
-Plot peaks:
-plt.plot(upper_peaks/fs,x[upper_peaks],'o',label = 'Upper peaks')
-plt.plot(lower_peaks/fs,x[lower_peaks],'o',label = 'Lower peaks')
-"""
