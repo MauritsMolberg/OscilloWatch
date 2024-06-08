@@ -68,7 +68,7 @@ and input signal as parameters.
 4. Run analysis.
 
 
-    # input_signal contains the signal that will be analyzed
+    &#8203;# input_signal contains the signal that will be analyzed
 
     settings = OWSettings(
         segment_length_time=10,
@@ -81,6 +81,7 @@ and input signal as parameters.
     sig_an = SignalSnapshotAnalysis(input_signal, settings)
 
     sig_an.analyze_whole_signal()
+
 
 ###
 
