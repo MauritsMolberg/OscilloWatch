@@ -67,21 +67,21 @@ Analyzes a pre-given signal as if it were analyzed in real time.
 and input signal as parameters.
 4. Run analysis.
 
+```python
+# input_signal contains the signal that will be analyzed
 
-    &#8203;# input_signal contains the signal that will be analyzed
+settings = OWSettings(
+    segment_length_time=10,
+    extension_padding_time_start=10,
+    extension_padding_time_end=2,
+    minimum_frequency=0.1
+    minimum_amplitude=1e-4
+)
 
-    settings = OWSettings(
-        segment_length_time=10,
-        extension_padding_time_start=10,
-        extension_padding_time_end=2,
-        minimum_frequency=0.1
-        minimum_amplitude=1e-4
-    )
+sig_an = SignalSnapshotAnalysis(input_signal, settings)
 
-    sig_an = SignalSnapshotAnalysis(input_signal, settings)
-
-    sig_an.analyze_whole_signal()
-
+sig_an.analyze_whole_signal()
+```
 
 ###
 
@@ -94,25 +94,25 @@ on the device you want to connect to.
 a parameter.
 3. Run analysis.
 
+```python
+settings = OWSettings(
+    ip="192.168.1.10",
+    port=50000,
+    sender_device_id=1410,
+    pmu_id=1410,
+    channel="VA",
+    phasor_component="magnitude",
 
-    settings = OWSettings(
-        ip="192.168.1.10",
-        port=50000,
-        sender_device_id=1410,
-        pmu_id=1410,
-        channel="VA",
-        phasor_component="magnitude",
+    segment_length_time=10,
+    extension_padding_time_start=10,
+    extension_padding_time_end=2,
+    minimum_frequency=0.1
+    minimum_amplitude=1e-4
+)
 
-        segment_length_time=10,
-        extension_padding_time_start=10,
-        extension_padding_time_end=2,
-        minimum_frequency=0.1
-        minimum_amplitude=1e-4
-    )
-
-    rta = RealTimeAnalysis(settings)
-    rta.start()  # Infinite loop
-
+rta = RealTimeAnalysis(settings)
+rta.start()  # Infinite loop
+```
 ---
 
 ### Results
