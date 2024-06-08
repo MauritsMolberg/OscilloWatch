@@ -16,10 +16,12 @@
 #     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #################################################################################
 
+from time import time
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import hilbert, stft, find_peaks
-from time import time
+
 from OscilloWatch.OWSettings import OWSettings
 from OscilloWatch.EMD import EMD
 

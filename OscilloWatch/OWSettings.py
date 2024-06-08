@@ -94,7 +94,7 @@ class OWSettings:
         """
         Constructs OWSettings object, which is used for all OscilloWatch functionality.
 
-        :param int fs: Sampling frequency in Hertz.
+        :param int fs: Sampling frequency in hertz.
         :param float | int segment_length_time: Length of each segment in seconds.
         :param float | int mirror_padding_fraction: Fraction of the signal that is mirrored at the beginning and end of
          the segment.

@@ -18,10 +18,10 @@
 
 import pickle
 import os
+import csv
 
 import numpy as np
-import csv
-import os
+
 from OscilloWatch.OWSettings import OWSettings
 from OscilloWatch.SegmentAnalysis import SegmentAnalysis
 
@@ -66,7 +66,7 @@ class SignalSnapshotAnalysis:
 
         for seg_ind in range((len(self.input_signal) - self.settings.extension_padding_samples_start
                               - self.settings.extension_padding_samples_end)
-                             //self.settings.segment_length_samples):
+                             // self.settings.segment_length_samples):
             start_ind = seg_ind*self.settings.segment_length_samples
             end_ind = ((seg_ind + 1)*self.settings.segment_length_samples
                        + self.settings.extension_padding_samples_start + self.settings.extension_padding_samples_end)

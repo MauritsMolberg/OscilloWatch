@@ -140,6 +140,8 @@ def summarize_alarms(pkl_file_tuple_list,
      of the corresponding PMU. Must be on the form [('file_path_1', 'pmu_1_name'), ('file_path_2', 'pmu_2_name') ...].
      The PKL files must contain the same number of segments.
     :param str results_file_path: File path to CSV file to store results to, including the .csv extension.
+    :param bool include_timestamp: Includes timestamp (in seconds into the analyzed signal) of the segment in
+     parentheses if True.
     :param str csv_delimiter: Delimiter to use for separating columns in CSV file.
     :return: None
     :rtype: NoneType

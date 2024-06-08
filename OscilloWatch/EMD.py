@@ -16,11 +16,13 @@
 #     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #################################################################################
 
+from time import time
+
 from scipy.signal import find_peaks
 from scipy.interpolate import CubicSpline
 import matplotlib.pyplot as plt
 import numpy as np
-from time import time
+
 from OscilloWatch.OWSettings import OWSettings
 
 
