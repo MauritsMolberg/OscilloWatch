@@ -30,9 +30,9 @@ To install with pip:
 
     pip install synchrophasor @ git+https://github.com/hallvar-h/pypmu
 
-(Synchrophasor (pyPMU) must be installed manually because it uses a specific
-fork only accessible through direct GitHub link, which PyPI does not
-allow.)
+(Synchrophasor (pyPMU), which is required for real-time analysis, must
+be installed manually because it uses a specific fork only accessible
+through direct GitHub link, which PyPI does not allow.)
 
 You can also install it by downloading the zip file with the source
 code or by cloning with Git. The following dependencies must then be
@@ -74,6 +74,9 @@ and input signal as parameters.
 4. Run analysis.
 
 ```python
+from OscilloWatch.OWSettings import OWSettings
+from OscilloWatch.SignalSnapshotAnalysis import SignalSnapshotAnalysis
+
 # input_signal contains the signal that will be analyzed
 
 settings = OWSettings(
@@ -101,6 +104,9 @@ a parameter.
 3. Run analysis.
 
 ```python
+from OscilloWatch.OWSettings import OWSettings
+from OscilloWatch.RealTimeAnalysis import RealTimeAnalysis
+
 settings = OWSettings(
     ip="192.168.1.10",
     port=50000,
