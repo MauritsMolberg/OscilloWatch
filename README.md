@@ -28,6 +28,12 @@ To install with pip:
 
     pip install OscilloWatch
 
+    pip install synchrophasor @ git+https://github.com/hallvar-h/pypmu
+
+(Synchrophasor (pyPMU) must be installed manually because it uses a specific
+fork only accessible through direct GitHub link, which PyPI does not
+allow.)
+
 You can also install it by downloading the zip file with the source
 code or by cloning with Git. The following dependencies must then be
 installed manually:

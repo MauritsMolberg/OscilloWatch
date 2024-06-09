@@ -19,10 +19,15 @@ classifiers = [
 dependencies = [
     "numpy",
     "scipy",
-    "matplotlib",
-    "synchrophasor@git+https://github.com/hallvar-h/pypmu@45962bd4daa8e96fef18a5bf26ca32465fc6f870"
+    "matplotlib"
 ]
 
 [project.urls]
 Homepage = "https://github.com/MauritsMolberg/OscilloWatch"
 Issues = "https://github.com/MauritsMolberg/OscilloWatch/issues"
+
+[tool.hatch.build.targets.wheel]
+only-include = ["OscilloWatch"]
+
+[tool.hatch.build.targets.sdist]
+only-include = ["OscilloWatch"]
