@@ -9,8 +9,8 @@ Uses the Hilbert-Huang transform (HHT) on segments of data samples and uses an
 algorithm to find and characterize oscillatory modes from the Hilbert spectrum.
 Raises an alarm if a sustained with poor damping is found.
 
-Made for my master's thesis, which describes how it works in great detail. It
-will be linked here when published.
+Made for my [master's thesis](https://hdl.handle.net/11250/3147677). Chapter 4
+describes how the algorithm works in great detail.
 
 Please note that this is meant as a proof of concept and something
 that can be built upon to become useful. It does not have a proper UI
