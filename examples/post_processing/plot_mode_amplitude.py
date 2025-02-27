@@ -1,3 +1,8 @@
+"""
+This script creates a plot of how the amplitude of a mode changes over time, at multiple locations (PMUs).
+The script "multi_pmu_n45_angle.py" should be run before this one.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -5,7 +10,7 @@ from OscilloWatch.post_processing import get_mode_amplitude_evolution
 from OscilloWatch.post_processing import read_from_pkl
 
 
-mode_freq = .85
+mode_freq = .85  # Edit this value to choose which mode to investigate.
 freq_tolerance = 0.15
 
 SE1 = get_mode_amplitude_evolution(read_from_pkl("../results/N45/SE1.pkl"), mode_frequency=mode_freq, tolerance=freq_tolerance)
@@ -40,5 +45,6 @@ plt.xlabel("Time [s]")
 plt.ylabel("Amplitude [deg]")
 plt.legend(loc="upper right")
 plt.tight_layout()
+#plt.savefig(f"{mode_freq}Hz_amplitude.png", dpi=1000)
 plt.show()
 

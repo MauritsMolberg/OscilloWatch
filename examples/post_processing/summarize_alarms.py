@@ -1,3 +1,8 @@
+"""
+This script creates a summary of the alarms raised from multiple analyzed PMU signals.
+The script "multi_pmu_n45_angle.py" should be run before this one.
+"""
+
 from OscilloWatch.post_processing import summarize_alarms
 
 summarize_alarms(
