@@ -1,5 +1,5 @@
 #################################################################################
-#     OscilloWatch, early warning application for low-frequency oscillations
+#     OscilloWatch, real-time power system oscillation detection tool.
 #     Copyright (C) 2024  Maurits Sørensen Molberg
 #
 #     This program is free software: you can redistribute it and/or modify
