@@ -217,11 +217,13 @@ class HHT:
             print(f"HHT completed in {self.runtime:.3f} seconds.")
         return
 
-    def plot_hilbert_spectrum(self, show = False):
+    def plot_hilbert_spectrum(self, show=False, savefig_name=None, savefig_dpi=500):
         """
         Plots the HHT object's Hilbert spectrum as a heatmap.
 
         :param bool show: Specifies whether the plt.show() should be run at the end of the function.
+        :param str | None savefig_name: Desired filename for saved figure. If None: Figure will not be saved.
+        :param float | int savefig_dpi: Desired number of dots per inch in saved figure.
         :return: None
         """
         spec_copy = np.copy(self.hilbert_spectrum)
@@ -240,6 +242,8 @@ class HHT:
         cbar = fig.colorbar(c, ax=ax, fraction=.05)
         cbar.set_label("Amplitude", labelpad=8)
         plt.tight_layout()
+        if savefig_name:
+            plt.savefig(savefig_name, dpi=savefig_dpi)
         if show:
             plt.show()
 

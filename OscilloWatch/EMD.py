@@ -160,13 +160,15 @@ class EMD:
             print(f"EMD completed in {self.runtime:.3f} seconds.")
         return
 
-    def plot_emd_results(self, show = False, include_padding = False):
+    def plot_emd_results(self, show=False, include_padding=False, savefig_name=None, savefig_dpi=500):
         """
         Plots input signal and IMFs of EMD object. The function perform_emd() must have been run before.
 
         :param bool show: Specifies whether the plt.show() should be run at the end of the function.
         :param bool include_padding: Includes all padding in the plots if True. Removes them first if False. No effect
             if the remove_padding_after_emd setting is True.
+        :param str | None savefig_name: Desired filename for saved figure. If None: Figure will not be saved.
+        :param float | int savefig_dpi: Desired number of dots per inch in saved figure.
         :return: None
         """
         if self.settings.remove_padding_after_emd:  # Do not remove padding again if already removed
@@ -210,5 +212,7 @@ class EMD:
         axes[num_imfs+1].set_xlabel('Time [s]')
 
         plt.tight_layout()
+        if savefig_name:
+            plt.savefig(savefig_name, dpi=savefig_dpi)
         if show:
             plt.show()
