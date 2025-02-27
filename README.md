@@ -2,19 +2,18 @@
 
 ---
 
-PMU data monitoring tool that detects and gives early warnings for poorly
-damped low-frequency oscillations in power systems.
+PMU data monitoring tool that detects poorly damped oscillations in power systems
+in real time. Made for my [master's thesis](https://hdl.handle.net/11250/3147677).
 
-Uses the Hilbert-Huang transform (HHT) on segments of data samples and uses an
-algorithm to find and characterize oscillatory modes from the Hilbert spectrum.
-Raises an alarm if a sustained with poor damping is found.
-
-Made for my [master's thesis](https://hdl.handle.net/11250/3147677). Chapter 4
-describes how the algorithm works in great detail.
+Divides a signal into segments of data samples, which are analyzed using the
+Hilbert-Huang transform (HHT) and an oscillation detection algorithm, to detect
+and characterize oscillatory modes from the Hilbert spectrum. Raises alarms for
+sustained oscillations with poor damping that are detected.
 
 Please note that this is meant as a proof of concept and something
-that can be built upon to become useful. It does not have a proper UI
-and is unlikely to be very useful in an actual control room its current state.
+that can be built upon to become a useful tool for grid operators. It does not have
+a proper user interface and is not ready for deployment in an actual control room
+its current state.
 
 ---
 
@@ -50,8 +49,8 @@ installed manually:
 Settings are assigned by creating an `OWSettings` object with the
 desired settings as constructor parameters. All settings are explained
 [here](settings.md). They are split into basic settings, which most
-users likely need to check/change, and advanced settings, which is
-intended only for advanced users who know how the application works.
+users likely need to check/change, and advanced settings, which are
+intended for advanced users who know how the application works.
 
 ---
 
@@ -59,13 +58,15 @@ intended only for advanced users who know how the application works.
 
 There are two options for analyzing a signal: Signal snapshot
 analysis and real-time analysis. Below are basic explanations for
-how to use them. See example scripts in the `examples` folder for
-practical examples.
+how to use them, with basic examples intended as introductions. To learn
+how to use the application, I recommend starting with the example scripts
+in the `examples` folder and modifying them to fit your needs.
 
 ###
 
 #### Signal Snapshot Analysis Mode
-Analyzes a pre-given signal as if it were analyzed in real time.
+Analyzes a pre-given signal (such as a synthetic signal or pre-recorded PMU
+data) as if it were analyzed in real time.
 
 1. Obtain signal in a list or array.
 2. Create `OWSettings` object with the settings you want.
@@ -77,13 +78,13 @@ and input signal as parameters.
 from OscilloWatch.OWSettings import OWSettings
 from OscilloWatch.SignalSnapshotAnalysis import SignalSnapshotAnalysis
 
-# input_signal contains the signal that will be analyzed
+# input_signal is a list or array with the signal that will be analyzed.
 
 settings = OWSettings(
     segment_length_time=10,
     extension_padding_time_start=10,
     extension_padding_time_end=2,
-    minimum_frequency=0.1
+    minimum_frequency=0.1,
     minimum_amplitude=1e-4
 )
 
@@ -118,7 +119,7 @@ settings = OWSettings(
     segment_length_time=10,
     extension_padding_time_start=10,
     extension_padding_time_end=2,
-    minimum_frequency=0.1
+    minimum_frequency=0.1,
     minimum_amplitude=1e-4
 )
 
@@ -129,7 +130,7 @@ rta.start()  # Infinite loop
 
 ### Results
 Numerical results are stored in table form in a CSV file. Explanations
-for the results are given [here](results.md). They are  split into
+for the results are given [here](results.md). They are split into
 basic and advanced results, similar to the settings. By default, only
 the basic results are included by default. Advanced results can be
 included by enabling the setting `include_advanced_results`.
