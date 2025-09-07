@@ -47,10 +47,11 @@ installed manually:
 ### Settings
 
 Settings are assigned by creating an `OWSettings` object with the
-desired settings as constructor parameters. All settings are explained
-[here](settings.md). They are split into basic settings, which most
+desired settings as constructor parameters. All the settings are
+explained in the [Settings](https://github.com/MauritsMolberg/OscilloWatch/wiki/Settings)
+page in the wiki. The settings are split into basic settings, which most
 users likely need to check/change, and advanced settings, which are
-intended for advanced users who know how the application works.
+intended for advanced users with deeper knowledge on how the application works.
 
 ---
 
@@ -129,10 +130,11 @@ rta.start()  # Infinite loop
 ---
 
 ### Results
-Numerical results are stored in table form in a CSV file. Explanations
-for the results are given [here](results.md). They are split into
-basic and advanced results, similar to the settings. By default, only
-the basic results are included by default. Advanced results can be
+Numerical results are stored in table form in a CSV file. Each result
+that can be stored is explained in the [Results](https://github.com/MauritsMolberg/OscilloWatch/wiki/Results)
+page in the wiki.
+They are split into basic and advanced results, similar to the settings. By default, only
+the basic results are included. Advanced results can be
 included by enabling the setting `include_advanced_results`.
 
 Additionally, results are stored in a PKL file with the Pickle library.
