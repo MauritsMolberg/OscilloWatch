@@ -3,7 +3,8 @@
 ---
 
 PMU data monitoring tool that detects poorly damped oscillations in power systems
-in real time. Made for my [master's thesis](https://hdl.handle.net/11250/3147677).
+in real time. Made for my [master's thesis](https://hdl.handle.net/11250/3147677)
+and [this paper](https://doi.org/10.1109/ISGTEurope64741.2025.11305476).
 
 Divides a signal into segments of data samples, which are analyzed using the
 Hilbert-Huang transform (HHT) and an oscillation detection algorithm, to detect
@@ -141,3 +142,9 @@ Additionally, results are stored in a PKL file with the Pickle library.
 This allows advanced users to access all variables, plots etc. from the
 analysis, and it can be used for the post-processing methods in the
 `examples/post_processing` folder.
+
+---
+
+## Citations
+If you use this software for your research, please cite [this paper](https://doi.org/10.1109/ISGTEurope64741.2025.11305476).
+
